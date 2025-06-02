@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import MatchDataSlider from './MatchDataSlider';
 
 export default function MatchDetails() {
   const [pitchActive, setPitchActive] = useState(false);
+
+  // GET "https://v3.football.api-sports.io/fixtures?id={matchid}" 
 
   const FootballPitchIcon = ({ size = 100, color = "#a855f7" }) => (
     <svg
@@ -77,6 +80,9 @@ export default function MatchDetails() {
 
   return (
     <div className="py-4 px-4 bg-gradient-to-b from-[#0B0C10] via-[#1F2833] to-[#000000] text-gray-300 text-sm md:text-base">
+
+<MatchDataSlider/>
+
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-2">
@@ -88,34 +94,42 @@ export default function MatchDetails() {
         </div>
         <button
           onClick={() => setPitchActive(!pitchActive)}
-          className={`rounded-full p-1 ${pitchActive ? 'bg-green-600' : 'bg-transparent'}`}
+          className={`  ${pitchActive ? 'bg-green-600' : ''}`}
         >
           <FootballPitchIcon size={30} color="white" />
         </button>
       </div>
 
       {/* Teams and Score */}
-      <div className="flex justify-between items-center bg-black/20 px-4 py-3 rounded-lg border border-purple-800 mb-4">
-        <div className="flex flex-col items-center w-1/3 text-center">
-          <img src={teams.home.logo} alt={teams.home.name} className="h-8 md:h-10" />
-          <span className="text-white text-xs md:text-sm">{teams.home.name}</span>
+      <div className=" bg-black/20 px-4 py-3 rounded-lg border border-purple-800 mb-4">
+
+  
+ 
+<div className=' flex justify-between gap-2 items-center'>
+  <div className="flex flex-col  items-center text-center">
+          <img src={teams.home.logo} alt={teams.home.name} className="h-6 md:h-10" />
+          <span className="text-white text-xs  truncate">{teams.home.name}</span>
         </div>
-        <div className="text-center text-white font-bold text-lg md:text-xl">
-          {match.goals.home} - {match.goals.away}
-          <div className="text-purple-500 text-xs mt-1">
-            {fixture.status.long} • {fixture.status.elapsed}'
+
+        <div className='font-bold text-lg text-center text-white'> {match.goals.home}-{match.goals.away}</div>
+      
+        <div className="flex flex-col items-center text-center">
+          <img src={teams.away.logo} alt={teams.away.name} className="h-6 md:h-10" />
+          <span className="text-white text-xs  truncate">{teams.away.name}</span>
+        </div>
+</div>
+           <div className="text-purple-500 text-xs font-bold mt-1 text-center">
+            {fixture?.status?.long} • {fixture?.status?.elapsed}'
           </div>
-        </div>
-        <div className="flex flex-col items-center w-1/3 text-center">
-          <img src={teams.away.logo} alt={teams.away.name} className="h-8 md:h-10" />
-          <span className="text-white text-xs md:text-sm">{teams.away.name}</span>
-        </div>
       </div>
 
+
       {/* Halftime Score */}
-      <div className="text-center text-xs text-gray-400 mb-4">
+      <div className="text-center text-sm text-white font-semibold mb-4">
         Halftime: {score.halftime.home} - {score.halftime.away}
       </div>
+
+
 
       {/* Events */}
       {events.length > 0 && (
