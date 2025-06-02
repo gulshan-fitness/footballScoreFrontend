@@ -1,0 +1,149 @@
+import React, { useState } from 'react';
+
+export default function MatchDetails() {
+  const [pitchActive, setPitchActive] = useState(false);
+
+  const FootballPitchIcon = ({ size = 100, color = "#a855f7" }) => (
+    <svg
+      width={size}
+      height={(size * 78) / 120}
+      viewBox="0 0 120 78"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g stroke={color} strokeWidth="5" fill="none">
+        <rect x="1" y="1" width="118" height="76" rx="2" />
+        <line x1="60" y1="1" x2="60" y2="77" />
+        <circle cx="60" cy="39" r="9" />
+        <circle cx="60" cy="39" r="1.5" fill={color} />
+        <rect x="1" y="24" width="14" height="30" />
+        <rect x="1" y="30" width="6" height="18" />
+        <circle cx="11" cy="39" r="1.5" fill={color} />
+        <path d="M15,24 A10,15 0 0,1 15,54" />
+        <rect x="105" y="24" width="14" height="30" />
+        <rect x="113" y="30" width="6" height="18" />
+        <circle cx="109" cy="39" r="1.5" fill={color} />
+        <path d="M105,24 A10,15 0 0,0 105,54" />
+      </g>
+    </svg>
+  );
+
+  const match = {
+    fixture: {
+      referee: "Cüneyt Çakır",
+      date: "2025-05-31T18:30:00+00:00",
+      status: {
+        long: "First Half",
+        elapsed: 27,
+      },
+    },
+    league: {
+      name: "Süper Lig",
+      country: "Turkey",
+      logo: "https://media.api-sports.io/football/leagues/203.png",
+    },
+    teams: {
+      home: {
+        name: "Fenerbahce",
+        logo: "https://media.api-sports.io/football/teams/192.png",
+      },
+      away: {
+        name: "Konyaspor",
+        logo: "https://media.api-sports.io/football/teams/196.png",
+      },
+    },
+    goals: {
+      home: 1,
+      away: 0,
+    },
+    score: {
+      halftime: {
+        home: 1,
+        away: 0,
+      },
+    },
+    events: [
+      {
+        time: { elapsed: 12 },
+        team: { name: "Fenerbahce" },
+        player: { name: "Enner Valencia" },
+        assist: { name: "Mert Hakan Yandaş" },
+        type: "Goal",
+        detail: "Normal Goal",
+      },
+    ],
+  };
+
+  const { fixture, league, teams, score, events } = match;
+
+  return (
+    <div className="py-4 px-4 bg-gradient-to-b from-[#0B0C10] via-[#1F2833] to-[#000000] text-gray-300 text-sm md:text-base">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-4">
+        <div className="flex items-center gap-2">
+          <img src={league.logo} alt={league.name} className="h-6 md:h-8" />
+          <div>
+            <p className="text-purple-400 text-xs md:text-sm font-semibold">{league.name}</p>
+            <p className="text-[10px] md:text-xs text-white">{league.country}</p>
+          </div>
+        </div>
+        <button
+          onClick={() => setPitchActive(!pitchActive)}
+          className={`rounded-full p-1 ${pitchActive ? 'bg-green-600' : 'bg-transparent'}`}
+        >
+          <FootballPitchIcon size={30} color="white" />
+        </button>
+      </div>
+
+      {/* Teams and Score */}
+      <div className="flex justify-between items-center bg-black/20 px-4 py-3 rounded-lg border border-purple-800 mb-4">
+        <div className="flex flex-col items-center w-1/3 text-center">
+          <img src={teams.home.logo} alt={teams.home.name} className="h-8 md:h-10" />
+          <span className="text-white text-xs md:text-sm">{teams.home.name}</span>
+        </div>
+        <div className="text-center text-white font-bold text-lg md:text-xl">
+          {match.goals.home} - {match.goals.away}
+          <div className="text-purple-500 text-xs mt-1">
+            {fixture.status.long} • {fixture.status.elapsed}'
+          </div>
+        </div>
+        <div className="flex flex-col items-center w-1/3 text-center">
+          <img src={teams.away.logo} alt={teams.away.name} className="h-8 md:h-10" />
+          <span className="text-white text-xs md:text-sm">{teams.away.name}</span>
+        </div>
+      </div>
+
+      {/* Halftime Score */}
+      <div className="text-center text-xs text-gray-400 mb-4">
+        Halftime: {score.halftime.home} - {score.halftime.away}
+      </div>
+
+      {/* Events */}
+      {events.length > 0 && (
+        <div className="space-y-2 border-t border-purple-800 pt-3">
+          <h4 className="text-sm text-white font-semibold">Events</h4>
+          {events.map((event, index) => (
+            <div
+              key={index}
+              className="flex justify-between items-center text-xs md:text-sm bg-[#1c1f28]/70 p-2 rounded-lg"
+            >
+              <div className="flex flex-col sm:flex-row gap-1 sm:items-center sm:gap-2">
+                <span className="text-purple-400">{event.time.elapsed}'</span>
+                <span className="text-white">{event.player.name}</span>
+                <span className="text-gray-500">({event.detail})</span>
+                {event.assist?.name && (
+                  <span className="text-gray-400 text-[10px] md:text-xs ml-1">Assist: {event.assist.name}</span>
+                )}
+              </div>
+              <span className="text-right text-gray-500">{event.team.name}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Referee Info */}
+      <div className="text-xs text-right text-gray-500 mt-4">
+        Referee: {fixture.referee}
+      </div>
+    </div>
+  );
+}

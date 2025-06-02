@@ -7,6 +7,8 @@ export default function LeagueStandings() {
   const [activeTab, setActiveTab] = useState('all');
   const [Tabs] = useState(["all", "home", "away", "form"]);
 
+  // GET https://v3.football.api-sports.io/standings?league=203&season=2025
+
 const standings = [
   {
     rank: 1,
@@ -250,7 +252,7 @@ const standings = [
         {Tabs?.map((tab,index) => (
           <button
             key={index}
-            className={`px-4 py-1 text-xs sm:text-sm font-bold rounded-full border ${
+            className={`px-2 sm:px-3 py-1 text-xs sm:text-sm  rounded-full border ${
               activeTab === tab
                 ? ' bg-purple-700/90'
                 : 'text-gray-300 border-purple-800'
@@ -282,7 +284,7 @@ const standings = [
                 <td className="px-4 py-2">
                   <div className="flex items-center">
                     <img src={team.team.logo} alt={team.team.name} className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
-                    <span className="text-xs sm:text-sm font-medium">{team.team.name}</span>
+                    <span className="text-xs sm:text-sm font-medium truncate">{team.team.name}</span>
                   </div>
                 </td>
 
@@ -349,15 +351,11 @@ const standings = [
                 <td className="px-4 py-2">
                   <div className="flex items-center">
                     <img src={team.team.logo} alt={team.team.name} className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
-                    <span className="text-xs sm:text-sm font-medium">{team.team.name}</span>
+                    <span className="text-xs sm:text-sm font-medium truncate">{team.team.name}</span>
                   </div>
                 </td>
 
-                {activeTab === 'form' ? (
-                  <td colSpan={7} className="px-4 py-2 text-center font-mono text-purple-400 text-sm">
-                    {team.form}
-                  </td>
-                ) : (
+             
                   <>
                     <td className="px-2 py-2 text-center">{team.played}</td>
                     <td className="px-2 py-2 text-center">{team.win}</td>
@@ -367,7 +365,7 @@ const standings = [
                     <td className="px-2 py-2 text-center">{team.goals?.against}</td>
                     <td className="px-2 py-2 text-center">{team.goalsDiff}</td>
                   </>
-                )}
+             
 
                 <td className="px-2 py-2 text-center font-bold text-purple-500">{team.points}</td>
               </tr>

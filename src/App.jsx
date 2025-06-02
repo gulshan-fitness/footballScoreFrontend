@@ -27,15 +27,14 @@ import SudokoPlay from "./Sudoko/SudokoPlay";
 import CrosswordPuzzleAdminList from "./CrosswordPuzzle/CrosswordPuzzleAdminList";
 import CrosswordPuzzleEdit from "./CrosswordPuzzle/CrosswordPuzzleEdit";
 import SudokoEdit from "./Sudoko/SudokoEdit";
-import LiveMatches from "./Livematches/Livematches";
-import MatchInfo from "./MatchInfo/MatchInfo";
-import MatchSummary from "./MatchInfo/MatchSummry";
+
 import FootballScores from "./FootballScores/FootballScores";
 import LeagueDetails from "./LeagueDetails/LeagueDetails";
 import LeagueOverview from "./LeagueDetails/LeagueOverview";
 import LeagueFixtures from "./LeagueDetails/LeagueFixtures";
 import LeagueResults from "./LeagueDetails/LeagueResults";
 import LeagueStandings from "./LeagueDetails/LeagueStandings";
+import MatchDetails from "./Match/MatchDetails";
 
 function App() {
   const { setadmin, setadminToken, setuser, setusertoken, setIsScrolled , } =
@@ -100,6 +99,33 @@ function App() {
          {
           path: "leaguedetails/",
           element: <LeagueDetails />,
+          children:[
+  {
+          path: "overview",
+          element: <LeagueOverview/>,
+        },
+
+          {
+          path: "fixtures",
+          element: <LeagueFixtures />,
+        },
+            {
+          path: "results",
+          element: <LeagueResults />,
+        },
+
+          {
+          path: "standings",
+          element: <LeagueStandings />,
+        },
+
+          ]
+        },
+
+
+           {
+          path: "matchdetails/",
+          element: <MatchDetails />,
           children:[
   {
           path: "overview",
