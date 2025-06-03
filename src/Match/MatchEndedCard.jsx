@@ -9,7 +9,7 @@ export default function MatchEndedCard() {
         flex flex-col  
         bg-black
         text-[10px] leading-tight
-        aspect-[16/5]
+        aspect-[16/6]
         sm:text-[11px] md:text-[12px] lg:text-[13px]
         
       "

@@ -79,7 +79,7 @@ export default function MatchStatisticsCard() {
         border border-purple-800 
         shadow-lg 
         font-sans
-        aspect-[16/5]"
+        aspect-[16/6]"
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-1 px-1">

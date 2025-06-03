@@ -1,8 +1,26 @@
 import React, { useState } from 'react';
 import MatchDataSlider from './MatchDataSlider';
+import VenueDetailsCard from "./VenueDetailsCard";
+import MatchEndedCard from "./MatchEndedCard";
+import MatchStatisticsCard from "./MatchStatisticsCard";
+import MatchStatsCard from "./MatchStatsCard";
+import CircularStatsCard from "./CircularStatsCard";
+import TeamPerformanceCard from "./TeamPerformanceCard";
 
 export default function MatchDetails() {
   const [pitchActive, setPitchActive] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+
+  const slides = [
+    <VenueDetailsCard />,
+    <MatchEndedCard/>,
+    <MatchStatisticsCard/>,
+    <MatchStatsCard/>,
+  <CircularStatsCard/>,
+  <TeamPerformanceCard/>,
+
+  ];
 
   // GET "https://v3.football.api-sports.io/fixtures?id={matchid}" 
 
@@ -81,7 +99,8 @@ export default function MatchDetails() {
   return (
     <div className="py-4 px-4 bg-gradient-to-b from-[#0B0C10] via-[#1F2833] to-[#000000] text-gray-300 text-sm md:text-base">
 
-<MatchDataSlider/>
+     
+
 
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
@@ -99,6 +118,33 @@ export default function MatchDetails() {
           <FootballPitchIcon size={30} color="white" />
         </button>
       </div>
+
+{
+  pitchActive&&<div
+  className="w-full mx-auto aspect-[321/197] my-2 max-w-[383px] max-h-[235px] px-2 py-1 relative flex justify-center bg-cover bg-center bg-no-repeat bg-[url('/image/football-field.webp')]"
+>
+
+<MatchDataSlider currentSlide={currentSlide} setCurrentSlide={setCurrentSlide} slides={slides} />
+   {/* Navigation dots */}
+
+      <div className="absolute bottom-[4px] left-0 right-0 flex justify-center gap-3">
+        {slides?.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => setCurrentSlide(idx)}
+            aria-label={`Go to slide ${idx + 1}`}
+            className={`w-7 h-2 rounded-full transition-all border border-black bg-white duration-300 ${
+              currentSlide === idx ? "bg-yellow-500 scale-125" : ""
+            }`}
+          />
+        ))}
+      </div>
+      </div>
+}
+
+
+
+
 
       {/* Teams and Score */}
       <div className=" bg-black/20 px-4 py-3 rounded-lg border border-purple-800 mb-4">
@@ -130,34 +176,6 @@ export default function MatchDetails() {
       </div>
 
 
-
-      {/* Events */}
-      {events.length > 0 && (
-        <div className="space-y-2 border-t border-purple-800 pt-3">
-          <h4 className="text-sm text-white font-semibold">Events</h4>
-          {events.map((event, index) => (
-            <div
-              key={index}
-              className="flex justify-between items-center text-xs md:text-sm bg-[#1c1f28]/70 p-2 rounded-lg"
-            >
-              <div className="flex flex-col sm:flex-row gap-1 sm:items-center sm:gap-2">
-                <span className="text-purple-400">{event.time.elapsed}'</span>
-                <span className="text-white">{event.player.name}</span>
-                <span className="text-gray-500">({event.detail})</span>
-                {event.assist?.name && (
-                  <span className="text-gray-400 text-[10px] md:text-xs ml-1">Assist: {event.assist.name}</span>
-                )}
-              </div>
-              <span className="text-right text-gray-500">{event.team.name}</span>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Referee Info */}
-      <div className="text-xs text-right text-gray-500 mt-4">
-        Referee: {fixture.referee}
-      </div>
     </div>
   );
 }

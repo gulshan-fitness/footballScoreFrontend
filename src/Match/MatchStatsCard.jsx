@@ -109,7 +109,7 @@ export default function MatchStatsCard() {
   const [team1, team2] = statsData;
 
   return (
-    <div className="bg-[#0f0f0f] w-full aspect-[16/9]  text-white rounded-md p-[4px] border border-purple-800 shadow font-sans overflow-hidden">
+    <div className="bg-[#0f0f0f] w-full   text-white rounded-md p-[4px] border border-purple-800 shadow font-sans overflow-hidden">
       {/* Header */}
       {/* <div className="flex justify-between items-center mb-[2px] px-1">
         <img src={team1.team.logo} alt="T1" className="w-4 h-4" />
