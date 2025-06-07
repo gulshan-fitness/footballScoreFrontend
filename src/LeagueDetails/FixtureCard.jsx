@@ -1,8 +1,11 @@
 import React from "react";
+
 import { FaRegStar } from "react-icons/fa";
 
 export default function FixtureCard({ match }) {
+
   // Format fixture date to 24-hour time string (change hour12 to true for AM/PM)
+
   const matchTime24h = (fixtureDateStr) => {
     return new Date(fixtureDateStr).toLocaleTimeString("en-GB", {
       hour: "2-digit",
@@ -13,7 +16,7 @@ export default function FixtureCard({ match }) {
 
   return (
     <div
-      className="bg-gradient-to-br from-[#1c1f28]/70 to-[#0a0c14]/90 rounded-xl px-4 py-3 flex justify-between items-center border border-purple-800 shadow-lg hover:shadow-[0_0_20px_rgba(128,0,255,0.7)]
+      className="bg-gradient-to-br  from-[#1c1f28]/70 to-[#0a0c14]/90 rounded-xl px-4 py-3 flex justify-between items-center border border-purple-800 shadow-lg hover:shadow-[0_0_20px_rgba(128,0,255,0.7)]
         transition-shadow duration-500 cursor-pointer"
     >
       <div className="flex items-center gap-1">
@@ -34,6 +37,7 @@ export default function FixtureCard({ match }) {
           {match?.fixture?.status?.short === "FT" && (
             <div className="text-sm font-semibold text-purple-500">FT</div>
           )}
+          
         </div>
 
         <div className="flex flex-col flex-grow px-2 text-xs text-purple-300 font-medium space-y-1">

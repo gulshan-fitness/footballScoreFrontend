@@ -30,6 +30,8 @@ export default function Context_holder(props) {
 
 
   const [LeagueDetailsActivetab, setLeagueDetailsActivetab] = useState("Overview");
+    const [matchDetailsActivetab, setmatchDetailsActivetab] = useState("info");
+     const [PlayerDetailsActivetab, setPlayerDetailsActivetab] = useState("info");
 
   const notify = (msg, status) => {
     toast(msg, {
@@ -199,7 +201,8 @@ export default function Context_holder(props) {
 
 
 
-        LeagueDetailsActivetab, setLeagueDetailsActivetab
+        LeagueDetailsActivetab, setLeagueDetailsActivetab,matchDetailsActivetab, setmatchDetailsActivetab,
+        PlayerDetailsActivetab, setPlayerDetailsActivetab
       }}
     >
       {props.children}

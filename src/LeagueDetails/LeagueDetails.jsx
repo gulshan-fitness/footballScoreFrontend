@@ -23,31 +23,37 @@ export default function LeagueDetails() {
    const location = useLocation();
   
     useEffect(() => {
+          if (location?.pathname) {
+       
+     
+        setLeagueDetailsActivetab(location.pathname.split('/').filter(Boolean).pop());
+      }
+
   
-      if (location?.pathname === "/leaguedetails/overview") {
+      // if (location?.pathname === "/leaguedetails/overview") {
        
      
-        setLeagueDetailsActivetab("overview");
-      }
+      //   ("overview");
+      // }
 
-         if (location?.pathname === "/leaguedetails/fixtures") {
+      //    if (location?.pathname === "/leaguedetails/fixtures") {
        
      
-        setLeagueDetailsActivetab("fixtures");
-      }
+      //   setLeagueDetailsActivetab("fixtures");
+      // }
 
-           if (location?.pathname === "/leaguedetails/results") {
+      //      if (location?.pathname === "/leaguedetails/results") {
        
      
-        setLeagueDetailsActivetab("results");
-      }
+      //   setLeagueDetailsActivetab("results");
+      // }
 
       
-           if (location?.pathname === "/leaguedetails/standings") {
+      //      if (location?.pathname === "/leaguedetails/standings") {
        
      
-        setLeagueDetailsActivetab("standings");
-      }
+      //   setLeagueDetailsActivetab("standings");
+      // }
   
   
   

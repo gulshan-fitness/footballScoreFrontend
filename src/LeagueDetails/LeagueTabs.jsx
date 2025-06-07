@@ -10,7 +10,7 @@ export default function LeagueTabs() {
      
       const tabs = ["overview", "fixtures", "results", "standings"];
   return (
-      <div className="flex items-center gap-6 py-1  thin-scrollbar border-purple-600 text-sm sm:text-base overflow-x-auto">
+      <div className="flex items-center gap-6 py-1  thin-scrollbar border-purple-600 text-xs font-semibold overflow-x-auto">
         {tabs?.map((tab) => (
           <Link
           to={`${tab}`}

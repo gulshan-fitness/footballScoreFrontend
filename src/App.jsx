@@ -35,6 +35,16 @@ import LeagueFixtures from "./LeagueDetails/LeagueFixtures";
 import LeagueResults from "./LeagueDetails/LeagueResults";
 import LeagueStandings from "./LeagueDetails/LeagueStandings";
 import MatchDetails from "./Match/MatchDetails";
+import MatchInfo from "./Match/MatchInfo";
+import MatchSummary from "./Match/MatchSummry";
+import MatchStatsa from "./Match/MatchStats";
+import MatchStats from "./Match/MatchStats";
+import MatchLineups from "./Match/MatchLineups";
+import MatchNews from "./Match/MatchNews";
+import MatchH2H from "./Match/MatchH2H";
+import PlayerDetails from "./Player/PlayerDetails";
+import PlayerMatches from "./Player/PlayerMatches";
+import PlayerInfo from "./Player/PlayerInfo";
 
 function App() {
   const { setadmin, setadminToken, setuser, setusertoken, setIsScrolled , } =
@@ -128,26 +138,65 @@ function App() {
           element: <MatchDetails />,
           children:[
   {
-          path: "overview",
-          element: <LeagueOverview/>,
+          path: "info",
+          element: <MatchInfo/>,
         },
 
           {
-          path: "fixtures",
-          element: <LeagueFixtures />,
+          path: "summary",
+          element: <MatchSummary />,
         },
+
+
             {
-          path: "results",
-          element: <LeagueResults />,
+          path: "stats",
+          element: <MatchStats/>,
         },
 
           {
-          path: "standings",
-          element: <LeagueStandings />,
+          path: "line-ups",
+          element: <MatchLineups/>,
         },
+
+           {
+          path: "table",
+          element: <LeagueStandings/>,
+        },
+
+             {
+          path: "news",
+          element: <MatchNews/>,
+        },
+
+                 {
+          path: "h2h",
+          element: <MatchH2H/>,
+        },
+
+
 
           ]
         },
+
+
+        {
+          path: "/player",
+          element: <PlayerDetails />,
+           children:[
+  {
+          path: "info",
+          element: <PlayerInfo/>,
+        },
+
+          {
+          path: "matches",
+          element: <PlayerMatches />,
+        },
+
+          ]
+
+        },
+
 
         {
           path: "/usersignup",

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import MatchDataSlider from './MatchDataSlider';
 import VenueDetailsCard from "./VenueDetailsCard";
 import MatchEndedCard from "./MatchEndedCard";
@@ -6,8 +6,15 @@ import MatchStatisticsCard from "./MatchStatisticsCard";
 import MatchStatsCard from "./MatchStatsCard";
 import CircularStatsCard from "./CircularStatsCard";
 import TeamPerformanceCard from "./TeamPerformanceCard";
+import { Outlet, useLocation } from 'react-router-dom';
+import MatchTabs from './MatchTabs';
+import { Context } from '../Context_holder';
+import MatchEvents from './MatchEvent';
 
 export default function MatchDetails() {
+
+  const{setmatchDetailsActivetab}=useContext(Context)
+  
   const [pitchActive, setPitchActive] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   
@@ -94,7 +101,27 @@ export default function MatchDetails() {
     ],
   };
 
-  const { fixture, league, teams, score, events } = match;
+  const { fixture, league, teams, score,  } = match;
+
+     const location = useLocation();
+
+  
+;
+     
+    useEffect(() => {
+  
+      if (location?.pathname) {
+       
+     
+        setmatchDetailsActivetab(location.pathname.split('/').filter(Boolean).pop());
+      }
+
+  
+  
+  
+  
+    }, [location?.pathname])
+
 
   return (
     <div className="py-4 px-4 bg-gradient-to-b from-[#0B0C10] via-[#1F2833] to-[#000000] text-gray-300 text-sm md:text-base">
@@ -144,8 +171,6 @@ export default function MatchDetails() {
 
 
 
-
-
       {/* Teams and Score */}
       <div className=" bg-black/20 px-4 py-3 rounded-lg border border-purple-800 mb-4">
 
@@ -174,6 +199,11 @@ export default function MatchDetails() {
       <div className="text-center text-sm text-white font-semibold mb-4">
         Halftime: {score.halftime.home} - {score.halftime.away}
       </div>
+
+<MatchTabs/>
+
+
+<Outlet/>
 
 
     </div>
