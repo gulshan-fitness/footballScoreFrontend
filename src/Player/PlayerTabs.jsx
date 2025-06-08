@@ -14,7 +14,7 @@ export default function PlayerTabs() {
     const{PlayerDetailsActivetab, setPlayerDetailsActivetab,}=useContext(Context)
 
      
-      const tabs = ["info", "Matches", "stats",];
+      const tabs = ["info", "Matches",];
   return (
       <div className="flex items-center gap-6 py-1 mb-6   thin-scrollbar border-purple-600 text-xs font-semibold overflow-x-auto">
         {tabs?.map((tab) => (

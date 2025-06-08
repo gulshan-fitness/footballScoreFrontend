@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 
 
-import {  Outlet, useLocation } from "react-router-dom";
+import {  Outlet, useLocation, useParams } from "react-router-dom";
 import LeagueCard from "./LeagueCard";
 import LeagueTabs from "./LeagueTabs";
 import { Context } from "../Context_holder";
@@ -14,11 +14,9 @@ const league = {
 };
 
 
-
-
-
 export default function LeagueDetails() {
-  const{setLeagueDetailsActivetab}=useContext(Context)
+  const{setLeagueDetailsActivetab,LeagueDetails,setLeagueDetails}=useContext(Context)
+  const {id}=useParams()
 
    const location = useLocation();
   
@@ -30,35 +28,11 @@ export default function LeagueDetails() {
       }
 
   
-      // if (location?.pathname === "/leaguedetails/overview") {
-       
-     
-      //   ("overview");
-      // }
-
-      //    if (location?.pathname === "/leaguedetails/fixtures") {
-       
-     
-      //   setLeagueDetailsActivetab("fixtures");
-      // }
-
-      //      if (location?.pathname === "/leaguedetails/results") {
-       
-     
-      //   setLeagueDetailsActivetab("results");
-      // }
-
-      
-      //      if (location?.pathname === "/leaguedetails/standings") {
-       
-     
-      //   setLeagueDetailsActivetab("standings");
-      // }
-  
-  
   
     }, [location?.pathname]);
 
+
+console.log(id);
 
 
   return (
@@ -67,17 +41,11 @@ export default function LeagueDetails() {
     <div className="bg-gradient-to-b from-[#0B0C10] via-[#1F2833] to-[#000000] text-gray-300 min-h-screen  p-4 font-sans space-y-6 w-full selection:bg-purple-700 selection:text-white">
 
 
-  <LeagueCard league={league} />
+  <LeagueCard league={LeagueDetails} />
 
     <LeagueTabs  />
 
       <Outlet/>
-
-
-
-
-
-     
 
     </div>
     

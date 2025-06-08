@@ -33,6 +33,11 @@ export default function Context_holder(props) {
     const [matchDetailsActivetab, setmatchDetailsActivetab] = useState("info");
      const [PlayerDetailsActivetab, setPlayerDetailsActivetab] = useState("info");
 
+const[Matches,setMatches]=useState([])
+const[ParticulerMatches,setParticulerMatches]=useState(null)
+const[LeagueDetails,setLeagueDetails]=useState(null)
+
+
   const notify = (msg, status) => {
     toast(msg, {
       position: "top-right",
@@ -84,6 +89,40 @@ export default function Context_holder(props) {
           } else {
             setAllCrosswordPuzzle(data);
           }
+        }
+      })
+
+      .catch((error) => {});
+  };
+
+
+
+    const MatchesFetch = (id,query) => {
+    let api = `${import.meta.env.VITE_API_BASE_URL}${
+      import.meta.env.VITE_MATCHES_URL
+    }read`;
+
+     if (id) {
+      api += `/${id}`;
+    }
+
+     if(query){
+          api += `${query}`;
+    }
+
+    axios
+      .get(api)
+
+      .then((success) => {
+
+        if (success.data.status == 1) {
+
+          if(id){
+            setParticulerMatches(success.data.matches)
+          }else{
+            setMatches(success.data.matches)
+          }
+          
         }
       })
 
@@ -202,7 +241,7 @@ export default function Context_holder(props) {
 
 
         LeagueDetailsActivetab, setLeagueDetailsActivetab,matchDetailsActivetab, setmatchDetailsActivetab,
-        PlayerDetailsActivetab, setPlayerDetailsActivetab
+        PlayerDetailsActivetab, setPlayerDetailsActivetab,ParticulerMatches,setParticulerMatches,Matches,setMatches,MatchesFetch,LeagueDetails,setLeagueDetails
       }}
     >
       {props.children}
