@@ -27,16 +27,15 @@ export default function Context_holder(props) {
   const [AllSudoko, setAllSudoko] = useState([]);
   const [Sudoko, setSudoko] = useState(null);
 
+  const [LeagueDetailsActivetab, setLeagueDetailsActivetab] =
+    useState("Overview");
+  const [matchDetailsActivetab, setmatchDetailsActivetab] = useState("info");
+  const [PlayerDetailsActivetab, setPlayerDetailsActivetab] = useState("info");
 
-
-  const [LeagueDetailsActivetab, setLeagueDetailsActivetab] = useState("Overview");
-    const [matchDetailsActivetab, setmatchDetailsActivetab] = useState("info");
-     const [PlayerDetailsActivetab, setPlayerDetailsActivetab] = useState("info");
-
-const[Matches,setMatches]=useState([])
-const[ParticulerMatches,setParticulerMatches]=useState(null)
-const[LeagueDetails,setLeagueDetails]=useState(null)
-
+  const [Matches, setMatches] = useState([]);
+    const [LeagueStandings, setLeagueStandings] = useState([]);
+  const [UpcomingMatches, setUpcomingMatches] = useState(null);
+  const [LeagueDetails, setLeagueDetails] = useState(null);
 
   const notify = (msg, status) => {
     toast(msg, {
@@ -59,12 +58,12 @@ const[LeagueDetails,setLeagueDetails]=useState(null)
       import.meta.env.VITE_CROSSWORDPUZZLE_URL
     }read`;
 
-     if (id) {
+    if (id) {
       api += `/${id}`;
     }
 
-     if(user_id){
-          api += `/${user_id}`;
+    if (user_id) {
+      api += `/${user_id}`;
     }
 
     axios
@@ -95,43 +94,57 @@ const[LeagueDetails,setLeagueDetails]=useState(null)
       .catch((error) => {});
   };
 
+  const MatchesFetch = (query) => {
+    const params = new URLSearchParams(query.replace("?", ""));
 
-
-    const MatchesFetch = (id,query) => {
     let api = `${import.meta.env.VITE_API_BASE_URL}${
       import.meta.env.VITE_MATCHES_URL
     }read`;
 
-     if (id) {
-      api += `/${id}`;
-    }
-
-     if(query){
-          api += `${query}`;
+    if (query) {
+      api += `${query}`;
     }
 
     axios
       .get(api)
 
       .then((success) => {
-
         if (success.data.status == 1) {
-
-          if(id){
-            setParticulerMatches(success.data.matches)
-          }else{
-            setMatches(success.data.matches)
-          }
-          
+          if (params?.has("next")) setUpcomingMatches(success.data.matches);
+          else setMatches(success.data.matches);
         }
       })
 
       .catch((error) => {});
   };
 
-  const SudokoFetch = (id, user_id) => {
+   const StandingsFetch = (query) => {
    
 
+    let api = `${import.meta.env.VITE_API_BASE_URL}${
+      import.meta.env.VITE_MATCHES_URL
+    }readstandings`;
+
+    if (query) {
+      api += `${query}`;
+    }
+
+    axios
+      .get(api)
+
+      .then((success) => {
+        if (success.data.status == 1) {
+
+         setLeagueStandings(success.data.standings);
+
+        }
+      })
+
+      .catch((error) => {});
+  };
+
+
+  const SudokoFetch = (id, user_id) => {
     let api = `${import.meta.env.VITE_API_BASE_URL}${
       import.meta.env.VITE_SUDOKO_URL
     }read`;
@@ -139,8 +152,8 @@ const[LeagueDetails,setLeagueDetails]=useState(null)
     if (id) {
       api += `/${id}`;
     }
-     if(user_id){
-          api += `/${user_id}`;
+    if (user_id) {
+      api += `/${user_id}`;
     }
 
     axios
@@ -152,12 +165,7 @@ const[LeagueDetails,setLeagueDetails]=useState(null)
 
           if (id) {
             setSudoko(data[0]);
-
-           
-          }
-
-      
-          else {
+          } else {
             setAllSudoko(data);
           }
         }
@@ -165,7 +173,6 @@ const[LeagueDetails,setLeagueDetails]=useState(null)
 
       .catch((error) => {});
   };
-  
 
   const menu_links = [
     {
@@ -178,11 +185,9 @@ const[LeagueDetails,setLeagueDetails]=useState(null)
       url: "",
 
       subitems: [
+        { name: "Add", url: "crosswordpuzzle/add" },
 
-        { name: "Add", url: "crosswordpuzzle/add"},
-
-        { name: "View", url: "crosswordpuzzle/view"},
-
+        { name: "View", url: "crosswordpuzzle/view" },
       ],
     },
 
@@ -195,9 +200,30 @@ const[LeagueDetails,setLeagueDetails]=useState(null)
         { name: "View", url: "sudoko/view" },
       ],
     },
-
-   
   ];
+
+    const getStandingsByTab = (standings, activeTab) => {
+      if(standings?.length!=0)
+    return standings?.map(team => {
+      const base = {
+        rank: team.rank,
+        team: team.team,
+        points: team.points,
+        goalsDiff: team.goalsDiff,
+        description: team.description,
+      };
+      if (activeTab === "form") {
+        return {
+          ...base,
+          form: team.form
+        };
+      }
+      return {
+        ...base,
+        ...team[activeTab]
+      };
+    });
+  };
 
   return (
     <Context.Provider
@@ -240,8 +266,20 @@ const[LeagueDetails,setLeagueDetails]=useState(null)
 
 
 
-        LeagueDetailsActivetab, setLeagueDetailsActivetab,matchDetailsActivetab, setmatchDetailsActivetab,
-        PlayerDetailsActivetab, setPlayerDetailsActivetab,ParticulerMatches,setParticulerMatches,Matches,setMatches,MatchesFetch,LeagueDetails,setLeagueDetails
+        LeagueDetailsActivetab,
+        setLeagueDetailsActivetab,
+        matchDetailsActivetab,
+        setmatchDetailsActivetab,
+        PlayerDetailsActivetab,
+        setPlayerDetailsActivetab,
+        UpcomingMatches,
+        setUpcomingMatches,
+        Matches,
+        setMatches,
+        MatchesFetch,
+        LeagueDetails,
+        setLeagueDetails,
+        getStandingsByTab,LeagueStandings, setLeagueStandings,StandingsFetch
       }}
     >
       {props.children}

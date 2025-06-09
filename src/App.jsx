@@ -107,7 +107,7 @@ function App() {
         },
 
          {
-          path: "leaguedetails/:id",
+          path: "leaguedetails/:id/:season",
           element: <LeagueDetails />,
           children:[
   {

@@ -1,9 +1,11 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { Context } from '../Context_holder';
 
 export default function LeagueStandings() {
+  const{getStandingsByTab,LeagueStandings}=useContext(Context)
   const [activeTab, setActiveTab] = useState('all');
   const [Tabs] = useState(["all", "home", "away", "form"]);
 
@@ -223,27 +225,7 @@ const standings = [
   }
 ];
 
-  const getStandingsByTab = (standings, activeTab) => {
-    return standings.map(team => {
-      const base = {
-        rank: team.rank,
-        team: team.team,
-        points: team.points,
-        goalsDiff: team.goalsDiff,
-        description: team.description,
-      };
-      if (activeTab === "form") {
-        return {
-          ...base,
-          form: team.form
-        };
-      }
-      return {
-        ...base,
-        ...team[activeTab]
-      };
-    });
-  };
+
 
   return (
     <div className="rounded-lg px-3 py-4 shadow-md bg-gradient-to-b from-[#0B0C10] via-[#1F2833] to-[#000000]">
@@ -278,7 +260,7 @@ const standings = [
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-600">
-            {getStandingsByTab(standings, activeTab)?.map((team,index) => (
+            {getStandingsByTab(LeagueStandings, activeTab)?.map((team,index) => (
               <tr key={index} className="text-sm text-gray-300">
                 <td className="px-4 py-2 font-semibold text-white">{team.rank}</td>
                 <td className="px-4 py-2">
@@ -345,7 +327,7 @@ const standings = [
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-600">
-            {getStandingsByTab(standings, activeTab)?.map((team,index) => (
+            {getStandingsByTab(LeagueStandings, activeTab)?.map((team,index) => (
               <tr key={index} className="text-sm text-gray-300">
                 <td className="px-4 py-2 font-semibold text-white">{team.rank}</td>
                 <td className="px-4 py-2">

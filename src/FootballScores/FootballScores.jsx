@@ -1,10 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { IoCalendarClearOutline } from "react-icons/io5";
 import { Context } from "../Context_holder";
 import { useSearchParams } from "react-router-dom";
 import FootballMatchCard from "./FootballMatchCard";
+
+
 
 
 const matches = [
@@ -175,11 +179,15 @@ const{Matches,MatchesFetch}=useContext(Context)
 
 const [date, setDate] = useState(new Date());
 
+
 const [Querydate, setQuerydate] = useState("");
 const [LiveQuery, setLiveQuery] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const PAGE_SIZE = 1;
 const [page, setPage] = useState(1);
+  const [calanderPopUp, setcalanderPopUp] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
 
 
   const formatDate = (d) => {
@@ -234,13 +242,14 @@ const [page, setPage] = useState(1);
 
       Object.keys(query).length!=0&& setSearchParams(query)
 
-   MatchesFetch(null,window.location.search.toString())
+   MatchesFetch(window.location.search.toString())
 
       },
 
       [Querydate,LiveQuery]
     )
 
+console.log(Matches?.length);
 
   const handlePrev = () => {
     const prev = new Date(date);
@@ -258,37 +267,52 @@ const [page, setPage] = useState(1);
 
 
 
-const visibleMatches = matches?.slice(0, PAGE_SIZE * page);
+const visibleMatches = Matches?.slice(0, PAGE_SIZE * page);
 
 console.log(Matches.length);
 
   return (
     <div className="bg-gradient-to-b from-[#0B0C10] via-[#1F2833] to-[#000000] text-gray-300 min-h-screen py-4 sm:py-6 md:py-10 px-4 font-sans selection:bg-purple-700 selection:text-white">
       {/* Header */}
-      <header className="flex items-center justify-between max-w-5xl mx-auto mb-8 ">
-        <span
-          className={` text-white text-xs sm:text-sm md:text-base px-3 py-1 rounded-full font-semibold tracking-wide  border   hover:shadow-[0_0_20px_rgba(128,0,255,0.7)]
+      <header className="flex items-center gap-1 justify-between max-w-5xl mx-auto mb-8 ">
+
+<div className="flex gap-6 sm:gap-3 items-center">
+  <div
+          className={` flex justify-center items-center text-white text-[10px]  px-2  py-1  rounded-full font-semibold   border   hover:shadow-[0_0_20px_rgba(128,0,255,0.7)]
                     transition-shadow duration-500 cursor-pointer  ${LiveQuery&& "bg-purple-700/90 border-0   shadow-[0_0_20px_rgba(128,0,255,0.7)]" }`}
                     onClick={()=>{setLiveQuery(!LiveQuery)
                      
                     }}
         >
-          LIVE
-        </span>
+       <span>LIVE</span>   
+        </div>
 
-        <button
+    <button
           aria-label="Previous day"
           className="text-white hover:text-purple-600 transition-colors duration-300  "
         onClick={handlePrev}
         >
           <FaChevronLeft />
         </button>
+</div>
+
+        
+
+       
+       
 
         <span className=" sm:text-sm  text-[10px] font-extrabold tracking-wide text-white drop-shadow-lg">
           {date&&formatDate2(date)}
         </span>
 
-        <button
+        
+
+      
+
+       
+
+  <div className="flex gap-6 sm:gap-3 items-center">
+    <button
           aria-label="Next day"
           className="text-white hover:text-purple-600 transition-colors duration-300  "
         onClick={handleNext}
@@ -296,29 +320,51 @@ console.log(Matches.length);
           <FaChevronRight />
         </button>
 
-     
-
-<button
-  className="relative p-3 rounded-full bg-purple-900/30 backdrop-blur-md border border-purple-700/40 hover:bg-purple-900/60
-    shadow-lg hover:shadow-[0_0_20px_rgba(128,0,255,0.7)]
-    group transition-shadow duration-500 cursor-pointer select-none"
+    <button
+  className={`relative p-2 z-50 rounded-full bg-purple-900/30 backdrop-blur-md border border-purple-700/40 
+     transition-shadow duration-500 cursor-pointer  ${showDatePicker?" shadow-[0_0_20px_rgba(128,0,255,0.7)] bg-purple-900/60":""} `}
+    onClick={()=>setShowDatePicker(!showDatePicker)}
 >
   {/* Calendar Icon */}
 
-  <IoCalendarClearOutline className="text-3xl text-purple-400" />
+  <IoCalendarClearOutline className="text-2xl text-purple-400" />
 
   {/* Centered Date */}
-  <span className="absolute inset-0 top-2 flex items-center justify-center text-[12px] font-semibold group-hover:text-purple-400 text-white">
-    {new Date().getDate()}
+  <span className="absolute inset-0 top-1 flex items-center justify-center text-[10px] font-semibold  text-white">
+    {date.getDate()}
   </span>
+
+  {showDatePicker && (
+   <div
+    className="absolute right-0  top-[45px]"
+    onClick={(e) => e.stopPropagation()}  // ✅ This is crucial
+  >
+    <DatePicker
+      selected={date}
+      onChange={(date) => {
+        setDate(date);
+        setShowDatePicker(false);
+      }}
+      inline
+      calendarClassName="bg-[#1F2833] text-white rounded-lg shadow-lg border border-purple-700/40"
+      dayClassName={() => "hover:bg-purple-700/20 rounded-full transition"}
+    />
+  </div>
+  )}
 </button>
+
+  </div>
+
+
+
+
 
 
 
       </header>
 
       {/* Matches by League */}
-      <main className="max-w-5xl mx-auto space-y-10 px-2  h-screen overflow-y-auto   thin-scrollbar">
+      <main className="max-w-5xl mx-auto space-y-10  h-screen overflow-y-auto   thin-scrollbar">
         {visibleMatches?.map(({ league, fixtures },index) => (
           <div key={index}>
 
@@ -336,9 +382,13 @@ console.log(Matches.length);
         Load More...
       </button>
     )}
-
- 
       </main>
+
+   
+
+
+
+
  
     </div>
   );

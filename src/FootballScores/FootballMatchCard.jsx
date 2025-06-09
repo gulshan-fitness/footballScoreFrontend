@@ -8,9 +8,9 @@ export default function FootballMatchCard({ league, fixtures }) {
     const{setLeagueDetails}=useContext(Context)
 
   return (
-    <section className="px-2 sm:px-4">
+    <section className="">
       {/* League Header */}
-      <Link to={`leaguedetails/${league?.id}/overview`} className="flex justify-between items-center mb-4" onClick={()=>setLeagueDetails(league)}>
+      <Link to={`leaguedetails/${league?.id}/${league?.season}/overview`} className="flex justify-between items-center mb-4" onClick={()=>setLeagueDetails(league)}>
         <button className="flex items-center gap-2 sm:gap-3 text-[11px] sm:text-sm font-semibold text-purple-400 tracking-wide select-none max-w-[80%]">
           <img
             src={league?.logo}

@@ -7,18 +7,28 @@ import LeagueTabs from "./LeagueTabs";
 import { Context } from "../Context_holder";
 
 
-const league = {
-  name: "Süper Lig",
-  country: "Türkiye",
-  logo: "https://media.api-sports.io/football/leagues/203.png",
-};
+
+
 
 
 export default function LeagueDetails() {
-  const{setLeagueDetailsActivetab,LeagueDetails,setLeagueDetails}=useContext(Context)
-  const {id}=useParams()
+
+  const{setLeagueDetailsActivetab, Matches,MatchesFetch,StandingsFetch}=useContext(Context)
+
+
+
+  const {id,season}=useParams()
 
    const location = useLocation();
+
+   useEffect(
+    ()=>{
+MatchesFetch(`?league=${203}&season=${2023}`)
+MatchesFetch(`?league=${203}&season=${2023}&next=${100}`)
+StandingsFetch(`?league=${203}&season=${2023}`)
+
+    },[]
+   )
   
     useEffect(() => {
           if (location?.pathname) {
@@ -32,7 +42,10 @@ export default function LeagueDetails() {
     }, [location?.pathname]);
 
 
-console.log(id);
+    const leagueInfo=Matches?.length!=0 && Matches[0]?.league
+
+
+
 
 
   return (
@@ -41,9 +54,9 @@ console.log(id);
     <div className="bg-gradient-to-b from-[#0B0C10] via-[#1F2833] to-[#000000] text-gray-300 min-h-screen  p-4 font-sans space-y-6 w-full selection:bg-purple-700 selection:text-white">
 
 
-  <LeagueCard league={LeagueDetails} />
+  <LeagueCard league={leagueInfo} />
 
-    <LeagueTabs  />
+    <LeagueTabs />
 
       <Outlet/>
 
