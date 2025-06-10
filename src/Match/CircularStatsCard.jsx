@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "../Context_holder";
 
 const statsData = [
   {
@@ -129,7 +130,10 @@ const CardBar = ({ yellow1, red1, yellow2, red2 }) => {
 };
 
 export default function MatchDisciplineStats() {
-  const [team1, team2] = statsData;
+  const{particulerMatch}=useContext(Context)
+
+  
+
   const getStat = (team, type) => team.statistics.find((s) => s.type === type)?.value || 0;
 
   return (
@@ -137,31 +141,31 @@ export default function MatchDisciplineStats() {
       
 
       <CardBar
-        yellow1={getStat(team1, "Yellow Cards")}
-        red1={getStat(team1, "Red Cards")}
-        yellow2={getStat(team2, "Yellow Cards")}
-        red2={getStat(team2, "Red Cards")}
+        yellow1={getStat(particulerMatch?.statistics[0], "Yellow Cards")}
+        red1={getStat(particulerMatch?.statistics[0], "Red Cards")}
+        yellow2={getStat(particulerMatch?.statistics[1], "Yellow Cards")}
+        red2={getStat(particulerMatch?.statistics[1], "Red Cards")}
       />
 
       <div className="flex justify-around  flex-wrap gap-1">
         <Donut
           label="Fouls"
-          val1={getStat(team1, "Fouls")}
-          val2={getStat(team2, "Fouls")}
+          val1={getStat(particulerMatch?.statistics[0], "Fouls")}
+          val2={getStat(particulerMatch?.statistics[1], "Fouls")}
           color1="red"
           color2="blue"
         />
         <Donut
           label="Free Kicks"
-          val1={getStat(team1, "Free Kicks")}
-          val2={getStat(team2, "Free Kicks")}
+          val1={getStat(particulerMatch?.statistics[0], "Free Kicks")}
+          val2={getStat(particulerMatch?.statistics[1], "Free Kicks")}
           color1="red"
           color2="blue"
         />
         <Donut
           label="Offsides"
-          val1={getStat(team1, "Offsides")}
-          val2={getStat(team2, "Offsides")}
+          val1={getStat(particulerMatch?.statistics[0], "Offsides")}
+          val2={getStat(particulerMatch?.statistics[1], "Offsides")}
           color1="red"
           color2="blue"
         />

@@ -1,41 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "../Context_holder";
 
-const statsData = [
-  {
-    team: {
-      id: 33,
-      name: "Manchester United",
-      logo: "https://media.api-sports.io/football/teams/33.png",
-    },
-    statistics: [
-      { type: "Conversion Rate", value: "25%" },
-      { type: "Corner", value: "4" },
-      { type: "on target", value: "8" },
-      { type: "Saves", value: "2" },
-      { type: "off target", value: "20" },
-      { type: "Attempts", value: "12" },
-      { type: "Blocked", value: "3" },
-    ],
-  },
-  {
-    team: {
-      id: 50,
-      name: "Chelsea",
-      logo: "https://media.api-sports.io/football/teams/50.png",
-    },
-    statistics: [
-      { type: "Conversion Rate", value: "0%" },
-      { type: "Corner", value: "6" },
-      { type: "on target", value: "2" },
-      { type: "Saves", value: "3" },
-      { type: "off target", value: "5" },
-      { type: "Attempts", value: "3" },
-      { type: "Blocked", value: "3" },
-    ],
-  },
-];
 
-const parseValue = (val) => (val.includes('%') ? parseInt(val) : Number(val));
+const parseValue = (val) => {
+  if (!val) return 0; // handles null, undefined, 0, ''
+  if (typeof val === "string" && val.includes('%')) return parseInt(val);
+  const num = Number(val);
+  return isNaN(num) ? 0 : num;
+};
+
 
 const VerticalBar = ({ label, leftValue, rightValue }) => {
   const left = parseValue(leftValue);
@@ -70,7 +43,8 @@ const VerticalBar = ({ label, leftValue, rightValue }) => {
       </div>
 
       <div className="text-[10px] text-center w-full uppercase text-gray-300 truncate leading-tight">
-        {label}
+        {label=="Corner Kicks"&&"Corner"||label=="Shots on Goal"&&"on target"||label=="Goalkeeper Saves"&&"Saves" ||label=="Shots off Goal"&&"off target"||
+        label=="Total Shots"&&"Attempts"|| label=="Blocked Shots"&&"Blocked" }
       </div>
     </div>
   );
@@ -78,14 +52,16 @@ const VerticalBar = ({ label, leftValue, rightValue }) => {
 
 
 
+
 const HorizontalStat = ({ label, leftValue, rightValue }) => {
+
   const left = parseValue(leftValue);
   const right = parseValue(rightValue);
   const max = Math.max(left, right, 1);
   const barMaxWidth = 50;
 
   return (
-    <div className="flex flex-col col-span-3 text-[10px] px-1 text-gray-300 mb-[2px]">
+    <div className="flex flex-col col-span-3 text-[10px] px-1 text-gray-300 mt-1 mb-3">
       <div className="flex justify-between font-semibold leading-none">
         <span className="text-red-500">{leftValue}</span>
         <span className="text-white text-[10px] font-normal">{label}</span>
@@ -106,37 +82,47 @@ const HorizontalStat = ({ label, leftValue, rightValue }) => {
 };
 
 export default function MatchStatsCard() {
-  const [team1, team2] = statsData;
+
+  const{particulerMatch}=useContext(Context)
+
+
+console.log(particulerMatch?.goals?.home,particulerMatch?.statistics[0]?.statistics?.find(d=>d?.type=="Shots on Goal")?.value);
+
 
   return (
     <div className="bg-[#0f0f0f] w-full   text-white rounded-md p-[4px] border border-purple-800 shadow font-sans overflow-hidden">
-      {/* Header */}
-      {/* <div className="flex justify-between items-center mb-[2px] px-1">
-        <img src={team1.team.logo} alt="T1" className="w-4 h-4" />
-        <span className="text-[9px] font-bold">Match Stats</span>
-        <img src={team2.team.logo} alt="T2" className="w-4 h-4" />
-      </div> */}
+     
+  
+             <HorizontalStat
+             
+                key={""}
+                label={"Conversion Rate"}
+                leftValue={(particulerMatch?.goals?.home/particulerMatch?.statistics[0]?.statistics?.find(d=>d?.type=="Shots on Goal")?.value)*100}
+                rightValue={(particulerMatch?.goals?.away/particulerMatch?.statistics[1]?.statistics?.find(d=>d?.type=="Shots on Goal")?.value)*100}
+
+              />
+         
 
       {/* Stats Grid */}
       <div className="grid grid-cols-3 flex-wrap justify-between px-[2px] gap-2">
-        {team1.statistics.map((stat) => {
-          const right = team2.statistics.find((s) => s.type === stat.type);
-          if (stat.type === "Conversion Rate") {
-            return (
-              <HorizontalStat
-                key={stat.type}
-                label={stat.type}
-                leftValue={stat.value}
-                rightValue={right?.value || "0"}
-              />
-            );
-          }
+        {particulerMatch?.statistics[0]?.statistics?.map((stat) => {
+          const right = particulerMatch?.statistics[1]?.statistics?.find((s) => s.type === stat.type);
+        
+const requiredStats = [
+            "Corner Kicks",      
+  "Shots on Goal",     
+  "Goalkeeper Saves"  ,      
+  "Shots off Goal"   ,
+  "Total Shots" ,
+  "Blocked Shots" 
+          ];
+          if (!requiredStats?.includes(stat.type)) return null;
 
           return (
             <VerticalBar
-              key={stat.type}
-              label={stat.type}
-              leftValue={stat.value}
+              key={stat?.type}
+              label={stat?.type}
+              leftValue={stat?.value}
               rightValue={right?.value || "0"}
             />
           );

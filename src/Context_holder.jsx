@@ -33,6 +33,7 @@ export default function Context_holder(props) {
   const [PlayerDetailsActivetab, setPlayerDetailsActivetab] = useState("info");
 
   const [Matches, setMatches] = useState([]);
+   const [particulerMatch, setparticulerMatch] = useState(null);
     const [LeagueStandings, setLeagueStandings] = useState([]);
   const [UpcomingMatches, setUpcomingMatches] = useState(null);
   const [LeagueDetails, setLeagueDetails] = useState(null);
@@ -142,6 +143,33 @@ export default function Context_holder(props) {
 
       .catch((error) => {});
   };
+
+     const ParticularMatchFetch = (query) => {
+   
+
+    let api = `${import.meta.env.VITE_API_BASE_URL}${
+      import.meta.env.VITE_MATCHES_URL
+    }ParticularMatchread`;
+
+    if (query) {
+      api += `${query}`;
+    }
+
+    axios
+      .get(api)
+
+      .then((success) => {
+        if (success.data.status == 1) {
+
+         setparticulerMatch(success.data.matches);
+
+        }
+      })
+
+      .catch((error) => {});
+  };
+
+  
 
 
   const SudokoFetch = (id, user_id) => {
@@ -279,7 +307,7 @@ export default function Context_holder(props) {
         MatchesFetch,
         LeagueDetails,
         setLeagueDetails,
-        getStandingsByTab,LeagueStandings, setLeagueStandings,StandingsFetch
+        getStandingsByTab,LeagueStandings, setLeagueStandings,StandingsFetch,ParticularMatchFetch,particulerMatch, setparticulerMatch
       }}
     >
       {props.children}

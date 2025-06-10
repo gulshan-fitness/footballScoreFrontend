@@ -6,17 +6,18 @@ import MatchStatisticsCard from "./MatchStatisticsCard";
 import MatchStatsCard from "./MatchStatsCard";
 import CircularStatsCard from "./CircularStatsCard";
 import TeamPerformanceCard from "./TeamPerformanceCard";
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import MatchTabs from './MatchTabs';
 import { Context } from '../Context_holder';
 import MatchEvents from './MatchEvent';
 
 export default function MatchDetails() {
 
-  const{setmatchDetailsActivetab}=useContext(Context)
+  const{setmatchDetailsActivetab,ParticularMatchFetch,particulerMatch}=useContext(Context)
   
   const [pitchActive, setPitchActive] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const{id}=useParams()
   
 
   const slides = [
@@ -101,12 +102,17 @@ export default function MatchDetails() {
     ],
   };
 
-  const { fixture, league, teams, score,  } = match;
+  
+  useEffect(
+    ()=>{
+// ParticularMatchFetch(`?id=${id}`)
+    },[]
+  )
+
+
 
      const location = useLocation();
 
-  
-;
      
     useEffect(() => {
   
@@ -121,6 +127,7 @@ export default function MatchDetails() {
   
   
     }, [location?.pathname])
+console.log(particulerMatch);
 
 
   return (
@@ -132,10 +139,10 @@ export default function MatchDetails() {
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-2">
-          <img src={league.logo} alt={league.name} className="h-6 md:h-8" />
+          <img src={particulerMatch?.league?.logo} alt={particulerMatch?.league?.name} className="h-6 md:h-8" />
           <div>
-            <p className="text-purple-400 text-xs md:text-sm font-semibold">{league.name}</p>
-            <p className="text-[10px] md:text-xs text-white">{league.country}</p>
+            <p className="text-purple-400 text-xs md:text-sm font-semibold">{particulerMatch?.league?.name}</p>
+            <p className="text-[10px] md:text-xs text-white">{particulerMatch?.league?.country}</p>
           </div>
         </div>
         <button
@@ -178,26 +185,26 @@ export default function MatchDetails() {
  
 <div className=' flex justify-between gap-2 items-center'>
   <div className="flex flex-col  items-center text-center">
-          <img src={teams.home.logo} alt={teams.home.name} className="h-6 md:h-10" />
-          <span className="text-white text-xs  truncate">{teams.home.name}</span>
+          <img src={particulerMatch?.teams?.home?.logo} alt={particulerMatch?.teams?.home?.name} className="h-6 md:h-10" />
+          <span className="text-white text-xs  truncate">{particulerMatch?.teams?.home?.name}</span>
         </div>
 
-        <div className='font-bold text-lg text-center text-white'> {match.goals.home}-{match.goals.away}</div>
+        <div className='font-bold text-lg text-center text-white'> {particulerMatch?.goals?.home}-{particulerMatch?.goals?.away}</div>
       
         <div className="flex flex-col items-center text-center">
-          <img src={teams.away.logo} alt={teams.away.name} className="h-6 md:h-10" />
-          <span className="text-white text-xs  truncate">{teams.away.name}</span>
+          <img src={particulerMatch?.teams?.away?.logo} alt={particulerMatch?.teams?.away?.name} className="h-6 md:h-10" />
+          <span className="text-white text-xs  truncate">{particulerMatch?.teams?.away?.name}</span>
         </div>
 </div>
            <div className="text-purple-500 text-xs font-bold mt-1 text-center">
-            {fixture?.status?.long} • {fixture?.status?.elapsed}'
+            {particulerMatch?.fixture?.status?.long} • {particulerMatch?.fixture?.status?.elapsed}'
           </div>
       </div>
 
 
       {/* Halftime Score */}
       <div className="text-center text-sm text-white font-semibold mb-4">
-        Halftime: {score.halftime.home} - {score.halftime.away}
+        Halftime: {particulerMatch?.score?.halftime?.home} - {particulerMatch?.score?.halftime?.away}
       </div>
 
 <MatchTabs/>

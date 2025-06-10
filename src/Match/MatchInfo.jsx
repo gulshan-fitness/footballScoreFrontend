@@ -1,17 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { LuCalendarDays } from "react-icons/lu";
+import { Context } from "../Context_holder";
 
 export default function MatchInfo() {
-  const fixture = {
-     date: "2025-05-31T18:30:00+00:00",
-    referee: "Daniele Orsato",
-    venue: {
-      name: "Parc des Princes",
-      city: "Paris",
-    },
-    attendance: 48712,
-  };
-  const { referee, venue ,date} = fixture;
+  const{particulerMatch}=useContext(Context)
+ 
+ 
 
 
 
@@ -33,7 +27,7 @@ export default function MatchInfo() {
           <InfoRow
         icon={ <LuCalendarDays className="text-lg" />}
        
-        value={new Date(date).toLocaleDateString("en-GB", {
+        value={new Date(particulerMatch?.fixture?.date).toLocaleDateString("en-GB", {
               day: "2-digit",
               month: "short",
                 year: "numeric",
@@ -43,14 +37,15 @@ export default function MatchInfo() {
       <InfoRow
         icon={ <img src="/image/wishtle.svg" className="w-4" alt="" />}
        
-        value={referee}
+        value={particulerMatch?.fixture?.referee}
       />
+      
       <InfoRow
         icon={
  <img src="/image/stadium.svg" className="w-4" alt="" />
         }
         
-        value={`${venue?.name}, ${venue?.city}`}
+        value={`${particulerMatch?.fixture?.venue?.name}, (${particulerMatch?.fixture?.venue?.city})`}
       />
   
     </div>

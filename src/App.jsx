@@ -134,8 +134,9 @@ function App() {
 
 
            {
-          path: "matchdetails/",
+          path: "matchdetails/:id",
           element: <MatchDetails />,
+          
           children:[
   {
           path: "info",

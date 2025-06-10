@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FaChevronRight } from "react-icons/fa";
 import FixtureCard from './FixtureCard';
 import { Context } from '../Context_holder';
@@ -13,12 +13,15 @@ export default function LeagueOverview() {
     LeagueStandings
   } = useContext(Context);
 
+
+  
+  const {id,season}=useParams()
   return (
     <div>
       {/* Fixtures Section */}
       <div className="space-y-3 mb-6">
         <Link
-          to="/leaguedetails/fixtures"
+          to={`/leaguedetails/${id}/${season}/fixtures`}
           className="flex justify-between items-center px-2"
           onClick={() => setLeagueDetailsActivetab?.("fixtures")}
         >
@@ -38,7 +41,7 @@ export default function LeagueOverview() {
       {/* Results Section */}
       <div className="space-y-3 mb-6">
         <Link
-          to="/leaguedetails/results"
+          to={`/leaguedetails/${id}/${season}/results`}
           className="flex justify-between items-center px-2"
           onClick={() => setLeagueDetailsActivetab?.("Results")}
         >
@@ -58,7 +61,7 @@ export default function LeagueOverview() {
       {/* Standings Section */}
       <div className="space-y-3 mb-6">
         <Link
-          to="/leaguedetails/standings"
+          to={`/leaguedetails/${id}/${season}/standings`}
           className="flex justify-between items-center px-2"
           onClick={() => setLeagueDetailsActivetab?.("standings")}
         >
@@ -115,7 +118,7 @@ export default function LeagueOverview() {
         </div>
 
         <Link
-          to="/leaguedetails/standings"
+          to={`/leaguedetails/${id}/${season}/standings`}
           className="block text-center w-full rounded-md border border-purple-500 text-xs py-1 hover:shadow-[0_0_20px_rgba(128,0,255,0.7)] transition"
           onClick={() => setLeagueDetailsActivetab?.("standings")}
         >
