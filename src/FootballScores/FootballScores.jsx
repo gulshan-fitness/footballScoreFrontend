@@ -269,7 +269,6 @@ console.log(Matches?.length);
 
 const visibleMatches = Matches?.slice(0, PAGE_SIZE * page);
 
-console.log(Matches.length);
 
   return (
     <div className="bg-gradient-to-b from-[#0B0C10] via-[#1F2833] to-[#000000] text-gray-300 min-h-screen py-4 sm:py-6 md:py-10 px-4 font-sans selection:bg-purple-700 selection:text-white">

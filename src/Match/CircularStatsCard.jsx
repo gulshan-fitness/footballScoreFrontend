@@ -1,36 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../Context_holder";
 
-const statsData = [
-  {
-    team: {
-      id: 33,
-      name: "Manchester United",
-      logo: "https://media.api-sports.io/football/teams/33.png",
-    },
-    statistics: [
-      { type: "Yellow Cards", value: 2 },
-      { type: "Red Cards", value: 1 },
-      { type: "Fouls", value: 13 },
-      { type: "Offsides", value: 5 },
-      { type: "Free Kicks", value: 12 },
-    ],
-  },
-  {
-    team: {
-      id: 50,
-      name: "Chelsea",
-      logo: "https://media.api-sports.io/football/teams/50.png",
-    },
-    statistics: [
-      { type: "Yellow Cards", value: 3 },
-      { type: "Red Cards", value: 0 },
-      { type: "Fouls", value: 12 },
-      { type: "Offsides", value: 3 },
-      { type: "Free Kicks", value: 9 },
-    ],
-  },
-];
+
 
 // https://v3.football.api-sports.io/fixtures/statistics?fixture={fixture_id}
 
@@ -132,40 +103,58 @@ const CardBar = ({ yellow1, red1, yellow2, red2 }) => {
 export default function MatchDisciplineStats() {
   const{particulerMatch}=useContext(Context)
 
+const homeTeam =particulerMatch&&  particulerMatch?.statistics?.find(d=>d?.team?.id== particulerMatch?.teams?.home?.id ) 
+    
+    
+
+    const awayTeam =particulerMatch&& particulerMatch?.statistics?.find(d=>d?.team?.id== particulerMatch?.teams?.away?.id ) 
+
   
 
-  const getStat = (team, type) => team.statistics.find((s) => s.type === type)?.value || 0;
+  const getStat = (team, type) => {
+  if (!team) return 0;
+
+  if (type === "Free Kicks") {
+
+    const fouls = team?.statistics?.find((s) => s.type === "Fouls")?.value || 0;
+    const offsides = team?.statistics?.find((s) => s.type === "Offsides")?.value || 0;
+    return fouls + offsides;
+    
+  }
+
+  return team?.statistics?.find((s) => s.type === type)?.value || 0;
+};
 
   return (
     <div className="w-full   aspect-[16/6] bg-[#0f0f0f] text-white border border-purple-800 rounded-lg p-1 flex flex-col ">
       
 
       <CardBar
-        yellow1={getStat(particulerMatch?.statistics[0], "Yellow Cards")}
-        red1={getStat(particulerMatch?.statistics[0], "Red Cards")}
-        yellow2={getStat(particulerMatch?.statistics[1], "Yellow Cards")}
-        red2={getStat(particulerMatch?.statistics[1], "Red Cards")}
+        yellow1={getStat(homeTeam, "Yellow Cards")}
+        red1={getStat(homeTeam, "Red Cards")}
+        yellow2={getStat(awayTeam, "Yellow Cards")}
+        red2={getStat(awayTeam, "Red Cards")}
       />
 
       <div className="flex justify-around  flex-wrap gap-1">
         <Donut
           label="Fouls"
-          val1={getStat(particulerMatch?.statistics[0], "Fouls")}
-          val2={getStat(particulerMatch?.statistics[1], "Fouls")}
+          val1={getStat(homeTeam, "Fouls")}
+          val2={getStat(awayTeam, "Fouls")}
           color1="red"
           color2="blue"
         />
         <Donut
           label="Free Kicks"
-          val1={getStat(particulerMatch?.statistics[0], "Free Kicks")}
-          val2={getStat(particulerMatch?.statistics[1], "Free Kicks")}
+          val1={getStat(homeTeam, "Free Kicks")}
+          val2={getStat(awayTeam, "Free Kicks")}
           color1="red"
           color2="blue"
         />
         <Donut
           label="Offsides"
-          val1={getStat(particulerMatch?.statistics[0], "Offsides")}
-          val2={getStat(particulerMatch?.statistics[1], "Offsides")}
+          val1={getStat(homeTeam, "Offsides")}
+          val2={getStat(awayTeam, "Offsides")}
           color1="red"
           color2="blue"
         />

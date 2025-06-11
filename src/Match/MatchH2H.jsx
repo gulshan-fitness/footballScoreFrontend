@@ -1,6 +1,7 @@
 
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaCalendarAlt } from "react-icons/fa";
+import { Context } from "../Context_holder";
 
 // ✅ Card Component
 const Card = ({ className = "", children, ...props }) => {
@@ -88,6 +89,9 @@ const MatchHistoryCard = ({ match }) => {
 
 // ✅ Parent Component
 export default function MatchH2H() {
+  const{MatchH2H,MatchH2HFetch,particulerMatch,Match}=useContext(Context)
+  const [activeTab, setActiveTab] = useState(particulerMatch?.teams?.home);
+  const [Tabs] = useState([particulerMatch?.teams?.home, particulerMatch?.teams?.away]);
 
   // GET https://v3.football.api-sports.io/fixtures?team=8653&last=3
 
@@ -137,8 +141,14 @@ export default function MatchH2H() {
   ];
 
 
-  const [activeTab, setActiveTab] = useState({name:"Fenerbahce",id:847});
-  const [Tabs] = useState([{name:"Fenerbahce",id:847}, {name:"Konyaspor",id:847}]);
+  useEffect(
+    ()=>{
+
+MatchH2HFetch(`?team=${activeTab?._id}&season=${2023}`)
+
+    },[activeTab]
+  )
+  
 
 
   
@@ -162,7 +172,7 @@ export default function MatchH2H() {
           </button>
         ))}
       </div>
-      {data.map((match, index) => (
+      {MatchH2H?.map((match, index) => (
         <MatchHistoryCard key={index} match={match} />
       ))}
     </div>

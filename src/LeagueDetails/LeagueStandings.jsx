@@ -2,7 +2,9 @@ import React, { useContext, useState } from 'react';
 import { Context } from '../Context_holder';
 
 export default function LeagueStandings() {
+
   const { getStandingsByTab, LeagueStandings } = useContext(Context);
+  
   const [activeTab, setActiveTab] = useState('all');
   const [Tabs] = useState(["all", "home", "away", "form"]);
 

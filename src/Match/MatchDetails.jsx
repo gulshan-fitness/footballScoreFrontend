@@ -105,7 +105,7 @@ export default function MatchDetails() {
   
   useEffect(
     ()=>{
-// ParticularMatchFetch(`?id=${id}`)
+ParticularMatchFetch(`?id=${id}`)
     },[]
   )
 

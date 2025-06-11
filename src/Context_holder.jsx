@@ -34,8 +34,10 @@ export default function Context_holder(props) {
 
   const [Matches, setMatches] = useState([]);
    const [particulerMatch, setparticulerMatch] = useState(null);
+    const [MatchNews, setMatchNews] = useState([]);
     const [LeagueStandings, setLeagueStandings] = useState([]);
-  const [UpcomingMatches, setUpcomingMatches] = useState(null);
+    const [MatchH2H, setMatchH2H] = useState([]);
+  const [UpcomingMatches, setUpcomingMatches] = useState([]);
   const [LeagueDetails, setLeagueDetails] = useState(null);
 
   const notify = (msg, status) => {
@@ -169,6 +171,60 @@ export default function Context_holder(props) {
       .catch((error) => {});
   };
 
+
+       const MatchNewsFetch = (query) => {
+   
+
+    let api = `${import.meta.env.VITE_API_BASE_URL}${
+      import.meta.env.VITE_MATCHES_URL
+    }newsread`;
+
+    if (query) {
+      api += `${query}`;
+    }
+
+    axios
+      .get(api)
+
+      .then((success) => {
+        if (success.data.status == 1) {
+
+         setMatchNews(success.data.news);
+
+        }
+      })
+
+      .catch((error) => {});
+  }
+
+
+         const MatchH2HFetch = (query) => {
+   
+
+    let api = `${import.meta.env.VITE_API_BASE_URL}${
+      import.meta.env.VITE_MATCHES_URL
+    }TeamH2Hread`;
+
+    if (query) {
+      api += `${query}`;
+    }
+
+    axios
+      .get(api)
+
+      .then((success) => {
+        if (success.data.status == 1) {
+
+         setMatchH2H(success.data.h2h);
+
+        }
+      })
+
+      .catch((error) => {});
+  }
+
+
+  
   
 
 
@@ -307,7 +363,7 @@ export default function Context_holder(props) {
         MatchesFetch,
         LeagueDetails,
         setLeagueDetails,
-        getStandingsByTab,LeagueStandings, setLeagueStandings,StandingsFetch,ParticularMatchFetch,particulerMatch, setparticulerMatch
+        getStandingsByTab,LeagueStandings, setLeagueStandings,StandingsFetch,ParticularMatchFetch,particulerMatch, setparticulerMatch,MatchNews, setMatchNews,MatchNewsFetch,MatchH2H, setMatchH2H,MatchH2HFetch
       }}
     >
       {props.children}

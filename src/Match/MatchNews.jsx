@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Context } from "../Context_holder";
+import { useParams } from "react-router-dom";
+
 
 const newsData = {
   results: 2,
@@ -26,6 +29,7 @@ const newsData = {
   ],
 };
 
+
 // GET https://api-football-v1.p.rapidapi.com/v3/fixtures/news?fixture=1410623
 // Headers:
 //   X-RapidAPI-Key: your_api_key
@@ -44,7 +48,18 @@ const formatDate = (dateString) => {
 
 export default function MatchNews( ) {
 
-     
+     const{MatchNews,MatchNewsFetch}=useContext(Context)
+
+ const{id}=useParams()
+
+     useEffect(
+      ()=>{
+
+      MatchNewsFetch(`?fixture=${id}`)
+      
+    },
+      []
+     )
       
 
   return (
@@ -54,7 +69,7 @@ export default function MatchNews( ) {
 
 
       <div>
-        {newsData.response.map(({ id, title, content, source, link, date }) => (
+        {MatchNews?.map(({ id, title, content, source, link, date }) => (
           <article
             key={id}
             className="cursor-pointer rounded-2xl px-6 py-2 border border-purple-700/60

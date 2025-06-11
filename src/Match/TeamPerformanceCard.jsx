@@ -1,74 +1,90 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "../Context_holder";
 
-const rawData = {
-  team: { id: 33, name: "Manchester United" },
-  fixtures: { wins: { total: 18 }, draws: { total: 6 }, loses: { total: 4 } },
-  goals: { for: { total: { home: 25, away: 18 } }, against: { total: { home: 10, away: 14 } } },
-  clean_sheet: { home: 9, away: 6 },
-  penalty: { scored: { total: 4 }, missed: { total: 2 } },
-  cards: { yellow: { total: 52 }, red: { total: 3 } },
-};
+const TeamPerformanceGraph = ({ team, teamName, color }) => {
+  // Extract relevant stats
+  const shotsOnGoal = team?.find(stat => stat.type === "Shots on Goal")?.value || 0;
+  const shotsOffGoal = team?.find(stat => stat.type === "Shots off Goal")?.value || 0;
+  const possession = parseInt(team?.find(stat => stat.type === "Ball Possession")?.value) || 0;
+  const passesAccuracy = parseInt(team?.find(stat => stat.type === "Passes %")?.value) || 0;
 
-function Bar({ label, value, max = 100, color }) {
-  const maxBarWidth = 80;
-  const barWidth = Math.min((value / max) * maxBarWidth, maxBarWidth);
   return (
-    <div className="flex flex-col mb-0.5" style={{ fontSize: 9, lineHeight: 1 }}>
-      <div className="flex justify-between mb-0.5">
-        <span className="truncate text-[10px] uppercase font-semibold">{label}</span>
-        <span>{typeof value === "number" ? (label.includes("%") ? value.toFixed(0) + "%" : value) : value}</span>
-      </div>
-      <div
-        className="h-3 rounded bg-gray-700"
-        style={{ width: maxBarWidth, position: "relative" }}
-      >
-        <div
-          className="h-3 rounded"
-          style={{ width: barWidth, backgroundColor: color, transition: "width 0.3s ease" }}
-          title={`${label}: ${value}`}
-        />
+    <div className="flex flex-col p-2 border border-gray-700 rounded-lg mb-2">
+      <h3 className="text-center font-bold mb-2" style={{ color }}>{teamName}</h3>
+      
+      <div className="grid gap-3">
+        {/* Attack Effectiveness */}
+        <div>
+          <div className="flex justify-between text-xs mb-1">
+            <span>Attack Effectiveness</span>
+            <span>{shotsOnGoal} / {shotsOffGoal}</span>
+          </div>
+          <div className="flex h-4 bg-gray-700 rounded overflow-hidden">
+            <div 
+              className="bg-green-500" 
+              style={{ width: `${(shotsOnGoal / (shotsOnGoal + shotsOffGoal)) * 100}%` }}
+            />
+            <div 
+              className="bg-yellow-500" 
+              style={{ width: `${(shotsOffGoal / (shotsOnGoal + shotsOffGoal)) * 100}%` }}
+            />
+          </div>
+          <div className="flex justify-between text-xs mt-1">
+            <span>On Target</span>
+            <span>Off Target</span>
+          </div>
+        </div>
+
+        {/* Possession & Passing */}
+        <div>
+          <div className="flex justify-between text-xs mb-1">
+            <span>Possession & Passing</span>
+            <span>{possession}% / {passesAccuracy}%</span>
+          </div>
+          <div className="flex h-4 bg-gray-700 rounded overflow-hidden">
+            <div 
+              className="bg-blue-500" 
+              style={{ width: `${possession}%` }}
+            />
+            <div 
+              className="bg-purple-500" 
+              style={{ width: `${passesAccuracy - possession}%` }}
+            />
+          </div>
+          <div className="flex justify-between text-xs mt-1">
+            <span>Possession</span>
+            <span>Pass Accuracy</span>
+          </div>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default function CompactPerformanceCard() {
-  const wins = rawData.fixtures.wins.total;
-  const draws = rawData.fixtures.draws.total;
-  const loses = rawData.fixtures.loses.total;
-  const totalMatches = wins + draws + loses;
+  const { particulerMatch } = useContext(Context);
 
-  const goalsFor = rawData.goals.for.total.home + rawData.goals.for.total.away;
-  const goalsAgainst = rawData.goals.against.total.home + rawData.goals.against.total.away;
-  const goalDifference = goalsFor - goalsAgainst;
-
-  const cleanSheets = rawData.clean_sheet.home + rawData.clean_sheet.away;
-  const cleanSheetRate = ((cleanSheets / totalMatches) * 100).toFixed(0);
-
-  const penaltiesScored = rawData.penalty.scored.total;
-  const penaltiesMissed = rawData.penalty.missed.total;
-  const totalPenalties = penaltiesScored + penaltiesMissed;
-  const penaltySuccessRate = totalPenalties ? (penaltiesScored / totalPenalties) * 100 : 0;
-
-  const totalCards = rawData.cards.yellow.total + rawData.cards.red.total;
-  const cardRate = ((totalCards / totalMatches) * 100).toFixed(0);
-
-  const winRate =( (wins / totalMatches) * 100).toFixed(0);
+  // Extract statistics for both teams
+  const homeStats = particulerMatch?.statistics?.[0]?.statistics || [];
+  const awayStats = particulerMatch?.statistics?.[1]?.statistics || [];
+  const homeTeam = particulerMatch?.teams?.home?.name || "Home";
+  const awayTeam = particulerMatch?.teams?.away?.name || "Away";
 
   return (
-    <div
-      className="bg-[#111] w-full aspect-[16/6]  text-white rounded-lg border  border-purple-800 p-2 font-sans"
-
-    >
-      <div className="text-center font-bold mb-1 truncate" style={{ fontSize: 11, lineHeight: 1 }}>
-        Performance
-      </div>
-      <div className="grid grid-cols-2 gap-x-3 gap-y-1" style={{ maxHeight: 105 }}>
-        <Bar label="Win Rate" value={winRate} color="#22c55e" />
-        <Bar label="Goal Diff" value={goalDifference} max={Math.max(goalDifference, 20)} color="#f97316" />
-        <Bar label="Clean Sheets" value={cleanSheetRate} color="#3b82f6" />
-        <Bar label="Penalties %" value={penaltySuccessRate} color="#eab308" />
-        <Bar label="Cards per Match" value={cardRate} color="#ef4444" />
+    <div className="bg-[#111] text-white rounded-lg border border-purple-800 p-3">
+      <h2 className="text-center font-bold mb-3">Team Performance</h2>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <TeamPerformanceGraph 
+          team={homeStats} 
+          teamName={homeTeam} 
+          color="#3b82f6" 
+        />
+        <TeamPerformanceGraph 
+          team={awayStats} 
+          teamName={awayTeam} 
+          color="#ef4444" 
+        />
       </div>
     </div>
   );

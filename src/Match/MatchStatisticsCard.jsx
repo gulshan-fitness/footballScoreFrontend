@@ -78,7 +78,11 @@ export default function MatchStatisticsCard() {
   
 
   
-  console.log(particulerMatch?.statistics)
+const homeTeam =particulerMatch&&  particulerMatch?.statistics?.find(d=>d?.team?.id== particulerMatch?.teams?.home?.id ) 
+    
+    
+
+    const awayTeam =particulerMatch&& particulerMatch?.statistics?.find(d=>d?.team?.id== particulerMatch?.teams?.away?.id ) 
   
 
   return (
@@ -97,25 +101,25 @@ export default function MatchStatisticsCard() {
 
          <span>Statistics</span> 
            <img
-          src={particulerMatch?.statistics[0]?.team.logo}
-          alt={particulerMatch?.statistics[0]?.team.name}
+          src={homeTeam?.team.logo}
+          alt={homeTeam?.team.name}
           className="w-6 h-6 rounded"
-          title={particulerMatch?.statistics[0]?.team.name}
+          title={homeTeam?.team.name}
         />
         </span>
        
        
         <img
-          src={particulerMatch?.statistics[1]?.team.logo}
-          alt={particulerMatch?.statistics[1]?.team.name}
+          src={awayTeam?.team.logo}
+          alt={awayTeam?.team.name}
           className="w-6 h-6 rounded"
-          title={particulerMatch?.statistics[1]?.team.name}
+          title={awayTeam?.team.name}
         />
       </div>
 
       {/* Stats */}
       <div className="px-1">
-        {particulerMatch?.statistics[0]?.statistics?.map((stat, idx) => {
+        {homeTeam?.statistics?.map((stat, idx) => {
           // Filter to only 4 required stats
           const requiredStats = [
             "Ball Possession",      // Exact match
@@ -125,7 +129,7 @@ export default function MatchStatisticsCard() {
           ];
           if (!requiredStats?.includes(stat.type)) return null;
 
-          const rightStat = particulerMatch?.statistics[1]?.statistics.find((s) => s.type === stat.type);
+          const rightStat = awayTeam?.statistics.find((s) => s.type === stat.type);
           const rightValue = rightStat ? rightStat.value : "0%";
 
           return (

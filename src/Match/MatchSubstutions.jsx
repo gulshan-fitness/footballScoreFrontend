@@ -39,19 +39,16 @@ export default function MatchSubstutions({ homeTeam, awayTeam }) {
 
           {/* Substitutes */}
           <div className="flex flex-col gap-2 custom-scroll">
-            {substitutes.map(({ player }) => (
+            {substitutes?.map(({ player }) => (
               <div
                 key={player.id}
-                className={`flex items-center gap-2 px-1.5 rounded-md  hover:shadow-md transition-shadow cursor-pointer`}
+                className={`flex items-center gap-2  rounded-md  hover:shadow-md transition-shadow cursor-pointer`}
               >
                 
-            <p className='text-[11px] text-white font-semibold'>#{player.number} 
+            <p className='text-[10px] text-white font-semibold rounded-full px-1  border flex justify-center items-center'>
+          <span className='min-w-[11.119px] text-center'> {player.number}</span>    
 
-   <img
-                  src={player.photo}
-                  alt={player.name}
-                  className="w-5 h-5 sm:w-7 sm:h-7 rounded-full object-cover"
-                />
+
             </p>
              
 
@@ -80,8 +77,8 @@ export default function MatchSubstutions({ homeTeam, awayTeam }) {
         transition-all duration-500 ease-in-out border-purple-800 max-w-full mx-auto p-2 sm:p-4 gap-2 overflow-hidden">
 
         
-      {renderTeamSubs(homeTeam)}
-      {renderTeamSubs(awayTeam)}
+      {renderTeamSubs(homeTeam&&homeTeam)}
+      {renderTeamSubs(awayTeam&&awayTeam)}
     </div>
     </>
 

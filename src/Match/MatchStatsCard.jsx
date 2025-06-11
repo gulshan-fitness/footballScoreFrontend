@@ -85,8 +85,15 @@ export default function MatchStatsCard() {
 
   const{particulerMatch}=useContext(Context)
 
+const homeTeam =particulerMatch&&  particulerMatch?.statistics?.find(d=>d?.team?.id== particulerMatch?.teams?.home?.id ) 
+    
+    
 
-console.log(particulerMatch?.goals?.home,particulerMatch?.statistics[0]?.statistics?.find(d=>d?.type=="Shots on Goal")?.value);
+    const awayTeam =particulerMatch&& particulerMatch?.statistics?.find(d=>d?.team?.id== particulerMatch?.teams?.away?.id ) 
+
+
+
+
 
 
   return (
@@ -97,16 +104,16 @@ console.log(particulerMatch?.goals?.home,particulerMatch?.statistics[0]?.statist
              
                 key={""}
                 label={"Conversion Rate"}
-                leftValue={(particulerMatch?.goals?.home/particulerMatch?.statistics[0]?.statistics?.find(d=>d?.type=="Shots on Goal")?.value)*100}
-                rightValue={(particulerMatch?.goals?.away/particulerMatch?.statistics[1]?.statistics?.find(d=>d?.type=="Shots on Goal")?.value)*100}
+                leftValue={(particulerMatch?.goals?.home/homeTeam?.statistics?.find(d=>d?.type=="Shots on Goal")?.value)*100}
+                rightValue={(particulerMatch?.goals?.away/awayTeam?.statistics?.find(d=>d?.type=="Shots on Goal")?.value)*100}
 
               />
          
 
       {/* Stats Grid */}
       <div className="grid grid-cols-3 flex-wrap justify-between px-[2px] gap-2">
-        {particulerMatch?.statistics[0]?.statistics?.map((stat) => {
-          const right = particulerMatch?.statistics[1]?.statistics?.find((s) => s.type === stat.type);
+        {homeTeam?.statistics?.map((stat) => {
+          const right = awayTeam?.statistics?.find((s) => s.type === stat.type);
         
 const requiredStats = [
             "Corner Kicks",      
