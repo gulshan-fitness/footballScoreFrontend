@@ -45,6 +45,9 @@ import MatchH2H from "./Match/MatchH2H";
 import PlayerDetails from "./Player/PlayerDetails";
 import PlayerMatches from "./Player/PlayerMatches";
 import PlayerInfo from "./Player/PlayerInfo";
+import TeamDetails from "./TeamDetails/TeamDetails";
+import TeamOverview from "./TeamDetails/TeamOverview";
+import TeamMatches from "./TeamDetails/TeamMatches";
 
 function App() {
   const { setadmin, setadminToken, setuser, setusertoken, setIsScrolled , } =
@@ -181,7 +184,7 @@ function App() {
 
 
         {
-          path: "/player",
+          path: "/player/:id",
           element: <PlayerDetails />,
            children:[
   {
@@ -192,6 +195,25 @@ function App() {
           {
           path: "matches",
           element: <PlayerMatches />,
+        },
+
+          ]
+
+        },
+
+
+          {
+          path: "/team/:id/:season",
+          element: <TeamDetails />,
+           children:[
+  {
+          path: "overview",
+          element: <TeamOverview/>,
+        },
+
+          {
+          path: "matches",
+          element: <TeamMatches />,
         },
 
           ]

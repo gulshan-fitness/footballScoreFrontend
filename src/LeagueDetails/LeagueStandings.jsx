@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../Context_holder';
+import { Link, Links } from 'react-router-dom';
 
 export default function LeagueStandings() {
 
@@ -43,7 +44,8 @@ export default function LeagueStandings() {
                 <tr key={index} className="text-sm text-gray-300">
                   <td className="px-4 py-2 font-semibold text-white">{team?.rank}</td>
                   <td className="px-4 py-2">
-                    <div className="flex items-center">
+
+                    <Link to={`/team/${686}/${2023}/overview`} className="flex items-center">
                       <img
                         src={team?.team?.logo}
                         alt={team?.team?.name}
@@ -52,7 +54,8 @@ export default function LeagueStandings() {
                       <span className="text-xs sm:text-sm font-medium truncate">
                         {team?.team?.name}
                       </span>
-                    </div>
+                    </Link>
+
                   </td>
 
                   <td className="px-2 py-2 justify-center flex gap-1 text-white">
@@ -105,7 +108,8 @@ export default function LeagueStandings() {
                 <tr key={index} className="text-sm text-gray-300">
                   <td className="px-4 py-2 font-semibold text-white">{team?.rank}</td>
                   <td className="px-4 py-2">
-                    <div className="flex items-center">
+
+                    <Link to={`/team/${686}/${2023}/overview`} className="flex items-center">
                       <img
                         src={team?.team?.logo}
                         alt={team?.team?.name}
@@ -114,7 +118,8 @@ export default function LeagueStandings() {
                       <span className="text-xs sm:text-sm font-medium truncate">
                         {team?.team?.name}
                       </span>
-                    </div>
+                    </Link>
+                    
                   </td>
 
                   <>

@@ -90,8 +90,8 @@ const MatchHistoryCard = ({ match }) => {
 // ✅ Parent Component
 export default function MatchH2H() {
   const{MatchH2H,MatchH2HFetch,particulerMatch,Match}=useContext(Context)
-  const [activeTab, setActiveTab] = useState(particulerMatch?.teams?.home);
-  const [Tabs] = useState([particulerMatch?.teams?.home, particulerMatch?.teams?.away]);
+  const [activeTab, setActiveTab] = useState(null);
+  const [Tabs,setTabs] = useState(null);
 
   // GET https://v3.football.api-sports.io/fixtures?team=8653&last=3
 
@@ -139,12 +139,23 @@ export default function MatchH2H() {
       },
     },
   ];
+  useEffect(
+    ()=>{
+      particulerMatch&&
+setActiveTab(particulerMatch?.teams?.home)
+setTabs([particulerMatch?.teams?.home, particulerMatch?.teams?.away])
+    },
+    [particulerMatch]
+  )
 
+  console.log(activeTab);
+  
 
   useEffect(
     ()=>{
-
-MatchH2HFetch(`?team=${activeTab?._id}&season=${2023}`)
+    
+// activeTab&&
+// MatchH2HFetch(`?team=${activeTab?.id}&season=${2023}`)
 
     },[activeTab]
   )

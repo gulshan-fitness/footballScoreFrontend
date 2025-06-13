@@ -13,7 +13,7 @@ export default function MatchTabs() {
      
       const tabs = ["info", "summary", "stats", "line-ups","table","news","h2h"];
   return (
-      <div className="flex items-center gap-6 py-1 mb-6   thin-scrollbar border-purple-600 text-xs font-semibold overflow-x-auto">
+      <div className="flex items-center gap-5 py-1 mb-6 px-2   thin-scrollbar border-purple-600 text-xs font-semibold overflow-x-auto">
         {tabs?.map((tab) => (
           <Link
           to={`${tab}`}

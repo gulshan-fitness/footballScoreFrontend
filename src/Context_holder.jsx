@@ -29,6 +29,8 @@ export default function Context_holder(props) {
 
   const [LeagueDetailsActivetab, setLeagueDetailsActivetab] =
     useState("Overview");
+    const[TeamDetailsActivetab, setTeamDetailsActivetab]=
+    useState("Overview");
   const [matchDetailsActivetab, setmatchDetailsActivetab] = useState("info");
   const [PlayerDetailsActivetab, setPlayerDetailsActivetab] = useState("info");
 
@@ -37,6 +39,9 @@ export default function Context_holder(props) {
     const [MatchNews, setMatchNews] = useState([]);
     const [LeagueStandings, setLeagueStandings] = useState([]);
     const [MatchH2H, setMatchH2H] = useState([]);
+     const [PlayerDetails, setPlayerDetails] = useState(null);
+     const [TeamMatches, setTeamMatches] = useState([]);
+     const[TeamUpcomingMatches,setTeamUpcomingMatches]= useState([]);
   const [UpcomingMatches, setUpcomingMatches] = useState([]);
   const [LeagueDetails, setLeagueDetails] = useState(null);
 
@@ -224,6 +229,64 @@ export default function Context_holder(props) {
   }
 
 
+
+           const PlayerFetch = (query) => {
+
+
+    let api = `${import.meta.env.VITE_API_BASE_URL}${
+      import.meta.env.VITE_MATCHES_URL
+    }playerDetailsread`;
+
+    if (query) {
+      api += `${query}`;
+    }
+
+    axios
+      .get(api)
+
+      .then((success) => {
+        if (success.data.status == 1) {
+         setPlayerDetails(success.data.player);
+
+        }
+      })
+
+      .catch((error) => {});
+  }
+
+
+            const TeamMatchesFetch = (query) => {
+const params= new URLSearchParams(query.replace("?",""))
+
+    let api = `${import.meta.env.VITE_API_BASE_URL}${
+      import.meta.env.VITE_MATCHES_URL
+    }PerticulerTeamMatchesRead`;
+
+    if (query) {
+      api += `${query}`;
+    }
+
+    axios
+      .get(api)
+
+      .then((success) => {
+        if (success.data.status == 1) {
+if(params.has("status")) setTeamUpcomingMatches(success.data.matches)
+
+        else setTeamMatches(success.data.matches);
+
+        }
+      })
+
+      .catch((error) => {});
+  }
+
+
+  
+
+
+  
+
   
   
 
@@ -363,7 +426,7 @@ export default function Context_holder(props) {
         MatchesFetch,
         LeagueDetails,
         setLeagueDetails,
-        getStandingsByTab,LeagueStandings, setLeagueStandings,StandingsFetch,ParticularMatchFetch,particulerMatch, setparticulerMatch,MatchNews, setMatchNews,MatchNewsFetch,MatchH2H, setMatchH2H,MatchH2HFetch
+        getStandingsByTab,LeagueStandings, setLeagueStandings,StandingsFetch,ParticularMatchFetch,particulerMatch, setparticulerMatch,MatchNews, setMatchNews,MatchNewsFetch,MatchH2H, setMatchH2H,MatchH2HFetch,PlayerFetch,PlayerDetails, setPlayerDetails,TeamMatches,TeamMatchesFetch,TeamDetailsActivetab, setTeamDetailsActivetab,TeamUpcomingMatches,setTeamUpcomingMatches
       }}
     >
       {props.children}

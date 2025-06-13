@@ -16,6 +16,7 @@ export default function LeagueOverview() {
 
   
   const {id,season}=useParams()
+
   return (
     <div>
       {/* Fixtures Section */}
@@ -92,14 +93,14 @@ export default function LeagueOverview() {
                 <tr key={index} className="text-sm text-gray-300">
                   <td className="px-4 py-2 font-semibold text-white">{team?.rank}</td>
                   <td className="px-4 py-2">
-                    <div className="flex items-center">
+                    <Link to={`/team/${686}/${2023}/overview`} className="flex items-center">
                       <img
                         src={team?.team?.logo}
                         alt={team?.team?.name}
                         className="h-5 w-5 sm:h-6 sm:w-6 mr-2"
                       />
                       <span className="text-xs sm:text-sm font-medium truncate">{team?.team?.name}</span>
-                    </div>
+                    </Link>
                   </td>
                   <>
                     <td className="px-2 py-2 text-center">{team?.played}</td>

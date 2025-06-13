@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default function MatchSubstutions({ homeTeam, awayTeam }) {
+
   const renderTeamSubs = (team) => {
     const {
       team: { name, logo, colors },
@@ -27,13 +28,13 @@ export default function MatchSubstutions({ homeTeam, awayTeam }) {
           <div className="flex items-center mb-3 gap-2">
 
             <img
-              src={coach.photo}
-              alt={coach.name}
+              src={coach?.photo}
+              alt={coach?.name}
               className="w-5 h-5 sm:w-7 sm:h-7 rounded-full object-cover"
             />
             <div className="overflow-hidden">
               <div className="text-[10px] sm:text-xs  text-purple-500">Coach</div>
-              <div className="text-white text-xs sm:text-sm truncate">{coach.name}</div>
+              <div className="text-white text-xs sm:text-sm truncate">{coach?.name}</div>
             </div>
           </div>
 
@@ -41,12 +42,12 @@ export default function MatchSubstutions({ homeTeam, awayTeam }) {
           <div className="flex flex-col gap-2 custom-scroll">
             {substitutes?.map(({ player }) => (
               <div
-                key={player.id}
+                key={player?.id}
                 className={`flex items-center gap-2  rounded-md  hover:shadow-md transition-shadow cursor-pointer`}
               >
                 
             <p className='text-[10px] text-white font-semibold rounded-full px-1  border flex justify-center items-center'>
-          <span className='min-w-[11.119px] text-center'> {player.number}</span>    
+          <span className='min-w-[11.119px] text-center'> {player?.number}</span>    
 
 
             </p>
@@ -54,12 +55,12 @@ export default function MatchSubstutions({ homeTeam, awayTeam }) {
 
                 <div className="overflow-hidden">
                   <div
-                    className={` text-${colors.player.primary}-700  text-[11px] sm:text-xs truncate`}
+                    className={` text-${colors?.player?.primary}-700  text-[11px] sm:text-xs truncate`}
                   >
-                    {player.name}
+                    {player?.name}
                   </div>
                   <div className="text-[10px] text-gray-400 font-medium">
-                    Pos: {player.pos}
+                    Pos: {player?.pos}
                   </div>
                 </div>
               </div>
@@ -74,9 +75,7 @@ export default function MatchSubstutions({ homeTeam, awayTeam }) {
     <>
     <p className='uppercase text-xs font-bold text-white my-3'>Substitute players</p>
         <div className="flex w-full border rounded-lg    hover:shadow-[0_0_40px_rgba(128,0,255,0.4)]
-        transition-all duration-500 ease-in-out border-purple-800 max-w-full mx-auto p-2 sm:p-4 gap-2 overflow-hidden">
-
-        
+        transition-all duration-500 ease-in-out border-purple-800 max-w-full mx-auto p-2 sm:p-4 gap-2 overflow-hidden">  
       {renderTeamSubs(homeTeam&&homeTeam)}
       {renderTeamSubs(awayTeam&&awayTeam)}
     </div>

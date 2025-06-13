@@ -105,7 +105,7 @@ export default function MatchDetails() {
   
   useEffect(
     ()=>{
-ParticularMatchFetch(`?id=${id}`)
+// ParticularMatchFetch(`?id=${id}`)
     },[]
   )
 
@@ -183,7 +183,7 @@ console.log(particulerMatch);
 
   
  
-<div className=' flex justify-between gap-2 items-center'>
+<div className=' flex justify-between gap-2 items-center mb-3'>
   <div className="flex flex-col  items-center text-center">
           <img src={particulerMatch?.teams?.home?.logo} alt={particulerMatch?.teams?.home?.name} className="h-6 md:h-10" />
           <span className="text-white text-xs  truncate">{particulerMatch?.teams?.home?.name}</span>

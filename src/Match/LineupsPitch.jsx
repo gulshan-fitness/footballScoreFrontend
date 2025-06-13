@@ -4,7 +4,7 @@
 
 import React, { useContext } from "react";
 import PitchUi from "./PicthUi";
-  import { FaArrowUp, FaFutbol } from 'react-icons/fa';
+
 import MatchSubstutions from "./MatchSubstutions";
 import { Context } from "../Context_holder";
 
@@ -138,7 +138,7 @@ const awayplayers = {
 
       </div>
 
-<MatchSubstutions homeTeam={homeTeam} awayTeam={awayTeam} />
+<MatchSubstutions homeTeam={homeTeam??null} awayTeam={awayTeam??null} />
 
       
 

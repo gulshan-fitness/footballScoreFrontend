@@ -19,7 +19,7 @@ export default function FixtureCard({ match }) {
   return (
     <Link to={`/matchdetails/${match?.fixture?.id}/info`}
 
-      className="bg-gradient-to-br  from-[#1c1f28]/70 to-[#0a0c14]/90 rounded-xl px-4 py-3 flex justify-between items-center border border-purple-800 shadow-lg hover:shadow-[0_0_20px_rgba(128,0,255,0.7)]
+      className="bg-gradient-to-br  my-2 from-[#1c1f28]/70 to-[#0a0c14]/90 rounded-xl px-4 py-3 flex justify-between items-center border border-purple-800 shadow-lg hover:shadow-[0_0_20px_rgba(128,0,255,0.7)]
         transition-shadow duration-500 cursor-pointer"
     >
       <div className="flex items-center gap-1">

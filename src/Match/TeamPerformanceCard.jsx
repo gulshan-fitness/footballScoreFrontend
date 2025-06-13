@@ -1,61 +1,62 @@
 import React, { useContext } from "react";
 import { Context } from "../Context_holder";
 
-const TeamPerformanceGraph = ({ team, teamName, color }) => {
-  // Extract relevant stats
-  const shotsOnGoal = team?.find(stat => stat.type === "Shots on Goal")?.value || 0;
-  const shotsOffGoal = team?.find(stat => stat.type === "Shots off Goal")?.value || 0;
-  const possession = parseInt(team?.find(stat => stat.type === "Ball Possession")?.value) || 0;
-  const passesAccuracy = parseInt(team?.find(stat => stat.type === "Passes %")?.value) || 0;
+const MiniBar = ({ value, max, color, label, showValue = true }) => {
+  const width = Math.min((value / max) * 60, 60);
+  return (
+    <div className="flex items-center w-full max-h-[20px]">
+      {showValue && (
+        <span className="text-[8px]  text-right mr-0.5">{value}</span>
+      )}
+      <div className="h-2 bg-gray-700 rounded-sm w-full" >
+        <div
+          className="h-2 rounded-sm w-[80%]"
+          style={{ backgroundColor: color }}
+        />
+      </div>
+      <span className="text-[7px] ml-0.5 uppercase">{label}</span>
+    </div>
+  );
+};
+
+const TeamPerformance = ({ team, teamName, color }) => {
+  const stats = {
+    shotsOn: parseInt(team?.find(s => s.type === "Shots on Goal")?.value) || 0,
+    shotsOff: parseInt(team?.find(s => s.type === "Shots off Goal")?.value) || 0,
+    possession: parseInt(team?.find(s => s.type === "Ball Possession")?.value) || 0,
+    passes: parseInt(team?.find(s => s.type === "Passes accurate")?.value) || 0
+  };
+
+  const maxShots = Math.max(stats.shotsOn + stats.shotsOff, 10);
+  const maxPass = Math.max(stats.passes, 200);
 
   return (
-    <div className="flex flex-col p-2 border border-gray-700 rounded-lg mb-2">
-      <h3 className="text-center font-bold mb-2" style={{ color }}>{teamName}</h3>
+    <div className="flex flex-col w-full" >
+      <div className="text-[9px] font-bold mb-0.5 max-h-[15px] truncate" style={{ color }}>
+        {teamName}
+      </div>
       
-      <div className="grid gap-3">
-        {/* Attack Effectiveness */}
-        <div>
-          <div className="flex justify-between text-xs mb-1">
-            <span>Attack Effectiveness</span>
-            <span>{shotsOnGoal} / {shotsOffGoal}</span>
-          </div>
-          <div className="flex h-4 bg-gray-700 rounded overflow-hidden">
-            <div 
-              className="bg-green-500" 
-              style={{ width: `${(shotsOnGoal / (shotsOnGoal + shotsOffGoal)) * 100}%` }}
-            />
-            <div 
-              className="bg-yellow-500" 
-              style={{ width: `${(shotsOffGoal / (shotsOnGoal + shotsOffGoal)) * 100}%` }}
-            />
-          </div>
-          <div className="flex justify-between text-xs mt-1">
-            <span>On Target</span>
-            <span>Off Target</span>
-          </div>
-        </div>
-
-        {/* Possession & Passing */}
-        <div>
-          <div className="flex justify-between text-xs mb-1">
-            <span>Possession & Passing</span>
-            <span>{possession}% / {passesAccuracy}%</span>
-          </div>
-          <div className="flex h-4 bg-gray-700 rounded overflow-hidden">
-            <div 
-              className="bg-blue-500" 
-              style={{ width: `${possession}%` }}
-            />
-            <div 
-              className="bg-purple-500" 
-              style={{ width: `${passesAccuracy - possession}%` }}
-            />
-          </div>
-          <div className="flex justify-between text-xs mt-1">
-            <span>Possession</span>
-            <span>Pass Accuracy</span>
-          </div>
-        </div>
+      {/* Attack Graph */}
+      <div className="mb-1">
+        <MiniBar value={stats.shotsOn} max={maxShots} color="#4ade80" label="On" />
+        <MiniBar value={stats.shotsOff} max={maxShots} color="#fbbf24" label="Off" />
+      </div>
+      
+      {/* Possession Graph */}
+      <div>
+        <MiniBar 
+          value={stats.possession} 
+          max={100} 
+          color="#60a5fa" 
+          label="Poss%" 
+          showValue={false}
+        />
+        <MiniBar 
+          value={stats.passes} 
+          max={maxPass} 
+          color="#a78bfa" 
+          label="Pass" 
+        />
       </div>
     </div>
   );
@@ -63,27 +64,29 @@ const TeamPerformanceGraph = ({ team, teamName, color }) => {
 
 export default function CompactPerformanceCard() {
   const { particulerMatch } = useContext(Context);
-
-  // Extract statistics for both teams
   const homeStats = particulerMatch?.statistics?.[0]?.statistics || [];
   const awayStats = particulerMatch?.statistics?.[1]?.statistics || [];
-  const homeTeam = particulerMatch?.teams?.home?.name || "Home";
-  const awayTeam = particulerMatch?.teams?.away?.name || "Away";
+  const homeTeam = particulerMatch?.teams?.home?.name?.substring(0, 9) || "HOME";
+  const awayTeam = particulerMatch?.teams?.away?.name?.substring(0, 9) || "AWAY";
 
   return (
-    <div className="bg-[#111] text-white rounded-lg border border-purple-800 p-3">
-      <h2 className="text-center font-bold mb-3">Team Performance</h2>
+    <div 
+      className="bg-[#111] text-[6px]  text-white rounded-md border border-purple-800 p-1 flex flex-col"
+   
+    >
+      <div className="text-[8px] font-bold text-center max-h-[18px] tracking-tighter"> PERFORMANCE</div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <TeamPerformanceGraph 
+      <div className="flex justify-between px-1">
+        <TeamPerformance 
           team={homeStats} 
           teamName={homeTeam} 
-          color="#3b82f6" 
+          color="#60a5fa" 
         />
-        <TeamPerformanceGraph 
+        <div className="border-r border-gray-600 mx-0.5"></div>
+        <TeamPerformance 
           team={awayStats} 
           teamName={awayTeam} 
-          color="#ef4444" 
+          color="#f87171" 
         />
       </div>
     </div>

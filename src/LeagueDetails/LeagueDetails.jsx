@@ -24,7 +24,7 @@ export default function LeagueDetails() {
    useEffect(
     ()=>{
 
-MatchesFetch(`?league=${203}&season=${2023}`)
+// MatchesFetch(`?league=${203}&season=${2023}`)
 // MatchesFetch(`?league=${203}&season=${2023}&next=${100}`)
 // StandingsFetch(`?league=${203}&season=${2023}`)
 

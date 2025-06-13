@@ -49,7 +49,7 @@ const StatBar=({ label, leftValue, rightValue }) =>{
       {/* Left team bar */}
       <div className="flex items-center flex-1 gap-1">
         <div
-          className="bg-red-600 h-1 rounded"
+          className="bg-red-600 h-2 rounded-sm"
           style={{ width: `${(leftNum / 100)*maxBarWidth+5}px` }}
           title={`${leftValue} - ${label}`}
         />
@@ -62,8 +62,8 @@ const StatBar=({ label, leftValue, rightValue }) =>{
       <div className="flex items-center flex-1 gap-1 justify-end">
         <span className="text-[8px] w-4 text-left">{rightValue}</span>
         <div
-          className="bg-blue-600 h-1 rounded"
-          style={{ width: `${(rightNum / 100) * maxBarWidth+5}px` }}
+          className="bg-blue-600 h-2 rounded-sm"
+          style={{ width: `${(rightNum/100) * maxBarWidth+5}px` }}
           title={`${rightValue} - ${label}`}
         />
       </div>

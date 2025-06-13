@@ -68,7 +68,7 @@ export default function MatchEndedCard() {
 
       {/* Halftime Score */}
       {halftime?.home !== null && halftime?.away !== null && (
-        <div className="text-center text-gray-300 text-[9px] sm:text-[10px]">
+        <div className="text-center text-gray-300 text-[9px]  sm:text-[10px]" style={{margin:"0px"}}>
           HT <span className="font-semibold">
             {halftime?.home}<span className="mx-0.5">:</span>{halftime?.away}
           </span>
@@ -77,7 +77,7 @@ export default function MatchEndedCard() {
 
       {/* Fulltime Score (only if different from displayed score) */}
       {hasExtraTime && (
-        <div className="text-center text-gray-300 text-[9px] sm:text-[10px]">
+        <div className="text-center text-gray-300 text-[9px]  m-0  sm:text-[10px]">
           FT <span className="font-semibold">
             {fulltime?.home}<span className="mx-0.5">:</span>{fulltime?.away}
           </span>
