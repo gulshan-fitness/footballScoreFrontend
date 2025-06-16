@@ -93,7 +93,7 @@ export default function LeagueOverview() {
                 <tr key={index} className="text-sm text-gray-300">
                   <td className="px-4 py-2 font-semibold text-white">{team?.rank}</td>
                   <td className="px-4 py-2">
-                    <Link to={`/team/${686}/${2023}/overview`} className="flex items-center">
+                    <Link to={`/team/${id}/${season}/overview`} className="flex items-center">
                       <img
                         src={team?.team?.logo}
                         alt={team?.team?.name}

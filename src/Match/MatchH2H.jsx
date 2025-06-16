@@ -154,8 +154,8 @@ setTabs([particulerMatch?.teams?.home, particulerMatch?.teams?.away])
   useEffect(
     ()=>{
     
-// activeTab&&
-// MatchH2HFetch(`?team=${activeTab?.id}&season=${2023}`)
+activeTab&&
+MatchH2HFetch(`?team=${activeTab?.id}&season=${2023}`)
 
     },[activeTab]
   )

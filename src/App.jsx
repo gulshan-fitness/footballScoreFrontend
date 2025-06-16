@@ -48,6 +48,8 @@ import PlayerInfo from "./Player/PlayerInfo";
 import TeamDetails from "./TeamDetails/TeamDetails";
 import TeamOverview from "./TeamDetails/TeamOverview";
 import TeamMatches from "./TeamDetails/TeamMatches";
+import TeamTable from "./TeamDetails/TeamTable";
+import PlayersStats from "./TeamDetails/PlayersStats";
 
 function App() {
   const { setadmin, setadminToken, setuser, setusertoken, setIsScrolled , } =
@@ -104,6 +106,7 @@ function App() {
       element: <Home />,
 
       children: [
+
         {
           path: "",
           element: <FootballScores />,
@@ -137,7 +140,7 @@ function App() {
 
 
            {
-          path: "matchdetails/:id",
+          path: "matchdetails/:id/:season",
           element: <MatchDetails />,
           
           children:[
@@ -184,7 +187,7 @@ function App() {
 
 
         {
-          path: "/player/:id",
+          path: "/player/:id/:season",
           element: <PlayerDetails />,
            children:[
   {
@@ -214,6 +217,15 @@ function App() {
           {
           path: "matches",
           element: <TeamMatches />,
+        },
+
+            {
+          path: "tables",
+          element: <TeamTable />,
+        },
+              {
+          path: "playerstats",
+          element: <PlayersStats />,
         },
 
           ]

@@ -7,7 +7,7 @@ import {
   FaClock,
 } from "react-icons/fa";
 import { Context } from "../Context_holder";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 // GET https://v3.football.api-sports.io/fixtures/events?fixture={MATCH_ID}
 
@@ -121,6 +121,7 @@ const getEventIcon=(event)=> {
 export default function MatchEvents() {
 
   const{ particulerMatch}=useContext(Context)
+  const{season}=useParams()
 
   return (
 
@@ -154,12 +155,12 @@ export default function MatchEvents() {
                 />
               )}
 
-              <Link to={`/player/${event?.player?.id}/info`} className="text-[11px] font-medium text-white">
+              <Link to={`/player/${event?.player?.id}/${season}/info`} className="text-[11px] font-medium text-white">
                 {event?.player?.name ?? event?.detail}
               </Link>
 
               {event?.type === "Goal" && event?.assist?.name && (
-                <Link to={`/player/${event?.assist?.id}/info`} className="ml-1 text-[10px] text-purple-300">
+                <Link to={`/player/${event?.assist?.id}/${season}/info`} className="ml-1 text-[10px] text-purple-300">
                   (Assist: {event?.assist.name})
                 </Link>
               )}

@@ -1,26 +1,32 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../Context_holder';
+import { Link, useParams } from 'react-router-dom';
 
 export default function TeamMatches() {
 
-  const{TeamMatches,TeamMatchesFetch}=useContext(Context)
+
+  const{TeamMatches,TeamMatchesFetch,PlayerDetails,TeamUpcomingMatches}=useContext(Context)
 
       const [activeTab, setActiveTab] = useState('results');
       
      const [Tabs] = useState(["results", "fixtures", ]);
 
+     const{id, season }=useParams()
 
 
 
-//   useEffect(
-//     ()=>{
-// activeTab=="results"?
-//       TeamMatchesFetch(`?team=${686}&season=${2023}`)
-//       :
-//       TeamMatchesFetch(`?team=${686}&season=${2023}&status=NS`)
 
-//     },[activeTab]
-//   )
+  useEffect(
+    ()=>{
+
+activeTab=="results"?
+
+      TeamMatchesFetch(`?team=${PlayerDetails?.statistics[0]?.team?.id}&season=${season}`)
+      :
+      TeamMatchesFetch(`?team=${PlayerDetails?.statistics[0]?.team?.id}&season=${season}&status=NS`)
+
+    },[activeTab]
+  )
 
 
   return (
@@ -45,7 +51,7 @@ export default function TeamMatches() {
       </div>
 
       <div className="space-y-2">
-        {TeamMatches?.map((match) => {
+        { (activeTab=="results"?TeamMatches:TeamUpcomingMatches)?.map((match) => {
           const { fixture, league, teams, goals } = match;
           const matchDate = new Date(fixture.date).toLocaleString("en-GB", {
             day: "numeric",
@@ -57,7 +63,7 @@ export default function TeamMatches() {
 
           return (
 
-            <div
+            <Link to={`/team/${fixture.id}/${season}/overview`}
               key={fixture.id}
               className="flex flex-col sm:flex-row items-center justify-between p-4 rounded-lg shadow hover:shadow-[0_0_40px_rgba(128,0,255,0.4)] transition-all duration-500 ease-in-out border-purple-800 border space-y-2 sm:space-y-0"
             >
@@ -68,9 +74,9 @@ export default function TeamMatches() {
                   <img
                     src={teams.home.logo}
                     alt={teams.home.name}
-                    className="w-8 h-8 sm:w-10 sm:h-10 mx-auto"
+                    className="w-6 h-6 sm:w-10 sm:h-10 mx-auto"
                   />
-                  <p className="text-xs sm:text-sm font-semibold">{teams.home.name}</p>
+                  <p className="text-xs sm:text-sm font-semibold text-center">{teams.home.name}</p>
                 </div>
 
                 {/* Score */}
@@ -86,9 +92,9 @@ export default function TeamMatches() {
                   <img
                     src={teams.away.logo}
                     alt={teams.away.name}
-                    className="w-8 h-8 sm:w-10 sm:h-10 mx-auto"
+                    className="w-6 h-6 sm:w-10 sm:h-10 mx-auto"
                   />
-                  <p className="text-xs sm:text-sm font-semibold">{teams.away.name}</p>
+                  <p className="text-xs sm:text-sm font-semibold text-center">{teams.away.name}</p>
                 </div>
               </div>
 
@@ -104,7 +110,7 @@ export default function TeamMatches() {
               </div>
 
               
-            </div>
+            </Link>
           );
         })}
       </div>

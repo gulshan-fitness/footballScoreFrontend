@@ -7,7 +7,7 @@ import { Context } from '../Context_holder'
 export default function TeamDetails() {
     const{ TeamMatches,TeamMatchesFetch,setTeamDetailsActivetab}=useContext(Context)
 
-    const{id}=useParams(686)
+    const{id,season}=useParams()
    
     
 
@@ -135,15 +135,15 @@ export default function TeamDetails() {
 ];
 
 
-    //   useEffect(
-//     ()=>{
+      useEffect(
+    ()=>{
 
-//       TeamMatchesFetch(`?team=${id}&season=${2023}`)
+      TeamMatchesFetch(`?team=${id}&season=${season}`)
 
-//       TeamMatchesFetch(`?team=${id}&season=${2023}&status=NS`)
+      TeamMatchesFetch(`?team=${id}&season=${season}&status=NS`)
 
-//     },[]
-//   )
+    },[]
+  )
 
 
    const location = useLocation();

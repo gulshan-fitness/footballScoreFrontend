@@ -55,23 +55,23 @@ export default function VenueDetailsCard() {
     useEffect(
       ()=>{
 
-// axios.get(`https://v3.football.api-sports.io/venues?id=${particulerMatch?.fixture?.venue?.id}`,
-//  { headers:{
-//               "x-apisports-key": import.meta.env.VITE_FOOTBALL_API_KEY,
-//             }}
+axios.get(`https://v3.football.api-sports.io/venues?id=${particulerMatch?.fixture?.venue?.id}`,
+ { headers:{
+              "x-apisports-key": import.meta.env.VITE_FOOTBALL_API_KEY,
+            }}
 
-// ).then(
-//   (success)=>{
-//     success?.data?.response?.length!=0 && setvanueDetails(success?.data?.response[0])
+).then(
+  (success)=>{
+    success?.data?.response?.length!=0 && setvanueDetails(success?.data?.response[0])
 
-//   }
-// )
-// .catch(
-//   (error)=>{
-// console.log(error);
+  }
+)
+.catch(
+  (error)=>{
+console.log(error);
 
-//   }
-// )
+  }
+)
       },[particulerMatch]
     )
 
@@ -90,13 +90,18 @@ aspect-[16/6]
       "
       
     >
-      {/* Header */}
+
+
+    
+
+<section>
+    {/* Header */}
       <div className="flex items-center justify-center gap-1 mb-3 text-[10px] sm:text-[11px] md:text-[12px] lg:text-[13px]">
      
         <p className="font-semibold text-white truncate max-w-[100px]">
-          {particulerMatch?.fixture?.venue?.name}
+          {particulerMatch?.fixture?.venue?.name??"NA"}
         </p>
-        <span className="text-gray-400 truncate ml-1">{particulerMatch?.fixture?.venue?.city}</span>
+        <span className="text-gray-400 truncate ml-1">{particulerMatch?.fixture?.venue?.city??"NA"}</span>
       </div>
 
   
@@ -110,7 +115,7 @@ aspect-[16/6]
           <img src="/image/stadium.svg" className="w-4" alt="" />
           <span className="text-gray-400 truncate">capacity</span>
         </div>
-        <span className="col-span-2 text-right text-white truncate">{vanueDetails?.capacity}</span>
+        <span className="col-span-2 text-right text-white truncate">{vanueDetails?.capacity??"NA"}</span>
 
    </div>
 
@@ -120,12 +125,16 @@ aspect-[16/6]
            <FootballPitchIcon size={18} color="white" />
           <span className="text-gray-400 truncate">Pitch</span>
         </div>
-        <span className="col-span-2 text-right text-white truncate">{vanueDetails?.surface}</span>
+        <span className="col-span-2 text-right text-white truncate">{vanueDetails?.surface??"NA"}</span>
 
  </div>
 
        
       </div>
+
+</section>
+
+    
 
    
     </div>

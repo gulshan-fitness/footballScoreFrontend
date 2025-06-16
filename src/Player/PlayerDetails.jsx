@@ -18,13 +18,16 @@ export default function PlayerDetails() {
  
 
 
-  const{id}=useParams()
+  const{id,season}=useParams()
 
 
   useEffect(
     ()=>{
-      // PlayerFetch(`?id=${id}&season=${2023}`)
-      //  PlayerFetch(`?player=${id}&season=${2023}`)
+      if (id &&season) 
+
+      PlayerFetch(`?id=${id}&season=${season}`)
+
+      
     },
     []
   )
@@ -42,9 +45,7 @@ export default function PlayerDetails() {
      
     useEffect(() => {
   
-      if (location?.pathname) {
-       
-     
+      if (location?.pathname) { 
         setPlayerDetailsActivetab(location.pathname.split('/').filter(Boolean).pop());
       }
 

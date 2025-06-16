@@ -6,6 +6,8 @@ import { Context } from '../Context_holder';
 
 export default function FootballMatchCard({ league, fixtures }) {
     const{setLeagueDetails}=useContext(Context)
+   
+    
 
   return (
     <section className="">
@@ -38,7 +40,7 @@ export default function FootballMatchCard({ league, fixtures }) {
           const matchDate = new Date(fixture?.date);
 
           return (
-            <article
+            <Link to={`/matchdetails/${fixture?.id }/${league?.season}/info`}
               key={fixture?.id || index}
               className="flex justify-between items-center bg-gradient-to-tr from-[#1c1f28]/70 to-[#0a0c14]/90
               backdrop-blur-md border border-purple-800 rounded-xl py-2 px-3 sm:py-3 sm:px-4 shadow-md hover:shadow-[0_0_12px_rgba(128,0,255,0.6)]
@@ -93,7 +95,7 @@ export default function FootballMatchCard({ league, fixtures }) {
                 </div>
                 <FaRegStar className={`${isUpcoming ? "text-white" : "text-purple-400"} text-sm cursor-pointer`} />
               </div>
-            </article>
+            </Link>
           );
         })}
       </div>

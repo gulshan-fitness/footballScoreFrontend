@@ -154,7 +154,8 @@ console.log(nextMatch,);
   return (
     <div>
       <h2 className='uppercase text-[10px] font-semibold mb-2'>Next Match</h2>
- <div
+      
+ <Link to={`/matchdetails/${nextMatch?.fixture?.id }/${season}/info`}
   key={nextMatch?.fixture?.id}
   className="flex items-center justify-between px-3  py-2 rounded-lg border border-purple-800 shadow-md hover:shadow-[0_0_30px_rgba(128,0,255,0.3)] transition-all duration-300 space-x-3 sm:space-x-5 "
 >
@@ -189,7 +190,7 @@ console.log(nextMatch,);
       {nextMatch?.teams?.away?.name}
     </p>
   </div>
-</div>
+</Link>
 
 
 

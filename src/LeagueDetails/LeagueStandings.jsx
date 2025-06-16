@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../Context_holder';
-import { Link, Links } from 'react-router-dom';
+import { Link, Links, useParams } from 'react-router-dom';
 
 export default function LeagueStandings() {
 
@@ -8,6 +8,7 @@ export default function LeagueStandings() {
   
   const [activeTab, setActiveTab] = useState('all');
   const [Tabs] = useState(["all", "home", "away", "form"]);
+  const{id,season}=useParams()
 
   return (
     <div className="rounded-lg px-3 py-4 shadow-md bg-gradient-to-b from-[#0B0C10] via-[#1F2833] to-[#000000]">
@@ -45,7 +46,7 @@ export default function LeagueStandings() {
                   <td className="px-4 py-2 font-semibold text-white">{team?.rank}</td>
                   <td className="px-4 py-2">
 
-                    <Link to={`/team/${686}/${2023}/overview`} className="flex items-center">
+                    <Link to={`/team/${id}/${season}/overview`} className="flex items-center">
                       <img
                         src={team?.team?.logo}
                         alt={team?.team?.name}
@@ -109,7 +110,7 @@ export default function LeagueStandings() {
                   <td className="px-4 py-2 font-semibold text-white">{team?.rank}</td>
                   <td className="px-4 py-2">
 
-                    <Link to={`/team/${686}/${2023}/overview`} className="flex items-center">
+                    <Link to={`/team/${id}/${season}/overview`} className="flex items-center">
                       <img
                         src={team?.team?.logo}
                         alt={team?.team?.name}

@@ -7,6 +7,7 @@ import { IoCalendarClearOutline } from "react-icons/io5";
 import { Context } from "../Context_holder";
 import { useSearchParams } from "react-router-dom";
 import FootballMatchCard from "./FootballMatchCard";
+import Sidebar from "./Sidebar";
 
 
 
@@ -234,20 +235,21 @@ const [page, setPage] = useState(1);
     )
 
     
-    useEffect(
-      ()=>{
-        const query={}
-        
-       LiveQuery? query.live="all":query.date=Querydate&&Querydate
+useEffect(() => {
+  const query = {};
 
-      Object.keys(query).length!=0&& setSearchParams(query)
+  if (LiveQuery) {
+    query.live = "all";
+  } else if (Querydate) {
+    query.date = Querydate;
+  }
 
-   MatchesFetch(window.location.search.toString())
+  if (Object.keys(query).length !== 0) {
+    setSearchParams(query);
+    MatchesFetch(`?${new URLSearchParams(query).toString()}`);
+  }
 
-      },
-
-      [Querydate,LiveQuery]
-    )
+}, [Querydate, LiveQuery]);
 
 console.log(Matches?.length);
 
@@ -272,7 +274,18 @@ const visibleMatches = Matches?.slice(0, PAGE_SIZE * page);
 
   return (
     <div className="bg-gradient-to-b from-[#0B0C10] via-[#1F2833] to-[#000000] text-gray-300 min-h-screen py-4 sm:py-6 md:py-10 px-4 font-sans selection:bg-purple-700 selection:text-white">
-      {/* Header */}
+
+{/* dividetion */}
+<section className=" grid grid-cols-4 gap-4">
+  
+{/* Left Section */}
+<div className="md:col-span-1 md:block hidden ">
+ <Sidebar/>
+</div>
+
+{/* right Section */}
+<div className="md:col-span-3 col-span-4">
+  {/* Header */}
       <header className="flex items-center gap-1 justify-between max-w-5xl mx-auto mb-8 ">
 
 <div className="flex gap-6 sm:gap-3 items-center">
@@ -383,6 +396,13 @@ const visibleMatches = Matches?.slice(0, PAGE_SIZE * page);
     )}
       </main>
 
+
+</div>
+
+</section>
+
+
+      
    
 
 

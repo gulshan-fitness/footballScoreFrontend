@@ -12,37 +12,39 @@ import {
   FaPenNib,
 } from "react-icons/fa";
 import { Context } from '../Context_holder';
-
+import { Link, useParams } from 'react-router-dom';
 
 export default function PlayerInfo() {
   const { PlayerDetails } = useContext(Context);
   const stats = PlayerDetails?.statistics?.[0];
+  const{season}=useParams()
 
   return (
     <>
       {/* Team and League */}
-      <div className="mt-3 text-white border rounded-xl p-4 hover:shadow-[0_0_40px_rgba(128,0,255,0.4)] transition-all duration-500 ease-in-out border-purple-800">
+      <div className="mt-3 text-white border rounded-xl p-3 sm:p-4 hover:shadow-[0_0_40px_rgba(128,0,255,0.4)] transition-all duration-500 ease-in-out border-purple-800">
         <div className="flex items-center flex-wrap gap-2 justify-between">
-          <div className="flex items-center gap-3">
+          
+          <Link to={`/team/${stats?.team?.id}/${season}/overview`} className="flex items-center gap-2 sm:gap-3">
             <img
               src={stats?.team?.logo}
               alt="Team"
-              className="w-8 h-8 sm:w-10 sm:h-10"
+              className="w-7 h-7 sm:w-9 sm:h-9"
             />
-            <h3 className="font-semibold text-base sm:text-lg">
+            <h3 className="font-semibold text-sm sm:text-base md:text-lg">
               {stats?.team?.name}
             </h3>
-          </div>
-          <div className="flex items-center gap-2">
+          </Link>
+          <Link   to={`/leaguedetails/${stats?.league?.id}/${season}/overview`} className="flex items-center gap-1 sm:gap-2">
             <img
               src={stats?.league?.logo}
               alt="League"
-              className="w-5 h-5 sm:w-6 sm:h-6"
+              className="w-4 h-4 sm:w-5 sm:h-5"
             />
-            <p className="text-xs sm:text-sm text-gray-300">
+            <p className="text-[11px] sm:text-sm text-gray-300 truncate max-w-[150px] sm:max-w-none">
               {stats?.league?.name} ({stats?.league?.season})
             </p>
-          </div>
+          </Link>
         </div>
       </div>
 
@@ -62,13 +64,13 @@ export default function PlayerInfo() {
   );
 }
 
-// StatBox with smaller responsive text
+// Responsive StatBox
 const StatBox = ({ icon, label, value }) => (
-  <div className="flex items-center gap-3 w-full p-3 sm:p-4 text-white border hover:shadow-[0_0_40px_rgba(128,0,255,0.4)] transition-all duration-500 ease-in-out border-purple-800 rounded-xl">
-    <div className="text-purple-400 text-lg sm:text-xl">{icon}</div>
-    <div>
-      <p className="text-xs sm:text-sm text-gray-400 truncate w-full overflow-hidden whitespace-nowrap">{label}</p>
-      <p className="text-sm sm:text-base font-semibold">{value}</p>
+  <div className="flex items-center gap-2 w-full p-2 sm:p-3 text-white border hover:shadow-[0_0_40px_rgba(128,0,255,0.4)] transition-all duration-500 ease-in-out border-purple-800 rounded-xl">
+    <div className="text-purple-400 text-base sm:text-lg">{icon}</div>
+    <div className="w-full overflow-hidden">
+      <p className="text-[10px] sm:text-xs text-gray-400 truncate">{label}</p>
+      <p className="text-[12px] sm:text-sm md:text-base font-semibold">{value}</p>
     </div>
   </div>
 );

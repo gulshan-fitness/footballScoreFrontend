@@ -1,9 +1,10 @@
 import React from "react";
 
 import { FaRegStar } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function FixtureCard({ match }) {
+  const{season}=useParams()
  
 
   // Format fixture date to 24-hour time string (change hour12 to true for AM/PM)
@@ -17,7 +18,7 @@ export default function FixtureCard({ match }) {
   };
 
   return (
-    <Link to={`/matchdetails/${match?.fixture?.id}/info`}
+    <Link to={`/matchdetails/${match?.fixture?.id}/${season}/info`}
 
       className="bg-gradient-to-br  my-2 from-[#1c1f28]/70 to-[#0a0c14]/90 rounded-xl px-4 py-3 flex justify-between items-center border border-purple-800 shadow-lg hover:shadow-[0_0_20px_rgba(128,0,255,0.7)]
         transition-shadow duration-500 cursor-pointer"

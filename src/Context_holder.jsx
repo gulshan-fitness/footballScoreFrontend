@@ -40,10 +40,16 @@ export default function Context_holder(props) {
     const [LeagueStandings, setLeagueStandings] = useState([]);
     const [MatchH2H, setMatchH2H] = useState([]);
      const [PlayerDetails, setPlayerDetails] = useState(null);
+
+      const [Playerstats, setPlayerstats] = useState([]);
      const [TeamMatches, setTeamMatches] = useState([]);
      const[TeamUpcomingMatches,setTeamUpcomingMatches]= useState([]);
   const [UpcomingMatches, setUpcomingMatches] = useState([]);
   const [LeagueDetails, setLeagueDetails] = useState(null);
+
+   const [Regions, setRegions] = useState([]);
+  const [Leagues,setLeagues]= useState([]);
+  
 
   const notify = (msg, status) => {
     toast(msg, {
@@ -102,6 +108,8 @@ export default function Context_holder(props) {
       .catch((error) => {});
   };
 
+
+  
   const MatchesFetch = (query) => {
     const params = new URLSearchParams(query.replace("?", ""));
 
@@ -230,9 +238,7 @@ export default function Context_holder(props) {
 
 
 
-           const PlayerFetch = (query) => {
-
-
+   const PlayerFetch = (query) => {
     let api = `${import.meta.env.VITE_API_BASE_URL}${
       import.meta.env.VITE_MATCHES_URL
     }playerDetailsread`;
@@ -243,7 +249,6 @@ export default function Context_holder(props) {
 
     axios
       .get(api)
-
       .then((success) => {
         if (success.data.status == 1) {
          setPlayerDetails(success.data.player);
@@ -253,6 +258,29 @@ export default function Context_holder(props) {
 
       .catch((error) => {});
   }
+
+
+    const PlayerstatsFetch = (query) => {
+    let api = `${import.meta.env.VITE_API_BASE_URL}${
+      import.meta.env.VITE_MATCHES_URL
+    }TeamPlayerStatsread`;
+
+    if (query) {
+      api += `${query}`;
+    }
+
+    axios
+      .get(api)
+      .then((success) => {
+        if (success.data.status == 1) {
+         setPlayerstats(success.data.player);
+
+        }
+      })
+
+      .catch((error) => {});
+  }
+  
 
 
             const TeamMatchesFetch = (query) => {
@@ -281,6 +309,48 @@ if(params.has("status")) setTeamUpcomingMatches(success.data.matches)
       .catch((error) => {});
   }
 
+
+const RegionsFetch = () => {
+
+
+    let api = `${import.meta.env.VITE_API_BASE_URL}${
+      import.meta.env.VITE_MATCHES_URL
+    }regionread`;
+
+ 
+    axios.get(api)
+      .then((success) => {
+        if (success.data.status == 1) {
+ setRegions(success.data.regions);
+
+        }
+      })
+
+      .catch((error) => {});
+  }
+
+  const leaguesFetch = (query) => {
+
+
+    let api = `${import.meta.env.VITE_API_BASE_URL}${
+      import.meta.env.VITE_MATCHES_URL
+    }Leaguesread`;
+
+    if(query) api+=`${query}`
+ 
+    axios.get(api)
+      .then((success) => {
+        if (success.data.status == 1) {
+ setLeagues(success.data.leagues);
+
+        }
+      })
+
+      .catch((error) => {});
+  }
+
+
+  
 
   
 
@@ -426,7 +496,7 @@ if(params.has("status")) setTeamUpcomingMatches(success.data.matches)
         MatchesFetch,
         LeagueDetails,
         setLeagueDetails,
-        getStandingsByTab,LeagueStandings, setLeagueStandings,StandingsFetch,ParticularMatchFetch,particulerMatch, setparticulerMatch,MatchNews, setMatchNews,MatchNewsFetch,MatchH2H, setMatchH2H,MatchH2HFetch,PlayerFetch,PlayerDetails, setPlayerDetails,TeamMatches,TeamMatchesFetch,TeamDetailsActivetab, setTeamDetailsActivetab,TeamUpcomingMatches,setTeamUpcomingMatches
+        getStandingsByTab,LeagueStandings, setLeagueStandings,StandingsFetch,ParticularMatchFetch,particulerMatch, setparticulerMatch,MatchNews, setMatchNews,MatchNewsFetch,MatchH2H, setMatchH2H,MatchH2HFetch,PlayerFetch,PlayerDetails, setPlayerDetails,TeamMatches,TeamMatchesFetch,TeamDetailsActivetab, setTeamDetailsActivetab,TeamUpcomingMatches,setTeamUpcomingMatches,Playerstats, setPlayerstats,PlayerstatsFetch,RegionsFetch,setRegions,Regions,leaguesFetch,Leagues,setLeagues
       }}
     >
       {props.children}

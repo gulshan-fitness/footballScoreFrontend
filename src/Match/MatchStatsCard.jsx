@@ -63,13 +63,13 @@ const HorizontalStat = ({ label, leftValue, rightValue }) => {
   return (
     <div className="flex flex-col col-span-3 text-[10px] px-1 text-gray-300 mt-1 mb-3">
       <div className="flex justify-between font-semibold leading-none">
-        <span className="text-red-500">{leftValue}</span>
+        <span className="text-red-500">{leftValue.toFixed(0)}</span>
         <span className="text-white text-[10px] font-normal">{label}</span>
         <span className="text-blue-500">{rightValue}</span>
       </div>
-      <div className="flex items-center gap-1">
+      <div className="flex justify-between gap-1">
         <div
-          className="bg-red-600 h-[8px] rounded-sm"
+          className="bg-red-600 h-[4px] rounded-sm"
           style={{ width: `${(left / max) * barMaxWidth}px` }}
         />
         <div
@@ -104,7 +104,9 @@ const homeTeam =particulerMatch&&  particulerMatch?.statistics?.find(d=>d?.team?
              
                 key={""}
                 label={"Conversion Rate"}
+
                 leftValue={(particulerMatch?.goals?.home/homeTeam?.statistics?.find(d=>d?.type=="Shots on Goal")?.value)*100}
+
                 rightValue={(particulerMatch?.goals?.away/awayTeam?.statistics?.find(d=>d?.type=="Shots on Goal")?.value)*100}
 
               />

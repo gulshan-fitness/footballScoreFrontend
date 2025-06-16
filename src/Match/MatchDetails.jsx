@@ -13,15 +13,16 @@ import MatchEvents from './MatchEvent';
 
 export default function MatchDetails() {
 
-  const{setmatchDetailsActivetab,ParticularMatchFetch,particulerMatch}=useContext(Context)
+  const{setmatchDetailsActivetab,ParticularMatchFetch,particulerMatch,StandingsFetch}=useContext(Context)
   
   const [pitchActive, setPitchActive] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const{id}=useParams()
+  const{id,season}=useParams()
   
+console.log(particulerMatch);
 
   const slides = [
-    <VenueDetailsCard />,
+    <VenueDetailsCard/>,
     <MatchEndedCard/>,
     <MatchStatisticsCard/>,
     <MatchStatsCard/>,
@@ -105,10 +106,20 @@ export default function MatchDetails() {
   
   useEffect(
     ()=>{
-// ParticularMatchFetch(`?id=${id}`)
-    },[]
+      if(!id ||!season) return
+
+ParticularMatchFetch(`?id=${id}`)
+
+
+    },[id,season]
   )
 
+  useEffect(
+    ()=>{
+      if(!particulerMatch?.league?.id || !season)return
+StandingsFetch(`?league=${particulerMatch?.league?.id}&season=${season}`)
+    },[particulerMatch]
+  )
 
 
      const location = useLocation();
@@ -189,7 +200,7 @@ console.log(particulerMatch);
           <span className="text-white text-xs  truncate">{particulerMatch?.teams?.home?.name}</span>
         </div>
 
-        <div className='font-bold text-lg text-center text-white'> {particulerMatch?.goals?.home}-{particulerMatch?.goals?.away}</div>
+        <div className='font-bold text-lg text-center text-white'> {particulerMatch?.goals?.home??"NA"}-{particulerMatch?.goals?.away??"NA"}</div>
       
         <div className="flex flex-col items-center text-center">
           <img src={particulerMatch?.teams?.away?.logo} alt={particulerMatch?.teams?.away?.name} className="h-6 md:h-10" />

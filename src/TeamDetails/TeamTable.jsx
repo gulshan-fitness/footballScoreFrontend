@@ -1,145 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
+import {FaCaretDown } from "react-icons/fa";
 import { Context } from '../Context_holder';
-import FixtureCard from '../LeagueDetails/FixtureCard';
-import { FaChevronRight,FaCaretDown } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import LeagueStandings from '../LeagueDetails/LeagueStandings';
 
-import { IoIosGlobe } from "react-icons/io";
+export default function TeamTable() {
+    const{StandingsFetch}=useContext(Context)
+    const {season}=useParams()
 
+    const [wellStructuredData, setWellStructuredData] = useState([]); 
+         const [SelectedLeague, setSelectedLeague] = useState(null);
+    
+            const [LeaguesPopUps, setLeaguesPopUps] = useState(false);
 
-export default function TeamMatches() {
-
-     const{TeamMatches,TeamMatchesFetch,TeamUpcomingMatches}=useContext(Context)
-
-      const [activeTab, setActiveTab] = useState('results');
-      
-        const [wellStructuredData, setWellStructuredData] = useState([]); 
-
-     const [Tabs] = useState(["results", "fixtures", ])
-
-       const [SelectedLeague, setSelectedLeague] = useState({ logo:<IoIosGlobe  className='text-xl'/>, name:"all competitions"});
-
-        const [LeaguesPopUps, setLeaguesPopUps] = useState(false);
-
-
-     const nextmatches  = [
-  {
-    fixture: {
-      id: 1041234,
-      referee: "Anthony Taylor",
-      timezone: "UTC",
-      date: "2025-06-20T19:45:00+00:00",
-      timestamp: 1781987100,
-      periods: {
-        first: null,
-        second: null
-      },
-      venue: {
-        id: 555,
-        name: "Old Trafford",
-        city: "Manchester"
-      },
-      status: {
-        long: "Not Started",
-        short: "NS",
-        elapsed: null
-      }
-    },
-    league: {
-      id: 39,
-      name: "Premier League",
-      country: "England",
-      logo: "https://media.api-sports.io/football/leagues/39.png",
-      flag: "https://media.api-sports.io/flags/gb.svg",
-      season: 2024,
-      round: "Regular Season - 38"
-    },
-    teams: {
-      home: {
-        id: 33,
-        name: "Manchester United",
-        logo: "https://media.api-sports.io/football/teams/33.png",
-        winner: null
-      },
-      away: {
-        id: 34,
-        name: "Newcastle United",
-        logo: "https://media.api-sports.io/football/teams/34.png",
-        winner: null
-      }
-    },
-    goals: {
-      home: null,
-      away: null
-    },
-    score: {
-      halftime: {
-        home: null,
-        away: null
-      },
-      fulltime: {
-        home: null,
-        away: null
-      },
-      extratime: {
-        home: null,
-        away: null
-      },
-      penalty: {
-        home: null,
-        away: null
-      }
-    }
-  },
-  {
-    fixture: {
-      id: 1045678,
-      referee: "Michael Oliver",
-      timezone: "UTC",
-      date: "2025-06-27T17:30:00+00:00",
-      timestamp: 1782595800,
-      venue: {
-        id: 600,
-        name: "Emirates Stadium",
-        city: "London"
-      },
-      status: {
-        long: "Not Started",
-        short: "NS",
-        elapsed: null
-      }
-    },
-    league: {
-      id: 39,
-      name: "Premier League",
-      country: "England",
-      season: 2024,
-      round: "FA Cup - Final"
-    },
-    teams: {
-      home: {
-        id: 42,
-        name: "Arsenal",
-        logo: "https://media.api-sports.io/football/teams/42.png",
-        winner: null
-      },
-      away: {
-        id: 33,
-        name: "Manchester United",
-        logo: "https://media.api-sports.io/football/teams/33.png",
-        winner: null
-      }
-    },
-    goals: {
-      home: null,
-      away: null
-    }
-  }
-];
-
-// 'https://v3.football.api-sports.io/fixtures?team=33&status=NS'
-
-const data = [
+    const data = [
   {
     fixture: {
       id: 1150673,
@@ -351,15 +225,11 @@ const data = [
 ];
 
 
-  // GET https://v3.football.api-sports.io/fixtures?team=686&season=2025
+useEffect(
+    ()=>{
+  const structured = [];
 
-
-
-useEffect(() => {
-    const rawData = activeTab === 'results' ? data : nextmatches;
-    const structured = [];
-
-    rawData?.forEach((match) => {
+    data?.forEach((match) => {
       const existingLeague = structured.find(
         (entry) => entry.league?.id === match.league?.id
       );
@@ -387,38 +257,32 @@ useEffect(() => {
       }
     });
 
-    setWellStructuredData(structured); // ✅ update state after processing
-setSelectedLeague({ logo:<IoIosGlobe  className='text-xl'/>, name:"all competitions"})
+    setWellStructuredData(structured);
 
-  }, [activeTab]);
+    },[]
+)
 
+useEffect(
+    ()=>{
 
-console.log(wellStructuredData);
+setSelectedLeague({logo: wellStructuredData[0]?.league?.logo,name:wellStructuredData[0]?.league?.name,id:wellStructuredData[0]?.league?.id})
 
+    },[wellStructuredData]
+)
 
+useEffect(
+    ()=>{
+        if(!SelectedLeague)return
+    
+StandingsFetch(`?league=${SelectedLeague?.id}&season=${2023}`)
 
-   
+    },[SelectedLeague]
+)
+
+console.log(season,SelectedLeague);
 
   return (
-    <div className=" mx-auto ">
-
-     {/* Tabs */}
-
-      <div className="flex mb-2 gap-2 flex-wrap border-b border-purple-800 pb-4">
-        {Tabs?.map((tab,index) => (
-          <button
-            key={index}
-            className={`px-2 sm:px-3 py-1 text-xs sm:text-sm  rounded-full border ${
-              activeTab === tab
-                ? ' bg-purple-700/90'
-                : 'text-gray-300 border-purple-800'
-            } hover:shadow-[0_0_20px_rgba(128,0,255,0.7)] transition`}
-            onClick={() => setActiveTab(tab)}
-          >
-            {tab.charAt(0).toUpperCase() + tab.slice(1)}
-          </button>
-        ))}
-      </div>
+    <div>
 
 {/* league selecter */}
 <div className='flex items-center gap-[5px] mb-6 text-white cursor-pointer relative '
@@ -426,7 +290,9 @@ onClick={()=>setLeaguesPopUps(!LeaguesPopUps)}
 >
 
   <span className=' flex items-center gap-[1px]'>
-     {SelectedLeague?.logo}
+     <img src= {SelectedLeague?.logo} alt="" className='h-5 w-5' />
+    
+
         <FaCaretDown />
   </span>
 
@@ -439,12 +305,7 @@ onClick={()=>setLeaguesPopUps(!LeaguesPopUps)}
 {
   LeaguesPopUps&& <div className=' capitalize flex flex-col gap-1 bg-slate-500 p-2 rounded-md absolute z-10 top-6 left-0'>
   {/* Header */}
-  <span className={`flex gap-1 items-center border py-1 px-1 rounded-md ${SelectedLeague?.name=="all competitions"?"bg-black":""}`}
-  onClick={()=>setSelectedLeague({logo:<IoIosGlobe  className='text-xl'/>,name:"all competitions"})}
-  >
-    <IoIosGlobe className='text-xl' />
-    <span className='text-xs'>all competitions</span>
-  </span>
+ 
 
   {/* Mapping through wellStructuredData */}
   {
@@ -453,7 +314,7 @@ onClick={()=>setLeaguesPopUps(!LeaguesPopUps)}
     wellStructuredData?.map((data, index) => {
       return (
         <div className={`flex gap-1 items-center border py-1 px-1 rounded-md ${SelectedLeague?.name==data?.league?.name?"bg-black":""}`} key={index}
-         onClick={()=>setSelectedLeague({logo:<img src={data?.league?.logo} alt="" className='h-5 w-5' />,name:data?.league?.name})}
+         onClick={()=>setSelectedLeague({logo:data?.league?.logo,name:data?.league?.name,id:data?.league?.id})}
         >
           <img src={data?.league?.logo} alt="" className='h-5 w-5' />
           <span className='text-xs'>
@@ -470,56 +331,10 @@ onClick={()=>setLeaguesPopUps(!LeaguesPopUps)}
 
 
 
-  </div>    
-
-      <div className="space-y-2">
-
-
- {    (SelectedLeague?.name=="all competitions"?
-  wellStructuredData:
- wellStructuredData?.filter(
-      data=> data?.league?.name==SelectedLeague?.name
-    )
-  )?.map(
-(data,index)=> <div key={index}>
-
-     <Link to={`/leaguedetails/${data?.league?.id}/${data?.league?.season}/overview`} className="flex justify-between items-center mb-4" onClick={()=>setLeagueDetails(league)}>
-        <button className="flex items-center gap-2 sm:gap-3 text-[11px] sm:text-sm font-semibold text-purple-400 tracking-wide select-none max-w-[80%]">
-          <img
-            src={data?.league?.logo}
-             loading="lazy"
-            alt={`${data?.league?.name} logo`}
-              onError={(e) => (e.currentTarget.src = "/fallback-logo.png")}
-
-            className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border border-purple-600 shadow-sm"
-          />
-          <span className="drop-shadow-lg flex flex-col sm:flex-row sm:flex-wrap text-left">
-            <span className="truncate w-[160px]">{data?.league?.name}</span>
-            <span className="text-white font-normal text-[10px] sm:text-sm whitespace-nowrap">({data?.league?.country})</span>
-          </span>
-        </button>
-        <button>
-          <FaChevronRight className="text-xs sm:text-sm" />
-        </button>
-      </Link>
-      {
- data?.fixtures?.map((data,index)=>
-      <div key={index}>
-<FixtureCard  match={data}/>
-      </div>
-      )
-      }
+  </div> 
+  <LeagueStandings/>
 
 
-
-
-</div>
-
- 
- )
-  
-    }
-      </div>
     </div>
   )
 }
