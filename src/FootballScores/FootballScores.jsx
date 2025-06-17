@@ -246,7 +246,7 @@ useEffect(() => {
 
   if (Object.keys(query).length !== 0) {
     setSearchParams(query);
-    MatchesFetch(`?${new URLSearchParams(query).toString()}`);
+    // MatchesFetch(`?${new URLSearchParams(query).toString()}`);
   }
 
 }, [Querydate, LiveQuery]);
