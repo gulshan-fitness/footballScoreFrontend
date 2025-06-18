@@ -2,6 +2,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FaCalendarAlt } from "react-icons/fa";
 import { Context } from "../Context_holder";
+import Loader from "../Loader";
 
 // ✅ Card Component
 const Card = ({ className = "", children, ...props }) => {
@@ -183,9 +184,14 @@ MatchH2HFetch(`?team=${activeTab?.id}&season=${2023}`)
           </button>
         ))}
       </div>
-      {MatchH2H?.map((match, index) => (
+      {
+        MatchH2H?.length!=0 ? <div>
+          {MatchH2H?.map((match, index) => (
         <MatchHistoryCard key={index} match={match} />
       ))}
+        </div> :<Loader/>
+      }
+     
     </div>
   );
 }

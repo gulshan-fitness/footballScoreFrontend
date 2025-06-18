@@ -8,6 +8,7 @@ import PlayerMatches from "./PlayerMatches";
 import { Outlet, useLocation, useParams } from "react-router-dom";
 import { Context } from "../Context_holder";
 import PlayerTabs from "./PlayerTabs";
+import Loader from "../Loader";
 
 
 
@@ -60,7 +61,9 @@ return (
   <div className="bg-gradient-to-b from-[#0B0C10] via-[#1F2833] to-[#000000] text-gray-300 px-4">
     <div>
       {/* Player Profile */}
-      <div className="flex flex-col sm:flex-row items-center hover:shadow-[0_0_40px_rgba(128,0,255,0.4)] transition-all duration-500 ease-in-out border-purple-800 rounded-2xl px-4 py-2 border">
+
+      {
+        player? <div className="flex flex-col sm:flex-row items-center hover:shadow-[0_0_40px_rgba(128,0,255,0.4)] transition-all duration-500 ease-in-out border-purple-800 rounded-2xl px-4 py-2 border">
         <img
           src={player?.photo}
           alt={player?.name}
@@ -78,7 +81,9 @@ return (
             {player?.injured ? "Injured" : "Fit"}
           </p>
         </div>
-      </div>
+      </div>:<Loader/>
+      }
+     
 
    
 

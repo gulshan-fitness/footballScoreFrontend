@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../Context_holder';
 import { Link, Links, useParams } from 'react-router-dom';
+import Loader from '../Loader';
 
 export default function LeagueStandings() {
 
@@ -30,7 +31,9 @@ export default function LeagueStandings() {
       </div>
 
       {/* Table */}
-      {activeTab === "form" ? (
+      {
+        LeagueStandings?.length!=0? <div>
+             {activeTab === "form" ? (
         <div className="overflow-x-auto thin-scrollbar">
           <table className="min-w-full divide-y divide-gray-700">
             <thead>
@@ -142,6 +145,12 @@ export default function LeagueStandings() {
           </table>
         </div>
       )}
+        </div>:
+        <Loader/>
+      }
+   
+
+
     </div>
   );
 }

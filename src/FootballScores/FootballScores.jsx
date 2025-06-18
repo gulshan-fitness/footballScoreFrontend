@@ -8,6 +8,7 @@ import { Context } from "../Context_holder";
 import { useSearchParams } from "react-router-dom";
 import FootballMatchCard from "./FootballMatchCard";
 import Sidebar from "./Sidebar";
+import Loader from "../Loader";
 
 
 
@@ -186,13 +187,15 @@ const [LiveQuery, setLiveQuery] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const PAGE_SIZE = 1;
 const [page, setPage] = useState(1);
-  const [calanderPopUp, setcalanderPopUp] = useState(false);
+ 
   const [showDatePicker, setShowDatePicker] = useState(false);
 
 
 
   const formatDate = (d) => {
+
     // Format date to YYYY-MM-DD
+
     const yyyy = d.getFullYear();
     const mm = String(d.getMonth() + 1).padStart(2, "0");
     const dd = String(d.getDate()).padStart(2, "0");
@@ -204,6 +207,7 @@ const [page, setPage] = useState(1);
   const target = new Date(d);
 
   // Normalize both dates to midnight for accurate comparison
+
   today.setHours(0, 0, 0, 0);
   target.setHours(0, 0, 0, 0);
 
@@ -246,12 +250,12 @@ useEffect(() => {
 
   if (Object.keys(query).length !== 0) {
     setSearchParams(query);
-    // MatchesFetch(`?${new URLSearchParams(query).toString()}`);
+    MatchesFetch(`?${new URLSearchParams(query).toString()}`);
   }
 
 }, [Querydate, LiveQuery]);
 
-console.log(Matches?.length);
+
 
   const handlePrev = () => {
     const prev = new Date(date);
@@ -376,7 +380,10 @@ const visibleMatches = Matches?.slice(0, PAGE_SIZE * page);
       </header>
 
       {/* Matches by League */}
-      <main className="max-w-5xl mx-auto space-y-10  h-screen overflow-y-auto   thin-scrollbar">
+
+      {
+        visibleMatches?.length!=0?
+          <main className="max-w-5xl mx-auto space-y-10  h-screen overflow-y-auto   thin-scrollbar">
         {visibleMatches?.map(({ league, fixtures },index) => (
           <div key={index}>
 
@@ -394,7 +401,10 @@ const visibleMatches = Matches?.slice(0, PAGE_SIZE * page);
         Load More...
       </button>
     )}
-      </main>
+      </main>:
+      <Loader/>
+      }
+    
 
 
 </div>

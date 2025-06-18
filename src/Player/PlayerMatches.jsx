@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../Context_holder';
 import { Link, useParams } from 'react-router-dom';
+import Loader from '../Loader';
 
 export default function TeamMatches() {
 
@@ -49,8 +50,9 @@ activeTab=="results"?
           </button>
         ))}
       </div>
-
-      <div className="space-y-2">
+      {
+        (activeTab=="results"?TeamMatches:TeamUpcomingMatches)?.length!=0?
+          <div className="space-y-2">
         { (activeTab=="results"?TeamMatches:TeamUpcomingMatches)?.map((match) => {
           const { fixture, league, teams, goals } = match;
           const matchDate = new Date(fixture.date).toLocaleString("en-GB", {
@@ -113,7 +115,11 @@ activeTab=="results"?
             </Link>
           );
         })}
-      </div>
+      </div>:
+      <Loader/>
+      }
+
+    
     </div>
   );
 

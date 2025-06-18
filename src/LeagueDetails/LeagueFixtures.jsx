@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import FixtureCard from './FixtureCard';
 import { Context } from '../Context_holder';
+import Loader from '../Loader';
 
 export default function LeagueFixtures()
 {
@@ -287,7 +288,13 @@ export default function LeagueFixtures()
   }
 ]
   return (
-    <div>{
+
+
+
+   
+      <div>{
+      visibleMatches?.length!=0? <div>
+      {
         visibleMatches?.map(
             (data,index)=><div  key={index}>
                   <FixtureCard  match={data}/>
@@ -309,6 +316,9 @@ export default function LeagueFixtures()
         Load More...
       </button>
     )}
-        </div>
+        </div>:<Loader/>
+    }
+    </div>
+    
   )
 }

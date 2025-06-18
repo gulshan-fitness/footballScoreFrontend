@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { FaChevronRight } from "react-icons/fa";
 import FixtureCard from './FixtureCard';
 import { Context } from '../Context_holder';
+import Loader from '../Loader';
 
 export default function LeagueOverview() {
   const {
@@ -16,6 +17,7 @@ export default function LeagueOverview() {
 
   
   const {id,season}=useParams()
+
 
   return (
     <div>
@@ -32,11 +34,20 @@ export default function LeagueOverview() {
           </button>
         </Link>
 
-        {UpcomingMatches?.slice(0, 5)?.map((match, index) => (
+
+{
+  UpcomingMatches?.length!=0? <div>
+    {UpcomingMatches?.slice(0, 5)?.map((match, index) => (
           <div key={index}>
             <FixtureCard match={match} />
           </div>
         ))}
+  </div>:<Loader/>
+}
+        
+
+
+
       </div>
 
       {/* Results Section */}
@@ -52,11 +63,19 @@ export default function LeagueOverview() {
           </button>
         </Link>
 
-        {Matches?.slice(0, 5)?.map((match, index) => (
+        {Matches?.length!=0? <div>
+           {Matches?.slice(0, 5)?.map((match, index) => (
           <div key={index}>
             <FixtureCard match={match} />
           </div>
         ))}
+        </div>:
+        <Loader/>
+
+        }
+
+       
+
       </div>
 
       {/* Standings Section */}
@@ -71,8 +90,9 @@ export default function LeagueOverview() {
             <FaChevronRight className="text-xs sm:text-sm text-white" />
           </button>
         </Link>
-
-        <div className="overflow-x-auto thin-scrollbar">
+{
+  LeagueStandings?.length!=0 ?
+  <div className="overflow-x-auto thin-scrollbar">
           <table className="min-w-full divide-y divide-gray-700">
             <thead>
               <tr className="text-xs sm:text-sm text-white uppercase tracking-wider">
@@ -116,7 +136,10 @@ export default function LeagueOverview() {
               ))}
             </tbody>
           </table>
-        </div>
+        </div>:
+        <Loader/>
+}
+       
 
         <Link
           to={`/leaguedetails/${id}/${season}/standings`}

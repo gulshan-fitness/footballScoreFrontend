@@ -19,7 +19,7 @@ export default function MatchDetails() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const{id,season}=useParams()
   
-console.log(particulerMatch);
+
 
   const slides = [
     <VenueDetailsCard/>,
@@ -138,7 +138,7 @@ StandingsFetch(`?league=${particulerMatch?.league?.id}&season=${season}`)
   
   
     }, [location?.pathname])
-console.log(particulerMatch);
+
 
 
   return (
@@ -217,6 +217,8 @@ console.log(particulerMatch);
       <div className="text-center text-sm text-white font-semibold mb-4">
         Halftime: {particulerMatch?.score?.halftime?.home} - {particulerMatch?.score?.halftime?.away}
       </div>
+
+
 
 <MatchTabs/>
 

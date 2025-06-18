@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Context } from "../Context_holder";
+import Loader from "../Loader";
 
 
 const parseValue = (val) => {
@@ -114,7 +115,10 @@ const homeTeam =particulerMatch&&  particulerMatch?.statistics?.find(d=>d?.team?
 
       {/* Stats Grid */}
       <div className="grid grid-cols-3 flex-wrap justify-between px-[2px] gap-2">
-        {homeTeam?.statistics?.map((stat) => {
+
+{
+  homeTeam?.statistics?.length!=0?<div>
+     {homeTeam?.statistics?.map((stat) => {
           const right = awayTeam?.statistics?.find((s) => s.type === stat.type);
         
 const requiredStats = [
@@ -136,6 +140,11 @@ const requiredStats = [
             />
           );
         })}
+  </div>:
+  <Loader/>
+}
+       
+
       </div>
     </div>
   );

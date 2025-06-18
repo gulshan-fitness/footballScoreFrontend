@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import FixtureCard from './FixtureCard';
 import { Context } from '../Context_holder';
+import Loader from '../Loader';
 
 export default function LeagueResults() {
 
@@ -357,7 +358,9 @@ const pastFixtures = [
 ]
 
    return (
-     <div>
+    <>
+    {visibleMatches?.length!=0?
+       <div>
       {
          visibleMatches?.map(
              (data,index)=><div key={index} className='my-2'>
@@ -382,6 +385,11 @@ const pastFixtures = [
         Load More...
       </button>
     )}
-         </div>
+         </div>:
+         
+        <Loader/>
+    }
+    </>
+    
    )
 }

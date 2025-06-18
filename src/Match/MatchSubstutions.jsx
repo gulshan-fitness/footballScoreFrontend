@@ -68,6 +68,7 @@ export default function MatchSubstutions(props) {
 
   return (
     <>
+  
       <p className="uppercase text-xs font-bold text-white my-3">
         Substitute players
       </p>
@@ -77,6 +78,7 @@ export default function MatchSubstutions(props) {
       >
         {renderTeamSubs(props?.homeTeam)}
         {renderTeamSubs(props?.awayTeam)}
+
       </div>
     </>
   );

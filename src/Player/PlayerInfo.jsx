@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa";
 import { Context } from '../Context_holder';
 import { Link, useParams } from 'react-router-dom';
+import Loader from '../Loader';
 
 export default function PlayerInfo() {
   const { PlayerDetails } = useContext(Context);
@@ -21,7 +22,9 @@ export default function PlayerInfo() {
 
   return (
     <>
-      {/* Team and League */}
+    {
+      PlayerDetails?.statistics?.[0]?<div>
+         {/* Team and League */}
       <div className="mt-3 text-white border rounded-xl p-3 sm:p-4 hover:shadow-[0_0_40px_rgba(128,0,255,0.4)] transition-all duration-500 ease-in-out border-purple-800">
         <div className="flex items-center flex-wrap gap-2 justify-between">
           
@@ -45,6 +48,8 @@ export default function PlayerInfo() {
               {stats?.league?.name} ({stats?.league?.season})
             </p>
           </Link>
+
+
         </div>
       </div>
 
@@ -60,6 +65,11 @@ export default function PlayerInfo() {
         <StatBox icon={<FaHandshake />} label="Duels Won" value={`${stats?.duels?.won ?? '–'}/${stats?.duels?.total ?? '–'}`} />
         <StatBox icon={<FaPenNib />} label="Penalties Scored" value={stats?.penalty?.scored ?? '–'} />
       </div>
+      </div>:
+      <Loader/>
+    }
+     
+
     </>
   );
 }

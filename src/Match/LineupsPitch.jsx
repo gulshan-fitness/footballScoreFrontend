@@ -8,6 +8,7 @@ import PitchUi from "./PicthUi";
 import MatchSubstutions from "./MatchSubstutions";
 import { Context } from "../Context_holder";
 import { Link, useParams } from "react-router-dom";
+import Loader from "../Loader";
 
 // ✅ Reusable Player Bubble Component
 
@@ -67,7 +68,9 @@ const awayplayers = {
 
   return (
     <div className="w-full mt-6 ">
-      <div className="max-w-md mx-auto relative mb-2 h-[700px] sm:h-[800px]">
+      {
+         particulerMatch?.lineups?.length!=0 ?
+         <div className="max-w-md mx-auto relative mb-2 h-[700px] sm:h-[800px]">
               <PitchUi />
 {/*hometeam coach */}
 <p className="absolute top-2 left-4  font-semibold uppercase text-[black] leading-tight text-[9px]">
@@ -161,9 +164,14 @@ const awayplayers = {
     <p> ( {awayplayers?.formation})</p>
 </p>
 
-      </div>
+      </div>:<Loader/>
+      }
+      
+{
+   particulerMatch?.lineups?.length!=0 ?<MatchSubstutions homeTeam={homeTeam??null} awayTeam={awayTeam??null} />:<Loader/>
+}
 
-<MatchSubstutions homeTeam={homeTeam??null} awayTeam={awayTeam??null} />
+
 
       
 

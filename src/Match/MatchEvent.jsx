@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import { Context } from "../Context_holder";
 import { Link, useParams } from "react-router-dom";
+import Loader from "../Loader";
 
 // GET https://v3.football.api-sports.io/fixtures/events?fixture={MATCH_ID}
 
@@ -132,8 +133,8 @@ export default function MatchEvents() {
       <h2 className="text-[13px] sm:text-sm font-semibold mb-3 text-center tracking-wide text-purple-200">
         Match Events Timeline
       </h2>
-
-      <div className="space-y-3">
+      {
+       particulerMatch?.length!=0?   <div className="space-y-3">
         {particulerMatch?.events?.map((event, i) => (
           <div
             key={i}
@@ -180,6 +181,10 @@ export default function MatchEvents() {
           </div>
         ))}
       </div>
+:<Loader/>
+      }
+
+    
     </div>
   );
 }

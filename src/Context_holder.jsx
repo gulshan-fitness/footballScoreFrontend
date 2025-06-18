@@ -299,7 +299,7 @@ const params= new URLSearchParams(query.replace("?",""))
 
       .then((success) => {
         if (success.data.status == 1) {
-if(params.has("status")) setTeamUpcomingMatches(success.data.matches)
+if(params.has("status"))setTeamUpcomingMatches(success.data.matches)
 
         else setTeamMatches(success.data.matches);
 

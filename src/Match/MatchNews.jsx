@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../Context_holder";
 import { useParams } from "react-router-dom";
+import Loader from "../Loader";
 
 
 const newsData = {
@@ -66,9 +67,8 @@ export default function MatchNews( ) {
     
     <section className="max-w-5xl mx-auto rounded-3xl shadow-2xl  text-white">
 
-
-
-      <div>
+{
+  MatchNews?.length!=0? <div>
         {MatchNews?.map(({ id, title, content, source, link, date }) => (
           <article
             key={id}
@@ -94,7 +94,12 @@ export default function MatchNews( ) {
             </div>
           </article>
         ))}
-      </div>
+      </div>:<Loader/>
+}
+
+     
+
+
     </section>
   );
 }
