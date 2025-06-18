@@ -15,41 +15,30 @@ export default function Context_holder(props) {
 
   const [adminToken, setadminToken] = useState("");
 
-  const [UserSignUpPopUp, setUserSignUpPopUp] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [CrosswordPuzzle, setCrosswordPuzzle] = useState(null);
-  const [AllCrosswordPuzzle, setAllCrosswordPuzzle] = useState(null);
-  const [userGrid, setUserGrid] = useState([]);
-  const [CrosswordPuzzleScore_id, setCrosswordPuzzleScore_id] = useState(null);
-  const [CrosswordPuzzlePreviousScore, setCrosswordPuzzlePreviousScore] =
-    useState(null);
-  const [AllSudoko, setAllSudoko] = useState([]);
-  const [Sudoko, setSudoko] = useState(null);
 
   const [LeagueDetailsActivetab, setLeagueDetailsActivetab] =
     useState("Overview");
-    const[TeamDetailsActivetab, setTeamDetailsActivetab]=
-    useState("Overview");
+  const [TeamDetailsActivetab, setTeamDetailsActivetab] = useState("Overview");
   const [matchDetailsActivetab, setmatchDetailsActivetab] = useState("info");
   const [PlayerDetailsActivetab, setPlayerDetailsActivetab] = useState("info");
 
   const [Matches, setMatches] = useState([]);
-   const [particulerMatch, setparticulerMatch] = useState(null);
-    const [MatchNews, setMatchNews] = useState([]);
-    const [LeagueStandings, setLeagueStandings] = useState([]);
-    const [MatchH2H, setMatchH2H] = useState([]);
-     const [PlayerDetails, setPlayerDetails] = useState(null);
+  const [particulerMatch, setparticulerMatch] = useState(null);
+  const [MatchNews, setMatchNews] = useState([]);
+  const [LeagueStandings, setLeagueStandings] = useState([]);
+  const [MatchH2H, setMatchH2H] = useState([]);
+  const [PlayerDetails, setPlayerDetails] = useState(null);
 
-      const [Playerstats, setPlayerstats] = useState([]);
-     const [TeamMatches, setTeamMatches] = useState([]);
-     const[TeamUpcomingMatches,setTeamUpcomingMatches]= useState([]);
+  const [Playerstats, setPlayerstats] = useState([]);
+  const [TeamMatches, setTeamMatches] = useState([]);
+  const [TeamUpcomingMatches, setTeamUpcomingMatches] = useState([]);
   const [UpcomingMatches, setUpcomingMatches] = useState([]);
   const [LeagueDetails, setLeagueDetails] = useState(null);
 
-   const [Regions, setRegions] = useState([]);
-  const [Leagues,setLeagues]= useState([]);
-  
+  const [Regions, setRegions] = useState([]);
+  const [Leagues, setLeagues] = useState([]);
 
   const notify = (msg, status) => {
     toast(msg, {
@@ -67,49 +56,8 @@ export default function Context_holder(props) {
     setusertoken("");
   };
 
-  const CrosswordPuzzleFetch = (id, user_id) => {
-    let api = `${import.meta.env.VITE_API_BASE_URL}${
-      import.meta.env.VITE_CROSSWORDPUZZLE_URL
-    }read`;
-
-    if (id) {
-      api += `/${id}`;
-    }
-
-    if (user_id) {
-      api += `/${user_id}`;
-    }
-
-    axios
-      .get(api)
-
-      .then((success) => {
-        if (success.data.status == 1) {
-          const data = success.data.Crosswordpuzzle;
-
-          if (id) {
-            setCrosswordPuzzle(data[0]);
-
-            if (data[0].userScore) {
-              setUserGrid(data[0].userScore.answersGrid || []);
-              setCrosswordPuzzleScore_id(data[0].userScore._id);
-              setCrosswordPuzzlePreviousScore(data[0].userScore.currentScore);
-            } else {
-              setUserGrid([]);
-              setCrosswordPuzzleScore_id(null);
-              setCrosswordPuzzlePreviousScore(null);
-            }
-          } else {
-            setAllCrosswordPuzzle(data);
-          }
-        }
-      })
-
-      .catch((error) => {});
-  };
 
 
-  
   const MatchesFetch = (query) => {
     const params = new URLSearchParams(query.replace("?", ""));
 
@@ -134,9 +82,7 @@ export default function Context_holder(props) {
       .catch((error) => {});
   };
 
-   const StandingsFetch = (query) => {
-   
-
+  const StandingsFetch = (query) => {
     let api = `${import.meta.env.VITE_API_BASE_URL}${
       import.meta.env.VITE_MATCHES_URL
     }readstandings`;
@@ -150,18 +96,14 @@ export default function Context_holder(props) {
 
       .then((success) => {
         if (success.data.status == 1) {
-
-         setLeagueStandings(success.data.standings);
-
+          setLeagueStandings(success.data.standings);
         }
       })
 
       .catch((error) => {});
   };
 
-     const ParticularMatchFetch = (query) => {
-   
-
+  const ParticularMatchFetch = (query) => {
     let api = `${import.meta.env.VITE_API_BASE_URL}${
       import.meta.env.VITE_MATCHES_URL
     }ParticularMatchread`;
@@ -175,19 +117,14 @@ export default function Context_holder(props) {
 
       .then((success) => {
         if (success.data.status == 1) {
-
-         setparticulerMatch(success.data.matches);
-
+          setparticulerMatch(success.data.matches);
         }
       })
 
       .catch((error) => {});
   };
 
-
-       const MatchNewsFetch = (query) => {
-   
-
+  const MatchNewsFetch = (query) => {
     let api = `${import.meta.env.VITE_API_BASE_URL}${
       import.meta.env.VITE_MATCHES_URL
     }newsread`;
@@ -201,19 +138,14 @@ export default function Context_holder(props) {
 
       .then((success) => {
         if (success.data.status == 1) {
-
-         setMatchNews(success.data.news);
-
+          setMatchNews(success.data.news);
         }
       })
 
       .catch((error) => {});
-  }
+  };
 
-
-         const MatchH2HFetch = (query) => {
-   
-
+  const MatchH2HFetch = (query) => {
     let api = `${import.meta.env.VITE_API_BASE_URL}${
       import.meta.env.VITE_MATCHES_URL
     }TeamH2Hread`;
@@ -227,18 +159,14 @@ export default function Context_holder(props) {
 
       .then((success) => {
         if (success.data.status == 1) {
-
-         setMatchH2H(success.data.h2h);
-
+          setMatchH2H(success.data.h2h);
         }
       })
 
       .catch((error) => {});
-  }
+  };
 
-
-
-   const PlayerFetch = (query) => {
+  const PlayerFetch = (query) => {
     let api = `${import.meta.env.VITE_API_BASE_URL}${
       import.meta.env.VITE_MATCHES_URL
     }playerDetailsread`;
@@ -251,16 +179,14 @@ export default function Context_holder(props) {
       .get(api)
       .then((success) => {
         if (success.data.status == 1) {
-         setPlayerDetails(success.data.player);
-
+          setPlayerDetails(success.data.player);
         }
       })
 
       .catch((error) => {});
-  }
+  };
 
-
-    const PlayerstatsFetch = (query) => {
+  const PlayerstatsFetch = (query) => {
     let api = `${import.meta.env.VITE_API_BASE_URL}${
       import.meta.env.VITE_MATCHES_URL
     }TeamPlayerStatsread`;
@@ -273,18 +199,15 @@ export default function Context_holder(props) {
       .get(api)
       .then((success) => {
         if (success.data.status == 1) {
-         setPlayerstats(success.data.player);
-
+          setPlayerstats(success.data.player);
         }
       })
 
       .catch((error) => {});
-  }
-  
+  };
 
-
-            const TeamMatchesFetch = (query) => {
-const params= new URLSearchParams(query.replace("?",""))
+  const TeamMatchesFetch = (query) => {
+    const params = new URLSearchParams(query.replace("?", ""));
 
     let api = `${import.meta.env.VITE_API_BASE_URL}${
       import.meta.env.VITE_MATCHES_URL
@@ -299,67 +222,48 @@ const params= new URLSearchParams(query.replace("?",""))
 
       .then((success) => {
         if (success.data.status == 1) {
-if(params.has("status"))setTeamUpcomingMatches(success.data.matches)
-
-        else setTeamMatches(success.data.matches);
-
+          if (params.has("status"))
+            setTeamUpcomingMatches(success.data.matches);
+          else setTeamMatches(success.data.matches);
         }
       })
 
       .catch((error) => {});
-  }
+  };
 
-
-const RegionsFetch = () => {
-
-
+  const RegionsFetch = () => {
     let api = `${import.meta.env.VITE_API_BASE_URL}${
       import.meta.env.VITE_MATCHES_URL
     }regionread`;
 
- 
-    axios.get(api)
+    axios
+      .get(api)
       .then((success) => {
         if (success.data.status == 1) {
- setRegions(success.data.regions);
-
+          setRegions(success.data.regions);
         }
       })
 
       .catch((error) => {});
-  }
+  };
 
   const leaguesFetch = (query) => {
-
-
     let api = `${import.meta.env.VITE_API_BASE_URL}${
       import.meta.env.VITE_MATCHES_URL
     }Leaguesread`;
 
-    if(query) api+=`${query}`
- 
-    axios.get(api)
+    if (query) api += `${query}`;
+
+    axios
+      .get(api)
       .then((success) => {
         if (success.data.status == 1) {
- setLeagues(success.data.leagues);
-
+          setLeagues(success.data.leagues);
         }
       })
 
       .catch((error) => {});
-  }
-
-
-  
-
-  
-
-
-  
-
-  
-  
-
+  };
 
   const SudokoFetch = (id, user_id) => {
     let api = `${import.meta.env.VITE_API_BASE_URL}${
@@ -419,36 +323,33 @@ const RegionsFetch = () => {
     },
   ];
 
-    const getStandingsByTab = (standings, activeTab) => {
-      if(standings?.length!=0)
-    return standings?.map(team => {
-      const base = {
-        rank: team.rank,
-        team: team.team,
-        points: team.points,
-        goalsDiff: team.goalsDiff,
-        description: team.description,
-      };
-      if (activeTab === "form") {
+  const getStandingsByTab = (standings, activeTab) => {
+    if (standings?.length != 0)
+      return standings?.map((team) => {
+        const base = {
+          rank: team.rank,
+          team: team.team,
+          points: team.points,
+          goalsDiff: team.goalsDiff,
+          description: team.description,
+        };
+        if (activeTab === "form") {
+          return {
+            ...base,
+            form: team.form,
+          };
+        }
         return {
           ...base,
-          form: team.form
+          ...team[activeTab],
         };
-      }
-      return {
-        ...base,
-        ...team[activeTab]
-      };
-    });
+      });
   };
 
   return (
     <Context.Provider
       value={{
-        UserLoginPopUp,
-        setUserLoginPopUp,
-        UserSignUpPopUp,
-        setUserSignUpPopUp,
+       
         user,
         setuser,
         usertoken,
@@ -464,25 +365,6 @@ const RegionsFetch = () => {
         adminToken,
         setadminToken,
         menu_links,
-        CrosswordPuzzle,
-        setCrosswordPuzzle,
-        CrosswordPuzzleFetch,
-        userGrid,
-        setUserGrid,
-        CrosswordPuzzleScore_id,
-        setCrosswordPuzzleScore_id,
-        CrosswordPuzzlePreviousScore,
-        setCrosswordPuzzlePreviousScore,
-        AllCrosswordPuzzle,
-        setAllCrosswordPuzzle,
-        Sudoko,
-        setSudoko,
-        AllSudoko,
-        setAllSudoko,
-        SudokoFetch,
-
-
-
         LeagueDetailsActivetab,
         setLeagueDetailsActivetab,
         matchDetailsActivetab,
@@ -496,7 +378,37 @@ const RegionsFetch = () => {
         MatchesFetch,
         LeagueDetails,
         setLeagueDetails,
-        getStandingsByTab,LeagueStandings, setLeagueStandings,StandingsFetch,ParticularMatchFetch,particulerMatch, setparticulerMatch,MatchNews, setMatchNews,MatchNewsFetch,MatchH2H, setMatchH2H,MatchH2HFetch,PlayerFetch,PlayerDetails, setPlayerDetails,TeamMatches,TeamMatchesFetch,TeamDetailsActivetab, setTeamDetailsActivetab,TeamUpcomingMatches,setTeamUpcomingMatches,Playerstats, setPlayerstats,PlayerstatsFetch,RegionsFetch,setRegions,Regions,leaguesFetch,Leagues,setLeagues
+        getStandingsByTab,
+        LeagueStandings,
+        setLeagueStandings,
+        StandingsFetch,
+        ParticularMatchFetch,
+        particulerMatch,
+        setparticulerMatch,
+        MatchNews,
+        setMatchNews,
+        MatchNewsFetch,
+        MatchH2H,
+        setMatchH2H,
+        MatchH2HFetch,
+        PlayerFetch,
+        PlayerDetails,
+        setPlayerDetails,
+        TeamMatches,
+        TeamMatchesFetch,
+        TeamDetailsActivetab,
+        setTeamDetailsActivetab,
+        TeamUpcomingMatches,
+        setTeamUpcomingMatches,
+        Playerstats,
+        setPlayerstats,
+        PlayerstatsFetch,
+        RegionsFetch,
+        setRegions,
+        Regions,
+        leaguesFetch,
+        Leagues,
+        setLeagues,
       }}
     >
       {props.children}

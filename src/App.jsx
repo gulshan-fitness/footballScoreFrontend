@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { createBrowserRouter, RouterProvider, useLocation } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, } from "react-router-dom";
 import Home from "./Home";
 import UserSignUp from "./UserSignUp";
 import UserLogin from "./UserLogin";
@@ -11,22 +11,10 @@ import Admin_sign_up from "./Admin/Admin_sign_up";
 import { useContext, useEffect } from "react";
 
 import Dashboard from "./Admin/Dashboard";
-import SSM from "./SSM";
-import CrosswordPuzzleAdd from "./CrosswordPuzzle/CrosswordPuzzleAdd";
 import UserProtectedRouts from "./User/UserProtectedRouts";
 import AdminProtectedRoutes from "./Admin/AdminProtectedRoutes";
 
 import { Context } from "./Context_holder";
-
-import CrosswordPuzzlePlay from "./CrosswordPuzzle/CrosswordPuzzlePlay";
-import CrosswordPuzzleList from "./CrosswordPuzzle/CrosswordPuzzleList";
-import SudokoAdd from "./Sudoko/SudokoAdd";
-import SudokoListAdmin from "./Sudoko/SudokoListAdmin";
-import SudokoListPlay from "./Sudoko/SudokoListPlay";
-import SudokoPlay from "./Sudoko/SudokoPlay";
-import CrosswordPuzzleAdminList from "./CrosswordPuzzle/CrosswordPuzzleAdminList";
-import CrosswordPuzzleEdit from "./CrosswordPuzzle/CrosswordPuzzleEdit";
-import SudokoEdit from "./Sudoko/SudokoEdit";
 
 import FootballScores from "./FootballScores/FootballScores";
 import LeagueDetails from "./LeagueDetails/LeagueDetails";
@@ -37,7 +25,6 @@ import LeagueStandings from "./LeagueDetails/LeagueStandings";
 import MatchDetails from "./Match/MatchDetails";
 import MatchInfo from "./Match/MatchInfo";
 import MatchSummary from "./Match/MatchSummry";
-import MatchStatsa from "./Match/MatchStats";
 import MatchStats from "./Match/MatchStats";
 import MatchLineups from "./Match/MatchLineups";
 import MatchNews from "./Match/MatchNews";
@@ -52,7 +39,7 @@ import TeamTable from "./TeamDetails/TeamTable";
 import PlayersStats from "./TeamDetails/PlayersStats";
 
 function App() {
-  const { setadmin, setadminToken, setuser, setusertoken, setIsScrolled , } =
+  const { setadmin, setadminToken, setuser, setusertoken,  } =
     useContext(Context);
 
   const stored_admin = JSON.parse(localStorage.getItem("admin"));
@@ -84,21 +71,7 @@ function App() {
     }
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+ 
 
   const routes = createBrowserRouter([
     {
@@ -254,50 +227,13 @@ function App() {
         },
 
         
-        {
-          path: "/crosswordpuzzle/:id",
-          element: (
-
-            <UserProtectedRouts>
-<CrosswordPuzzlePlay />
-            </UserProtectedRouts> 
-        ),
-        },
-
-          {
-          path: "/crosswordpuzzle",
-          element: (
-
-            <UserProtectedRouts>
-<CrosswordPuzzleList />
-            </UserProtectedRouts> 
-        ),
-        },
-
-            {
-          path: "/sudoko",
-          element: (
-
-            <UserProtectedRouts>
-<SudokoListPlay />
-            </UserProtectedRouts> 
-        ),
-        },
+      
 
 
-         {
-          path: "/sudoko/:id",
-          element: (
-
-            <UserProtectedRouts>
-<SudokoPlay/>
-            </UserProtectedRouts> 
-        ),
-        },
       ],
     },
 
-    {
+      {
       path: "/userprofile",
       element: (
         <UserProtectedRouts>
@@ -319,31 +255,7 @@ function App() {
           path: "",
           element: <Dashboard />,
         },
-           {
-          path: "crosswordpuzzle/add",
-          element: <CrosswordPuzzleAdd />,
-        },
-        {
-          path: "crosswordpuzzle/view",
-          element: <CrosswordPuzzleAdminList/>,
-        },
-           {
-          path: "crosswordpuzzle/edit/:id",
-          element: <CrosswordPuzzleEdit/>,
-        },
-
-           {
-          path: "sudoko/add",
-          element: <SudokoAdd />,
-        },
-             {
-          path: "sudoko/view",
-          element: <SudokoListAdmin />,
-        },
-             {
-          path: "sudoko/edit/:id",
-          element: <SudokoEdit/>,
-        },
+      
         
       ],
     },
