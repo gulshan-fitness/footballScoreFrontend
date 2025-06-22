@@ -3,7 +3,7 @@ import {FaRegStar  } from "react-icons/fa";
 
 export default function LeagueCard({league}) {
 
-  console.log(league);
+
   
   return (
        

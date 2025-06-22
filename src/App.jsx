@@ -37,9 +37,10 @@ import TeamOverview from "./TeamDetails/TeamOverview";
 import TeamMatches from "./TeamDetails/TeamMatches";
 import TeamTable from "./TeamDetails/TeamTable";
 import PlayersStats from "./TeamDetails/PlayersStats";
+import ApiChecks from "./Admin/ApiChecks";
 
 function App() {
-  const { setadmin, setadminToken, setuser, setusertoken,  } =
+  const { setadmin, setadminToken, setuser, setusertoken,  setIsScrolled  } =
     useContext(Context);
 
   const stored_admin = JSON.parse(localStorage.getItem("admin"));
@@ -71,7 +72,22 @@ function App() {
     }
   }, []);
 
- 
+  useEffect(() => {
+
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const routes = createBrowserRouter([
     {
@@ -223,10 +239,19 @@ function App() {
 
         {
           path: "/adminsignupitslocked",
-          element: <Admin_sign_up />,
+          element: ( <AdminProtectedRoutes>
+            <Admin_sign_up />
+          </AdminProtectedRoutes>
+          )
         },
 
+        //  {
+        //   path: "/adminsignupitslocked",
+        //   element: ( 
+        //     <Admin_sign_up />
         
+        //   )
+        // },
       
 
 
@@ -254,6 +279,10 @@ function App() {
         {
           path: "",
           element: <Dashboard />,
+        },
+          {
+          path: "apichecks",
+          element: <ApiChecks />,
         },
       
         

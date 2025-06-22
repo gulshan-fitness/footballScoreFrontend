@@ -142,13 +142,13 @@ StandingsFetch(`?league=${particulerMatch?.league?.id}&season=${season}`)
 
 
   return (
-    <div className="py-4 px-4 bg-gradient-to-b from-[#0B0C10] via-[#1F2833] to-[#000000] text-gray-300 text-sm md:text-base">
+    <div className="py-4 px-4 bg-gradient-to-b w-full from-[#0B0C10] via-[#1F2833] to-[#000000] text-gray-300 text-sm md:text-base">
 
      
 
 
       {/* Header */}
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center  mb-4">
         <div className="flex items-center gap-2">
           <img src={particulerMatch?.league?.logo} alt={particulerMatch?.league?.name} className="h-6 md:h-8" />
           <div>
@@ -190,21 +190,21 @@ StandingsFetch(`?league=${particulerMatch?.league?.id}&season=${season}`)
 
 
       {/* Teams and Score */}
-      <div className=" bg-black/20 px-4 py-3 rounded-lg border border-purple-800 mb-4">
+      <div className=" bg-black/20 px-4 py-3 rounded-lg border w-full border-purple-800 mb-4">
 
   
  
-<div className=' flex justify-between gap-2 items-center mb-3'>
-  <div className="flex flex-col  items-center text-center">
+<div className=' flex justify-between gap-2 items-center w-full  mb-3'>
+  <div className="flex flex-col  items-center text-center w-[40%]">
           <img src={particulerMatch?.teams?.home?.logo} alt={particulerMatch?.teams?.home?.name} className="h-6 md:h-10" />
-          <span className="text-white text-xs  truncate">{particulerMatch?.teams?.home?.name}</span>
+          <span className="text-white text-xs w-full truncate">{particulerMatch?.teams?.home?.name}</span>
         </div>
 
         <div className='font-bold text-lg text-center text-white'> {particulerMatch?.goals?.home??"NA"}-{particulerMatch?.goals?.away??"NA"}</div>
       
-        <div className="flex flex-col items-center text-center">
+        <div className="flex flex-col items-center text-center w-[40%]">
           <img src={particulerMatch?.teams?.away?.logo} alt={particulerMatch?.teams?.away?.name} className="h-6 md:h-10" />
-          <span className="text-white text-xs  truncate">{particulerMatch?.teams?.away?.name}</span>
+          <span className="text-white text-xs   w-full truncate">{particulerMatch?.teams?.away?.name}</span>
         </div>
 </div>
            <div className="text-purple-500 text-xs font-bold mt-1 text-center">

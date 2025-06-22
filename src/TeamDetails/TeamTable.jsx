@@ -279,7 +279,7 @@ StandingsFetch(`?league=${SelectedLeague?.id}&season=${2023}`)
     },[SelectedLeague]
 )
 
-console.log(season,SelectedLeague);
+
 
   return (
     <div>

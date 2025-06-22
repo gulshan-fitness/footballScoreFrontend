@@ -47,7 +47,7 @@ if(admindata && admintoken) {
           }
         })
         .catch((error) => {
-          console.error(error)
+         
         })
 }
 

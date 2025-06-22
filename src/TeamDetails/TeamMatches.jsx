@@ -393,7 +393,7 @@ setSelectedLeague({ logo:<IoIosGlobe  className='text-xl'/>, name:"all competiti
   }, [activeTab]);
 
 
-console.log(wellStructuredData);
+
 
 
 
@@ -489,7 +489,7 @@ onClick={()=>setLeaguesPopUps(!LeaguesPopUps)}
             src={data?.league?.logo}
              loading="lazy"
             alt={`${data?.league?.name} logo`}
-              onError={(e) => (e.currentTarget.src = "/fallback-logo.png")}
+             
 
             className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border border-purple-600 shadow-sm"
           />

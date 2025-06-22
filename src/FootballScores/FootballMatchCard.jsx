@@ -18,7 +18,7 @@ export default function FootballMatchCard({ league, fixtures }) {
             src={league?.logo}
              loading="lazy"
             alt={`${league?.name} logo`}
-              onError={(e) => (e.currentTarget.src = "/fallback-logo.png")}
+             
 
             className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border border-purple-600 shadow-sm"
           />
@@ -63,7 +63,7 @@ export default function FootballMatchCard({ league, fixtures }) {
                       src={teams?.home?.logo}
                        loading="lazy"
                       alt={teams?.home?.name}
-                        onError={(e) => (e.currentTarget.src = "/fallback-logo.png")}
+                    
 
                       className="w-5 h-5 rounded-full border border-purple-600 shadow-sm"
                     />
@@ -76,7 +76,7 @@ export default function FootballMatchCard({ league, fixtures }) {
                       src={teams?.away?.logo}
                        loading="lazy"
                       alt={teams?.away?.name}
-                        onError={(e) => (e.currentTarget.src = "/fallback-logo.png")}
+                        
 
                       className="w-5 h-5 rounded-full border border-purple-600 shadow-sm"
                     />

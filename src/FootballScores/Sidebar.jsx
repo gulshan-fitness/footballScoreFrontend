@@ -3,6 +3,8 @@ import { FaSearch, FaChevronRight, FaFutbol } from "react-icons/fa";
 import { Context } from "../Context_holder";
 import { Link } from "react-router-dom";
 import Loader from "../Loader";
+import CountryItems from "./CountryItems";
+import LeagueItems from "./LeagueItems";
 
 const Sidebar = () => {
   const { leaguesFetch, Leagues, setLeagues } = useContext(Context);
@@ -43,8 +45,10 @@ const newarr = [];
       else  leaguesFetch(`?country=${SelectedCountry}&season=${2023}`)
     // leaguesFetch(`?country=${SelectedCountry}&season=${new Date().getFullYear()}`);
   
-   
+
   }, [SelectedCountry]);
+
+   
 
   useEffect(() => {
     if (regionsSearchValue) {
@@ -64,7 +68,7 @@ const newarr = [];
         regexleague.test(d?.league?.name)
       );
 
-      console.log(findedLeague);
+      
 
       if (findedLeague?.length != 0) setleaguesShow(findedLeague);
     }
@@ -78,36 +82,11 @@ const newarr = [];
 
 
 
-  // console.log(regionsSearchValue,SelectedCountry,regions);
 
-  const CountryItems = ({ flag, label }) => (
-    <div
-      className="bg-neutral-800/70 hover:bg-neutral-700/70 shadow-gray-50  p-1 px-3 rounded-sm flex items-center gap-2 cursor-pointer text-sm transition-all shadow-sm hover:scale-[1.02]"
-      onClick={() => {
-        setSelectedCountry(label);
-        setleagueSearchValue("");
-      }}
-    >
-      <img src={flag} alt="" className="w-5 " />
-      <span className="truncate text-xs w-full font-light">{label}</span>
-    </div>
-  );
 
-  const LeagueItems = ({ logo, name, country, id }) => (
-    <Link  to={`/leaguedetails/${id}/${new Date().getFullYear()}/overview`} className="bg-neutral-800/70 hover:bg-neutral-700/70 shadow-gray-50 p-1 px-3 rounded-sm flex items-center gap-3 cursor-pointer shadow-sm transition-all hover:scale-[1.02]">
-      <img
-        src={logo}
-        alt={name}
-        className="w-5 h-5 object-contain rounded-full shadow-md"
-      />
-      <div className="min-w-0">
-        <div className="text-[10px] font-medium truncate text-white">
-          {name}
-        </div>
-        <div className="text-[10px] text-gray-400 truncate">{country}</div>
-      </div>
-    </Link>
-  );
+
+
+  
 
   return (
     <div className=" border border-purple-700 shadow-[0_0_12px_rgba(128,0,255,0.6)] text-white min-h-screen p-4 rounded-md ">
@@ -168,6 +147,8 @@ const newarr = [];
                   <CountryItems
                     flag={data?.country?.flag}
                     label={data?.country?.name}
+                    setSelectedCountry={setSelectedCountry}
+                    setleagueSearchValue={setleagueSearchValue}
                   />
                 </div>
               );

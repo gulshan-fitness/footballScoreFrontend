@@ -149,7 +149,7 @@ setTabs([particulerMatch?.teams?.home, particulerMatch?.teams?.away])
     [particulerMatch]
   )
 
-  console.log(activeTab);
+
   
 
   useEffect(

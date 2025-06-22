@@ -40,7 +40,7 @@ if(user && usertoken) {
           }
         })
         .catch((error) => {
-          console.error(error)
+       
         })
 }
 

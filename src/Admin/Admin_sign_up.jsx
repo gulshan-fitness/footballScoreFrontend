@@ -1,26 +1,25 @@
-import React, { useContext, useState } from 'react'
-import axios from "axios"
-import { Link, useNavigate } from 'react-router-dom'
-import { Context } from '../Context_holder'
-import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import React, { useContext, useState } from 'react';
+import axios from "axios";
+import { Link, useNavigate } from 'react-router-dom';
+import { Context } from '../Context_holder';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function Admin_sign_up() {
-  const navigate = useNavigate()
-  const { setadmin, setadminToken, notify } = useContext(Context)
+  const navigate = useNavigate();
+  const { setadmin, setadminToken, notify } = useContext(Context);
 
-  const [showPassword, setShowPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
- 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const submit_signup_handler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const name = e.target.name.value
-    const email = e.target.email.value
-    const contact = e.target.Contact.value
-    const password = e.target.password.value
-    const confirm_password = e.target.Confirm_Password.value
-    const role=e.target.role.value
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const contact = e.target.Contact.value;
+    const password = e.target.password.value;
+    const confirm_password = e.target.Confirm_Password.value;
+    const role = e.target.role.value;
 
     const data = {
       name,
@@ -29,46 +28,41 @@ export default function Admin_sign_up() {
       password,
       confirm_password,
       role
-    }
+    };
 
     axios.post(`${import.meta.env.VITE_API_BASE_URL}${import.meta.env.VITE_ADMIN_URL}sign_up`, data)
       .then((response) => {
-        notify(response.data.msg, response.data.status)
-
+        notify(response.data.msg, response.data.status);
         if (response.data.status === 1) {
-          setadmin(response.data.admin)
-          setadminToken(response.data.token)
-
-          localStorage.setItem("admin", JSON.stringify(response.data.admin))
-          localStorage.setItem("admin_token", response.data.token)
-          navigate("/adminprofile")
+          setadmin(response.data.admin);
+          setadminToken(response.data.token);
+          localStorage.setItem("admin", JSON.stringify(response.data.admin));
+          localStorage.setItem("admin_token", response.data.token);
+          navigate("/adminprofile");
         }
       })
-      .catch((error) => {
-        console.error(error)
-      })
-  }
+      .catch(() => {});
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-10 bg-black">
+    <div className="min-h-screen flex justify-center px-4 py-10 bg-black">
       <div className="w-full max-w-sm">
-        <div className="flex justify-center mb-5">
+        <div className="flex justify-center ">
           <Link to={"/"}>
-            {/* Place logo here if needed */}
+            {/* Logo Placeholder */}
           </Link>
         </div>
 
-        <div className="bg-black p-6 sm:p-8 rounded-md shadow-md border border-[#FFD700]">
-          <div className="flex justify-center mb-4 text-[#FFD700]">
+        <div className="bg-black p-6 sm:p-8 rounded-md shadow-md border border-[#ffffff]">
+          <div className="flex justify-center mb-4 text-[#ffffff]">
             <i className="fa-solid fa-user text-4xl sm:text-6xl"></i>
           </div>
 
-          <h2 className="text-lg sm:text-xl font-semibold text-center uppercase text-[#FFD700] mb-6">
+          <h2 className="text-lg sm:text-xl font-semibold text-center uppercase text-[#ffffff] mb-6">
             Admin Sign Up
           </h2>
 
-          <form onSubmit={submit_signup_handler} className="space-y-4 text-[#FFD700]">
-
+          <form onSubmit={submit_signup_handler} className="space-y-4 text-[#ffffff]">
             {/* Name */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
@@ -77,7 +71,7 @@ export default function Admin_sign_up() {
                 id="name"
                 name="name"
                 required
-                className="w-full border border-[#FFD700] bg-black rounded-md py-2 px-3 text-sm placeholder-[#FFD700] text-[#FFD700] focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
+                className="w-full border border-[#ffffff] bg-black rounded-md py-2 px-3 text-sm placeholder-[#ffffff] text-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#ffffff]"
                 placeholder="Enter your name"
               />
             </div>
@@ -90,7 +84,7 @@ export default function Admin_sign_up() {
                 id="email"
                 name="email"
                 required
-                className="w-full border border-[#FFD700] bg-black rounded-md py-2 px-3 text-sm placeholder-[#FFD700] text-[#FFD700] focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
+                className="w-full border border-[#ffffff] bg-black rounded-md py-2 px-3 text-sm placeholder-[#ffffff] text-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#ffffff]"
                 placeholder="Enter your email"
               />
             </div>
@@ -103,7 +97,7 @@ export default function Admin_sign_up() {
                 id="Contact"
                 name="Contact"
                 required
-                className="w-full border border-[#FFD700] bg-black rounded-md py-2 px-3 text-sm placeholder-[#FFD700] text-[#FFD700] focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
+                className="w-full border border-[#ffffff] bg-black rounded-md py-2 px-3 text-sm placeholder-[#ffffff] text-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#ffffff]"
                 placeholder="Enter your contact number"
               />
             </div>
@@ -115,13 +109,10 @@ export default function Admin_sign_up() {
                 id="role"
                 name="role"
                 defaultValue={"subadmin"}
-                
-               
-                className="w-full border border-[#FFD700] bg-black rounded-md py-2 px-3 text-sm text-[#FFD700] focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
+                className="w-full border border-[#ffffff] bg-black rounded-md py-2 px-3 text-sm text-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#ffffff]"
               >
                 <option value="superadmin">Super Admin</option>
                 <option value="subadmin">Sub Admin</option>
-
               </select>
             </div>
 
@@ -134,11 +125,11 @@ export default function Admin_sign_up() {
                   id="password"
                   name="password"
                   required
-                  className="w-full border border-[#FFD700] bg-black rounded-md py-2 px-3 pr-10 text-sm placeholder-[#FFD700] text-[#FFD700] focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
+                  className="w-full border border-[#ffffff] bg-black rounded-md py-2 px-3 pr-10 text-sm placeholder-[#ffffff] text-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#ffffff]"
                   placeholder="Enter password"
                 />
                 <div
-                  className="absolute inset-y-0 right-2 flex items-center cursor-pointer text-[#FFD700]"
+                  className="absolute inset-y-0 right-2 flex items-center cursor-pointer text-[#ffffff]"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? <FaEye /> : <FaEyeSlash />}
@@ -155,11 +146,11 @@ export default function Admin_sign_up() {
                   id="Confirm_Password"
                   name="Confirm_Password"
                   required
-                  className="w-full border border-[#FFD700] bg-black rounded-md py-2 px-3 pr-10 text-sm placeholder-[#FFD700] text-[#FFD700] focus:outline-none focus:ring-2 focus:ring-[#FFD700]"
+                  className="w-full border border-[#ffffff] bg-black rounded-md py-2 px-3 pr-10 text-sm placeholder-[#ffffff] text-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#ffffff]"
                   placeholder="Confirm your password"
                 />
                 <div
-                  className="absolute inset-y-0 right-2 flex items-center cursor-pointer text-[#FFD700]"
+                  className="absolute inset-y-0 right-2 flex items-center cursor-pointer text-[#ffffff]"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
                   {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
@@ -170,7 +161,7 @@ export default function Admin_sign_up() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-[#FFD700] hover:bg-[#d4af37] text-black text-sm font-semibold py-2 rounded-md transition duration-200"
+              className="w-full bg-[#ffffff] hover:bg-opacity-90 text-black text-sm font-semibold py-2 rounded-md transition duration-200"
             >
               Sign Up
             </button>
@@ -178,7 +169,7 @@ export default function Admin_sign_up() {
             {/* Already have account */}
             <Link to="/adminloginitslocked" className="text-sm text-center mt-4 block">
               Already have an account?{" "}
-              <button className="text-[#FFD700] font-bold underline hover:text-[#d4af37] transition">
+              <button className="text-[#ffffff] font-bold underline hover:text-gray-300 transition">
                 Login
               </button>
             </Link>
@@ -186,5 +177,5 @@ export default function Admin_sign_up() {
         </div>
       </div>
     </div>
-  )
+  );
 }

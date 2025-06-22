@@ -68,7 +68,7 @@ axios.get(`https://v3.football.api-sports.io/venues?id=${particulerMatch?.fixtur
 )
 .catch(
   (error)=>{
-console.log(error);
+
 
   }
 )

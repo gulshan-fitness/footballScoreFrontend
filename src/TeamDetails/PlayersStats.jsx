@@ -647,7 +647,7 @@ useEffect(() => {
 
 
 
-console.log(SelectedLeague,stats);
+
 
 
 

@@ -148,7 +148,7 @@ const nextMatch = data?.filter(item => new Date(item?.fixture?.date) > new Date(
     } 
  
 
-console.log(nextMatch,);
+
 
 
   return (

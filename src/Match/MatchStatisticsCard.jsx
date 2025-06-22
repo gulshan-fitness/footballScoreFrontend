@@ -55,7 +55,7 @@ export default function MatchStatisticsCard() {
     (d) => d?.team?.id === particulerMatch?.teams?.away?.id
   );
 
-  console.log(homeTeam,awayTeam);
+  
   
 
   const requiredStats = [

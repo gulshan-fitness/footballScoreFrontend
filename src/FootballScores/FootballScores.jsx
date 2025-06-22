@@ -13,164 +13,7 @@ import Loader from "../Loader";
 
 
 
-const matches = [
-  {
-    league: {
-      id: 225,
-      name: "Landesliga - Karnten",
-      country: "Austria",
-      logo: "https://media.api-sports.io/football/leagues/225.png",
-      flag: "https://media.api-sports.io/flags/at.svg",
-      season: 2024,
-      round: "Kärnten - 30",
-      standings: true,
-    },
-    fixtures: [
-      {
-        fixture: {
-          id: 1247818,
-          referee: null,
-          timezone: "UTC",
-          date: "2025-06-08T00:00:00+00:00",
-          timestamp: 1749340800,
-          periods: { first: null, second: null },
-          venue: {
-            id: 5860,
-            name: "Sportplatz SV Dellach/Gail",
-            city: "Dellach/Gail",
-          },
-          status: {
-            long: "Match Cancelled",
-            short: "CANC",
-            elapsed: null,
-            extra: null,
-          },
-        },
-        teams: {
-          home: {
-            id: 8274,
-            logo: "https://media.api-sports.io/football/teams/8274.png",
-          },
-          away: {
-            id: 24462,
-            logo: "https://media.api-sports.io/football/teams/24462.png",
-          },
-        },
-        goals: { home: null, away: null },
-        score: {
-          halftime: { home: null, away: null },
-          fulltime: { home: null, away: null },
-          extratime: { home: null, away: null },
-          penalty: { home: null, away: null },
-        },
-      },
-    ],
-  },
-  {
-    league: {
-      id: 140,
-      name: "Premier League",
-      country: "England",
-      logo: "https://media.api-sports.io/football/leagues/140.png",
-      flag: "https://media.api-sports.io/flags/gb.svg",
-      season: 2024,
-      round: "Regular Season - 38",
-      standings: true,
-    },
-    fixtures: [
-      {
-        fixture: {
-          id: 1247819,
-          referee: "Michael Oliver",
-          timezone: "UTC",
-          date: "2025-06-08T16:30:00+00:00",
-          timestamp: 1749361800,
-          periods: { first: null, second: null },
-          venue: {
-            id: 525,
-            name: "Old Trafford",
-            city: "Manchester",
-          },
-          status: {
-            long: "Match Scheduled",
-            short: "NS",
-            elapsed: null,
-            extra: null,
-          },
-        },
-        teams: {
-          home: {
-            id: 33,
-            logo: "https://media.api-sports.io/football/teams/33.png",
-          },
-          away: {
-            id: 50,
-            logo: "https://media.api-sports.io/football/teams/50.png",
-          },
-        },
-        goals: { home: null, away: null },
-        score: {
-          halftime: { home: null, away: null },
-          fulltime: { home: null, away: null },
-          extratime: { home: null, away: null },
-          penalty: { home: null, away: null },
-        },
-      },
-    ],
-  },
-  {
-    league: {
-      id: 135,
-      name: "Serie A",
-      country: "Italy",
-      logo: "https://media.api-sports.io/football/leagues/135.png",
-      flag: "https://media.api-sports.io/flags/it.svg",
-      season: 2024,
-      round: "Regular Season - 38",
-      standings: true,
-    },
-    fixtures: [
-      {
-        fixture: {
-          id: 1247820,
-          referee: null,
-          timezone: "UTC",
-          date: "2025-06-08T19:45:00+00:00",
-          timestamp: 1749371100,
-          periods: { first: null, second: null },
-          venue: {
-            id: 512,
-            name: "San Siro",
-            city: "Milan",
-          },
-          status: {
-            long: "Match Scheduled",
-            short: "NS",
-            elapsed: null,
-            extra: null,
-          },
-        },
-        teams: {
-          home: {
-            id: 489,
-            logo: "https://media.api-sports.io/football/teams/489.png",
-          },
-          away: {
-            id: 496,
-            logo: "https://media.api-sports.io/football/teams/496.png",
-          },
-        },
-        goals: { home: null, away: null },
-        score: {
-          halftime: { home: null, away: null },
-          fulltime: { home: null, away: null },
-          extratime: { home: null, away: null },
-          penalty: { home: null, away: null },
-        },
-      },
-    ],
-  },
-];
+
 
 
 export default function FootballScores() {
@@ -232,11 +75,13 @@ const [page, setPage] = useState(1);
       ()=>{
 
         if(date)setQuerydate(formatDate(date))
+        
 
       },
 
       [date]
     )
+
 
     
 useEffect(() => {
@@ -383,7 +228,7 @@ const visibleMatches = Matches?.slice(0, PAGE_SIZE * page);
 
       {
         visibleMatches?.length!=0?
-          <main className="max-w-5xl mx-auto space-y-10  h-screen overflow-y-auto   thin-scrollbar">
+          <main className="max-w-5xl px-2 mx-auto space-y-10  h-screen overflow-y-auto   thin-scrollbar">
         {visibleMatches?.map(({ league, fixtures },index) => (
           <div key={index}>
 
