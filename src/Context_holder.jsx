@@ -90,7 +90,12 @@ export default function Context_holder(props) {
         }
 
         else{
-setApiError(success.data.msg)
+          setApiError(success.data.msg)
+          if (params?.has("next")) setUpcomingMatches([]);
+          else setMatches([]);
+         
+
+
         }
 
 
@@ -117,6 +122,7 @@ setApiError(success.data.msg)
           setLeagueStandings(success.data.standings);
         }
                 else{
+                  setLeagueStandings([])
 setApiError(success.data.msg)
         }
       })
@@ -144,6 +150,7 @@ setApiError(success.data.msg)
           setparticulerMatch(success.data.matches);
         }
                 else{
+                  setparticulerMatch([])
 setApiError(success.data.msg)
         }
       })
@@ -169,6 +176,8 @@ setApiError(success.data.msg)
           setMatchNews(success.data.news);
         }
                 else{
+                  setMatchNews([])
+
 setApiError(success.data.msg)
         }
       })
@@ -194,6 +203,7 @@ setApiError(success.data.msg)
           setMatchH2H(success.data.h2h);
         }
                 else{
+                  setMatchH2H([])
 setApiError(success.data.msg)
         }
       })
@@ -218,6 +228,7 @@ setApiError(success.data.msg)
           setPlayerDetails(success.data.player);
         }
                 else{
+                  setPlayerDetails([])
 setApiError(success.data.msg)
         }
       })
@@ -243,6 +254,7 @@ setApiError(success.data.msg)
         }
 
                 else{
+                  setPlayerstats([])
 setApiError(success.data.msg)
         }
       })
@@ -273,6 +285,10 @@ setApiError(success.data.msg)
         }
                 else{
 setApiError(success.data.msg)
+
+                  if (params.has("status"))
+            setTeamUpcomingMatches([]);
+          else setTeamMatches([]);
         }
       })
 
@@ -295,6 +311,7 @@ setApiError(success.data.msg)
           setLeagues(success.data.leagues);
         }
                 else{
+                  setLeagues([])
 setApiError(success.data.msg)
         }
       })
