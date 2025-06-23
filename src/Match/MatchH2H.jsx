@@ -96,50 +96,7 @@ export default function MatchH2H() {
 
   // GET https://v3.football.api-sports.io/fixtures?team=8653&last=3
 
-  const data = [
-    {
-      fixture: {
-        date: "2025-06-03T18:45:00+00:00",
-        status: { short: "FT" },
-      },
-      teams: {
-        home: { name: "Wales Women" },
-        away: { name: "Italy Women" },
-      },
-      goals: {
-        home: 1,
-        away: 4,
-      },
-    },
-    {
-      fixture: {
-        date: "2025-05-30T17:00:00+00:00",
-        status: { short: "FT" },
-      },
-      teams: {
-        home: { name: "Denmark Women" },
-        away: { name: "Wales Women" },
-      },
-      goals: {
-        home: 1,
-        away: 0,
-      },
-    },
-    {
-      fixture: {
-        date: "2025-04-08T16:00:00+00:00",
-        status: { short: "FT" },
-      },
-      teams: {
-        home: { name: "Sweden Women" },
-        away: { name: "Wales Women" },
-      },
-      goals: {
-        home: 1,
-        away: 1,
-      },
-    },
-  ];
+
   useEffect(
     ()=>{
       particulerMatch&&
@@ -166,10 +123,10 @@ MatchH2HFetch(`?team=${activeTab?.id}&season=${2023}`)
   
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 ">
+    <div className=" ">
        {/* Tabs */}
 
-      <div className="flex gap-2 flex-wrap border-b  border-purple-800 py-4">
+      <div className="flex gap-2 flex-wrap border-b  mb-5 border-purple-800 py-4">
         {Tabs?.map((tab,index) => (
           <button
             key={index}
@@ -189,7 +146,7 @@ MatchH2HFetch(`?team=${activeTab?.id}&season=${2023}`)
           {MatchH2H?.map((match, index) => (
         <MatchHistoryCard key={index} match={match} />
       ))}
-        </div> :<Loader/>
+        </div> :<Loader message={"H2h not available"}/>
       }
      
     </div>

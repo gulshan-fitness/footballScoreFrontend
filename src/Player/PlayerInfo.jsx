@@ -66,7 +66,7 @@ export default function PlayerInfo() {
         <StatBox icon={<FaPenNib />} label="Penalties Scored" value={stats?.penalty?.scored ?? '–'} />
       </div>
       </div>:
-      <Loader/>
+      <Loader  message={"Player Info not available"}/>
     }
      
 

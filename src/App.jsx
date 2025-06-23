@@ -39,9 +39,9 @@ import TeamTable from "./TeamDetails/TeamTable";
 import PlayersStats from "./TeamDetails/PlayersStats";
 import ApiChecks from "./Admin/ApiChecks";
 
+
 function App() {
-  const { setadmin, setadminToken, setuser, setusertoken,  setIsScrolled  } =
-    useContext(Context);
+  const { setadmin, setadminToken, setuser, setusertoken,  setIsScrolled} =useContext(Context);
 
   const stored_admin = JSON.parse(localStorage.getItem("admin"));
 

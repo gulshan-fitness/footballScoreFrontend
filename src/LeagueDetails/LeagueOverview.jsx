@@ -42,7 +42,7 @@ export default function LeagueOverview() {
             <FixtureCard match={match} />
           </div>
         ))}
-  </div>:<Loader/>
+  </div>:<Loader   message={"Matches not available"}/>
 }
         
 
@@ -70,7 +70,7 @@ export default function LeagueOverview() {
           </div>
         ))}
         </div>:
-        <Loader/>
+        <Loader   message={"Matches not available"}/>
 
         }
 
@@ -137,7 +137,7 @@ export default function LeagueOverview() {
             </tbody>
           </table>
         </div>:
-        <Loader/>
+        <Loader   message={"standings not available"}/>
 }
        
 

@@ -94,7 +94,7 @@ export default function MatchNews( ) {
             </div>
           </article>
         ))}
-      </div>:<Loader/>
+      </div>:<Loader message={"News not available"}/>
 }
 
      

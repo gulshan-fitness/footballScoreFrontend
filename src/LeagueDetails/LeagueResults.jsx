@@ -47,7 +47,7 @@ const [page, setPage] = useState(1);
     )}
          </div>:
          
-        <Loader/>
+        <Loader  message={"Matches not available"}/>
     }
     </>
     

@@ -316,7 +316,7 @@ export default function LeagueFixtures()
         Load More...
       </button>
     )}
-        </div>:<Loader/>
+        </div>:<Loader  message={"Matches not available"}/>
     }
     </div>
     

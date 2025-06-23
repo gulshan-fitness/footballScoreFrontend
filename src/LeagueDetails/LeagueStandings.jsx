@@ -146,7 +146,7 @@ export default function LeagueStandings() {
         </div>
       )}
         </div>:
-        <Loader/>
+        <Loader  message={"standings not available"}/>
       }
    
 

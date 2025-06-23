@@ -164,11 +164,11 @@ const awayplayers = {
     <p> ( {awayplayers?.formation})</p>
 </p>
 
-      </div>:<Loader/>
+      </div>:<Loader   message={"lineups not available"}/>
       }
       
 {
-   particulerMatch?.lineups?.length!=0 ?<MatchSubstutions homeTeam={homeTeam??null} awayTeam={awayTeam??null} />:<Loader/>
+   particulerMatch?.lineups?.length!=0 ?<MatchSubstutions homeTeam={homeTeam??null} awayTeam={awayTeam??null} />:<Loader   message={"lineups not available"}/>
 }
 
 

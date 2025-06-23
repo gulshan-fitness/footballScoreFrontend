@@ -141,7 +141,7 @@ const requiredStats = [
           );
         })}
   </div>:
-  <Loader/>
+  <Loader message={"statistics not available"}/>
 }
        
 

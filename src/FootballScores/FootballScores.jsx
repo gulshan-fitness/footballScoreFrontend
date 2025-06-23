@@ -85,6 +85,7 @@ const [page, setPage] = useState(1);
 
     
 useEffect(() => {
+  
   const query = {};
 
   if (LiveQuery) {
@@ -106,13 +107,16 @@ useEffect(() => {
     const prev = new Date(date);
     prev.setDate(prev.getDate() - 1);
     setDate(prev);
+    setLiveQuery(false)
   };
 
   const handleNext = () => {
     const next = new Date(date);
     next.setDate(next.getDate() + 1);
     setDate(next);
+     setLiveQuery(false)
   };
+
 
 
 
@@ -204,7 +208,9 @@ const visibleMatches = Matches?.slice(0, PAGE_SIZE * page);
       selected={date}
       onChange={(date) => {
         setDate(date);
+         setLiveQuery(false)
         setShowDatePicker(false);
+        
       }}
       inline
       calendarClassName="bg-[#1F2833] text-white rounded-lg shadow-lg border border-purple-700/40"
@@ -247,7 +253,7 @@ const visibleMatches = Matches?.slice(0, PAGE_SIZE * page);
       </button>
     )}
       </main>:
-      <Loader/>
+      <Loader  message={"Matches not available"}/>
       }
     
 

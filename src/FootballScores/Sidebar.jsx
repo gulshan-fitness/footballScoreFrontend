@@ -154,7 +154,7 @@ const newarr = [];
               );
             })}
           </div>:
-          <Loader/>
+          <Loader message={"regions not available"}/>
 }
           
 
@@ -210,7 +210,7 @@ const newarr = [];
             );
           })}
         </div>:
-        <Loader/>
+        <Loader  message={"Leagues not available"}/>
 }
         
       </div>

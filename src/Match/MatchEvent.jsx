@@ -181,7 +181,7 @@ export default function MatchEvents() {
           </div>
         ))}
       </div>
-:<Loader/>
+:<Loader   message={"events not available"}/>
       }
 
     

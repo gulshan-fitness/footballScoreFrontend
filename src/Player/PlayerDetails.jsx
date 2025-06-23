@@ -81,7 +81,7 @@ return (
             {player?.injured ? "Injured" : "Fit"}
           </p>
         </div>
-      </div>:<Loader/>
+      </div>:<Loader message={"player details not available"}/>
       }
      
 
