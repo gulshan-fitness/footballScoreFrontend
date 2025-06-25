@@ -81,15 +81,15 @@ export default function MatchEndedCard() {
       <div className="border-t border-purple-800 pt-1 mt-1 space-y-[2px] text-[9px] sm:text-[10px]">
         <div className="flex justify-between">
           <span className="text-gray-400">Referee</span>
-          <span className="text-white truncate text-right">{referee}</span>
+          <span className="text-white  text-right w-[120px] truncate">{referee}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-gray-400">Manager (Home)</span>
-          <span className="text-white truncate text-right">{homeManager}</span>
+          <span className="text-white truncate w-[120px] text-right">{homeManager}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-gray-400">Manager (Away)</span>
-          <span className="text-white truncate text-right">{awayManager}</span>
+          <span className="text-white truncate w-[120px] text-right">{awayManager}</span>
         </div>
       </div>
     </div>

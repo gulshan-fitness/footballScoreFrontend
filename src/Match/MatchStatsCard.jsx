@@ -66,7 +66,7 @@ const HorizontalStat = ({ label, leftValue, rightValue }) => {
       <div className="flex justify-between font-semibold leading-none">
         <span className="text-red-500">{leftValue.toFixed(0)}</span>
         <span className="text-white text-[10px] font-normal">{label}</span>
-        <span className="text-blue-500">{rightValue}</span>
+        <span className="text-blue-500">{rightValue.toFixed(0)}</span>
       </div>
       <div className="flex justify-between gap-1">
         <div
@@ -92,6 +92,7 @@ const homeTeam =particulerMatch&&  particulerMatch?.statistics?.find(d=>d?.team?
 
     const awayTeam =particulerMatch&& particulerMatch?.statistics?.find(d=>d?.team?.id== particulerMatch?.teams?.away?.id ) 
 
+console.log(awayTeam,homeTeam);
 
 
 
@@ -99,8 +100,21 @@ const homeTeam =particulerMatch&&  particulerMatch?.statistics?.find(d=>d?.team?
 
   return (
     <div className="bg-[#0f0f0f] w-full   text-white rounded-md p-[4px] border border-purple-800 shadow font-sans overflow-hidden">
+     <div className="flex justify-between items-center "> 
+      <div  className="flex gap-1 items-center text-[10px]">
+ <img src={homeTeam?.team?.logo} alt="" className=" rounded-full border-2 h-4 w-4 border-red-500" /> <span className=" w-[50px] truncate">{homeTeam?.team?.name}</span>
+      </div>
+
+
+          <div  className="flex gap-1 items-center text-[10px]">
+<span className=" w-[50px] truncate">{awayTeam?.team?.name}</span>  <img src={awayTeam?.team?.logo} alt="" className=" rounded-full border-2 h-4 w-4 border-blue-500"/>
+      </div>
      
+    
+     </div>
+
   
+
              <HorizontalStat
              
                 key={""}
@@ -114,10 +128,10 @@ const homeTeam =particulerMatch&&  particulerMatch?.statistics?.find(d=>d?.team?
          
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-3 flex-wrap justify-between px-[2px] gap-2">
+      <div >
 
 {
-  homeTeam?.statistics?.length!=0?<div>
+  homeTeam?.statistics?.length!=0?<div className="grid grid-cols-3 flex-wrap justify-between px-[2px] gap-2">
      {homeTeam?.statistics?.map((stat) => {
           const right = awayTeam?.statistics?.find((s) => s.type === stat.type);
         

@@ -38,6 +38,8 @@ import TeamMatches from "./TeamDetails/TeamMatches";
 import TeamTable from "./TeamDetails/TeamTable";
 import PlayersStats from "./TeamDetails/PlayersStats";
 import ApiChecks from "./Admin/ApiChecks";
+import Temp from "./Temp";
+
 
 
 function App() {
