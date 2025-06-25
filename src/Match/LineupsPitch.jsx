@@ -73,7 +73,7 @@ const awayplayers = {
          <div className="max-w-md mx-auto relative mb-2 h-[700px] sm:h-[800px]">
               <PitchUi />
 {/*hometeam coach */}
-<p className="absolute top-2 left-4  font-semibold uppercase text-[black] leading-tight text-[9px]">
+<p className="absolute top-2 left-4 w-[120px] truncate font-semibold uppercase text-[black] leading-tight text-[9px]">
   {homeplayers?.coach?.name}
   <p> ( {homeplayers?.formation})</p>
 
@@ -160,7 +160,7 @@ const awayplayers = {
 
 
       {/*awayteam coach */}
-<p className="absolute bottom-2 left-4 text-black font-semibold uppercase leading-tight text-[9px]">{awayplayers?.coach?.name} 
+<p className="absolute bottom-2 left-4 w-[120px] truncate text-black font-semibold uppercase leading-tight text-[9px]">{awayplayers?.coach?.name} 
     <p> ( {awayplayers?.formation})</p>
 </p>
 

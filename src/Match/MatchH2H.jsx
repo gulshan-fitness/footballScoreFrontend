@@ -41,7 +41,7 @@ const MatchHistoryCard = ({ match }) => {
       : "L";
 
   return (
-    <div className="w-full sm:max-w-md mx-auto">
+    <div className="w-full sm:max-w-md mb-2 mx-auto">
       <Card className=" text-white shadow-xl border border-purple-700  hover:shadow-[0_0_40px_rgba(128,0,255,0.4)]
         transition-all duration-500 ease-in-outm">
         <CardContent>
