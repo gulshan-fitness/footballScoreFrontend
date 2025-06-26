@@ -9,9 +9,9 @@ const{setusertoken,setuser}=useContext(Context)
     const usertoken=localStorage.getItem("usertoken")
     const navigater=useNavigate()
 
-    useEffect(
-        ()=>{
-  const  verifyuser= async () => {
+
+      const  verifyuser= async () => {
+        
    
 if(user && usertoken) {
     await  axios.get(`${import.meta.env.VITE_API_BASE_URL}${import.meta.env.VITE_USER_URL}userverify/${user?._id}`,
@@ -45,6 +45,10 @@ if(user && usertoken) {
 }
 
     }
+
+    useEffect(
+        ()=>{
+
 
     verifyuser();
 

@@ -16,12 +16,18 @@ export default function UserSignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+
     const name = e.target.name.value;
     const email = e.target.email.value;
     const phone = Phone.replace("+", "");
     const password = e.target.password.value;
     const confirm_password = e.target.confirmpassword.value;
+
+
     const data = { name, email, phone, password, confirm_password };
+
+
 
     axios.post(
       `${import.meta.env.VITE_API_BASE_URL}${import.meta.env.VITE_USER_URL}sign_up`,
@@ -39,7 +45,7 @@ export default function UserSignUp() {
         navigator("/userprofile");
       }
     })
-    .catch(() => {});
+    .catch(() => { notify("Signup failed. Please try again.", 0);});
   };
 
   return (
